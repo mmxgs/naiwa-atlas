@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>奶娃图鉴 · 完整速查长图</title>
+<link rel="stylesheet" href="/film/assets/fonts/fonts.css">
+<style>
+  :root{
+    --paper:#F0EBDE; --paper2:#E8E1D0;
+    --ink:#2B2620; --ink2:#5A5145;
+    --red:#E2342B; --orange:#F08A2C; --yellow:#C99212;
+    --green:#6FA83C; --blue:#3A8ED6; --purple:#9B5BC7;
+    --cjk:'Noto Sans SC','Source Han Sans SC','Microsoft YaHei',sans-serif;
+    --disp:'Big Shoulders Display',var(--cjk);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --pad:76px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:var(--paper);}
+  body{font-family:var(--cjk);color:var(--ink);-webkit-font-smoothing:antialiased;}
+  #poster{
+    position:relative;width:1080px;min-height:1920px;overflow:hidden;
+    background:var(--paper);
+  }
+  .mono{font-family:var(--mono);font-weight:500;letter-spacing:.08em;text-transform:uppercase;}
+  .huge{font-family:var(--disp);font-weight:900;line-height:.86;letter-spacing:-.01em;}
+
+  /* 纸张质感 */
+  #halftone{position:absolute;inset:0;pointer-events:none;z-index:900;
+    background-image:radial-gradient(circle at center, rgba(43,38,32,.42) .95px, transparent 1.15px);
+    background-size:5px 5px;opacity:.42;mix-blend-mode:multiply;}
+  #fiber{position:absolute;inset:0;pointer-events:none;z-index:903;opacity:.14;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.012 .42' numOctaves='4' seed='7'/><feColorMatrix values='0 0 0 0 .32  0 0 0 0 .28  0 0 0 0 .22  0 0 0 .9 0'/></filter><rect width='300' height='300' filter='url(%23f)'/></svg>");
+    background-size:420px 420px;}
+  #vignette{position:absolute;inset:0;pointer-events:none;z-index:901;
+    background:radial-gradient(ellipse 80% 40% at 50% 30%, transparent 55%, rgba(43,38,32,.10) 100%);}
+
+  .wrap{position:relative;z-index:10;padding:0 var(--pad);}
+  .bars{height:10px;background:linear-gradient(90deg,
+    var(--red) 0 16.66%, var(--orange) 16.66% 33.3%, #F5C43C 33.3% 50%,
+    var(--green) 50% 66.6%, var(--blue) 66.6% 83.3%, var(--purple) 83.3% 100%);}
+  .hair{height:2px;background:rgba(43,38,32,.55);}
+
+  /* ── 刊头 ── */
+  header{padding-top:64px;}
+  .topline{display:flex;justify-content:space-between;font-size:20px;
+    letter-spacing:.14em;color:rgba(43,38,32,.66);}
+  .titles{margin-top:52px;}
+  .titles h1{font-size:214px;font-weight:900;line-height:.94;letter-spacing:-.02em;
+    text-shadow:7px 7px 0 rgba(226,52,43,.16);}
+  .sub-en{margin-top:26px;font-size:26px;color:var(--red);letter-spacing:.20em;font-family:var(--mono);}
+  .naming{margin-top:34px;font-size:36px;line-height:1.78;color:var(--ink2);}
+  .naming b{color:var(--ink);font-size:44px;}
+  .bar-block{margin-top:44px;}
+
+  .stats{margin-top:52px;display:flex;}
+  .stat{flex:1;padding:0 22px;border-left:2px solid rgba(43,38,32,.22);}
+  .stat:first-child{border-left:0;padding-left:0;}
+  .stat .n{font-family:var(--disp);font-weight:900;font-size:104px;line-height:.9;color:var(--ink);}
+  .stat .l{font-size:25px;color:var(--ink2);margin-top:10px;letter-spacing:.04em;}
+
+  /* ── 判据 ── */
+  .sect{margin-top:96px;}
+  .sect-h{display:flex;align-items:baseline;gap:18px;}
+  .sect-h .no{font-family:var(--mono);font-size:24px;color:var(--red);letter-spacing:.1em;}
+  .sect-h h2{font-size:64px;font-weight:900;letter-spacing:-.01em;}
+  .sect-h .en{font-family:var(--mono);font-size:21px;color:var(--ink2);letter-spacing:.18em;}
+
+  .rule-box{margin-top:34px;border:4px solid var(--ink);background:rgba(255,255,255,.58);
+    padding:38px 40px;box-shadow:12px 12px 0 rgba(43,38,32,.12);}
+  .rule-lead{font-size:40px;font-weight:700;line-height:1.5;}
+  .rule-two{margin-top:22px;font-size:34px;line-height:1.9;color:var(--ink2);}
+  .rule-two b{color:var(--ink);font-weight:900;}
+  .branch{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .br{padding:20px 18px;border-left:9px solid var(--ink);background:rgba(255,255,255,.8);}
+  .br .bn{font-family:var(--mono);font-size:19px;letter-spacing:.16em;}
+  .br .bt{font-size:38px;font-weight:900;margin-top:6px;}
+  .br .bd{font-size:21px;color:var(--ink2);margin-top:6px;line-height:1.55;}
+  .br.b1{border-left-color:var(--orange);} .br.b1 .bn{color:var(--orange);}
+  .br.b2{border-left-color:var(--purple);} .br.b2 .bn{color:var(--purple);}
+  .br.b3{border-left-color:var(--green);} .br.b3 .bn{color:var(--green);}
+  .keep{margin-top:28px;padding:22px 26px;background:var(--ink);color:var(--paper);
+    font-size:32px;line-height:1.6;display:flex;align-items:center;gap:18px;}
+  .keep .k{font-size:48px;font-weight:900;color:var(--red);}
+
+  /* ── 分类组 ── */
+  .grp{margin-top:78px;}
+  .grp-h{display:flex;align-items:flex-end;gap:20px;padding-bottom:16px;
+    border-bottom:4px solid var(--ink);}
+  .grp-h .gno{font-family:var(--mono);font-size:22px;color:var(--ink2);letter-spacing:.1em;padding-bottom:9px;}
+  .grp-h .gn{font-size:70px;font-weight:900;line-height:1;}
+  .grp-h .ge{font-family:var(--mono);font-size:22px;letter-spacing:.2em;color:var(--ink2);padding-bottom:10px;}
+  .grp-h .gc{margin-left:auto;font-family:var(--disp);font-weight:900;font-size:62px;
+    line-height:1;padding-bottom:2px;}
+
+  .grid{margin-top:26px;display:grid;gap:var(--gap);grid-template-columns:repeat(var(--cols),1fr);}
+  .cell{display:flex;flex-direction:column;}
+  .thumb{position:relative;width:100%;aspect-ratio:1/1;background:#fff;overflow:hidden;
+    box-shadow:inset 0 0 0 2px rgba(43,38,32,.10), 6px 7px 0 rgba(43,38,32,.07);}
+  .thumb img{width:100%;height:100%;object-fit:contain;display:block;}
+  .meta{padding-top:11px;display:flex;gap:6px;align-items:baseline;}
+  .meta .id{font-family:var(--mono);font-size:var(--fs);color:var(--cat);letter-spacing:.04em;
+    flex:0 0 auto;opacity:.95;transform:scale(.70);transform-origin:left top;}
+  .meta .nm{font-size:var(--fs);font-weight:700;line-height:1.28;color:var(--ink);word-break:keep-all;}
+
+  /* ── 版记 ── */
+  .colophon{margin-top:104px;padding-bottom:92px;}
+  .colo-grid{margin-top:32px;}
+  .colo-box{border-top:3px solid var(--ink);padding-top:18px;margin-top:26px;}
+  .colo-grid .colo-box:first-child{margin-top:0;}
+  .colo-box .k{font-family:var(--mono);font-size:18px;letter-spacing:.18em;color:var(--ink2);}
+  .colo-box .v{font-size:32px;font-weight:700;margin-top:9px;line-height:1.5;word-break:keep-all;}
+  .colo-box .v.sm{font-size:24px;font-weight:500;color:var(--ink2);line-height:1.7;}
+  .endline{margin-top:56px;text-align:center;}
+  .endline .big{font-size:64px;font-weight:900;letter-spacing:.02em;line-height:1.3;}
+  .endline .big span{color:var(--red);}
+  .endline .addr{margin-top:20px;font-family:var(--mono);font-size:22px;letter-spacing:.1em;color:var(--ink2);}
+</style>
+</head>
+<body>
+<div id="poster">
+  <div class="wrap">
+    <header>
+      <div class="topline mono">
+        <span>普通高等教育「野生」通识教材</span>
+        <span>2026 · 11</span>
+      </div>
+      <div class="titles">
+        <h1>奶娃图鉴</h1>
+        <div class="sub-en">A FIELD GUIDE TO MILK FROG VARIANTS</div>
+        <div class="naming">
+          教材写作<b>奶蛙</b>，社群常写作<b>奶娃</b>。<br>
+          同一只黄色的蛙，两套写法，一本册子。
+        </div>
+      </div>
+      <div class="bar-block"><div class="bars"></div></div>
+      <div class="stats" id="stats"></div>
+    </header>
+
+    <section class="sect">
+      <div class="sect-h">
+        <span class="no">／ 判据 ／</span>
+        <h2>怎么算「还是它」</h2>
+        <span class="en">CRITERIA</span>
+      </div>
+      <div class="rule-box">
+        <div class="rule-lead">分类只看两件事：<b>形体还剩多少</b>，<b>谁在用</b>。</div>
+        <div class="rule-two">不看像不像。看到最后一只，它可能已经没有蛙的形状了——但眼睛还在，笑还在。</div>
+        <div class="branch">
+          <div class="br b1">
+            <div class="bn">RESKIN</div>
+            <div class="bt">换皮</div>
+            <div class="bd">形体全保留，只换颜色、材质和品牌。</div>
+          </div>
+          <div class="br b2">
+            <div class="bn">MORPH</div>
+            <div class="bt">异形</div>
+            <div class="bd">换了物种。形体逐级崩坏，从「像蛙」到「不像任何东西」。</div>
+          </div>
+          <div class="br b3">
+            <div class="bn">CROSSOVER</div>
+            <div class="bt">客串</div>
+            <div class="bd">形体不一定保留，但被别的语境拿去用了。</div>
+          </div>
+        </div>
+        <div class="keep">
+          <span class="k">判据</span>
+          <span>保留眼睛与大笑，它就还是它。</span>
+        </div>
+      </div>
+    </section>
+
+    <div id="groups"></div>
+
+    <section class="colophon">
+      <div class="hair"></div>
+      <div class="colo-grid">
+        <div class="colo-box">
+          <div class="k">WHERE</div>
+          <div class="v">naiwa-studies-101.app.workbuddy.host</div>
+        </div>
+        <div class="colo-box">
+          <div class="k">NOTE</div>
+          <div class="v sm">部分图版为多只合版，保留原构图，未作裁切。<br>
+            编号 001–075 与网页版一一对应。</div>
+        </div>
+      </div>
+      <div class="endline">
+        <div class="big">奶蛙不叛，<span>快乐永存</span>。</div>
+        <div class="addr">75 SPECIMENS · 6 CATEGORIES · 2026.11</div>
+      </div>
+    </section>
+  </div>
+
+  <div id="vignette"></div>
+  <div id="halftone"></div>
+  <div id="fiber"></div>
+</div>
+
+<script>
+const CAT_META = {
+  '本体':     { no: '01', en: 'ORIGINAL',  color: 'var(--red)',    cols: 4, gap: 18, fs: 26 },
+  '换皮':     { no: '02', en: 'RESKIN',    color: 'var(--orange)', cols: 6, gap: 14, fs: 21 },
+  '异形':     { no: '03', en: 'MORPH',     color: 'var(--purple)', cols: 5, gap: 16, fs: 23 },
+  '客串':     { no: '04', en: 'CROSSOVER', color: 'var(--green)',  cols: 4, gap: 18, fs: 26 },
+  '十二奶肖': { no: '05', en: 'ZODIAC',    color: 'var(--blue)',   cols: 6, gap: 14, fs: 21 },
+  '奶字母':   { no: '06', en: 'ALPHABET',  color: 'var(--yellow)', cols: 7, gap: 12, fs: 19 },
+};
+
+(async () => {
+  const data = await (await fetch('/film/data/specs.json')).json();
+
+  // 数据条
+  const bookN = data.filter(x => /^图\s/.test(x.fig)).length;
+  const extN = data.filter(x => /外部/.test(x.fig)).length;
+  document.getElementById('stats').innerHTML = [
+    [data.length, '枚标本'],
+    [Object.keys(CAT_META).length, '大类'],
+    [bookN, '帧教材原图'],
+    [extN, '帧外部形象'],
+  ].map(([n, l]) => `<div class="stat"><div class="n huge">${n}</div><div class="l">${l}</div></div>`).join('');
+
+  // 按类分组（保持原顺序）
+  const byCat = {};
+  for (const x of data) (byCat[x.cat] ||= []).push(x);
+
+  const host = document.getElementById('groups');
+  for (const [cat, meta] of Object.entries(CAT_META)) {
+    const items = byCat[cat] || [];
+    if (!items.length) continue;
+    const sec = document.createElement('section');
+    sec.className = 'grp';
+    sec.style.setProperty('--cat', meta.color);
+    sec.innerHTML = `
+      <div class="grp-h">
+        <span class="gno">${meta.no}</span>
+        <span class="gn" style="color:${meta.color}">${cat}</span>
+        <span class="ge">${meta.en}</span>
+        <span class="gc" style="color:${meta.color}">${items.length}</span>
+      </div>
+      <div class="grid" style="--cols:${meta.cols};--gap:${meta.gap}px;--fs:${meta.fs}px;--cat:${meta.color}">
+        ${items.map(x => `
+          <div class="cell">
+            <div class="thumb"><img src="/film/app/assets/${x.img}" loading="eager" alt="${x.name}"></div>
+            <div class="meta">
+              <span class="id">${x.id}</span>
+              <span class="nm">${x.name}</span>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    host.appendChild(sec);
+  }
+
+  // 等全部图片解码完成，避免截到空白
+  const imgs = [...document.images];
+  await Promise.all(imgs.map(im => im.complete ? Promise.resolve()
+    : new Promise(r => { im.onload = im.onerror = r; })));
+  await new Promise(r => setTimeout(r, 350));
+  window.__ready = true;
+  window.__height = document.documentElement.scrollHeight;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奶娃学 · 一只 AI 画歪的蛙如何长成公共符号</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;600&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   === THEME TOKENS / 双年展太阳黄 ===
+   单一墨色 #1B2566，羊皮纸 #E9E5DB，太阳黄 #F1EE2E。
+   改这里即可整体换色；所有文字恒为墨色，不引入第二种文字色。
+   ============================================================ */
+:root{
+  --paper:#E9E5DB; --paper-deep:#DCD6C4;
+  --sun:#F1EE2E; --sun-soft:#F8F39B; --haze:#F0DA7C;
+  --ink:#1B2566; --ember:#E26B4A;
+  --soft-rule:rgba(27,37,102,.19);
+  --stage-bg:#CFCCBE; --slide-bg:var(--paper);
+  --f-latin:'Instrument Serif',Georgia,serif;
+  --f-cjk:'Noto Serif SC',serif;
+  --f-sans:'Noto Sans SC','Archivo',sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,monospace;
+  --pad:96px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ============================================================
+   === MANDATORY FIXED-STAGE BASE / viewport-base.css 全文 ===
+   所有页面写死 1920×1080，整体缩放，绝不按设备重排。
+   ============================================================ */
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--stage-bg,#000)}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage-bg,#000)}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--slide-bg,#fff)}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;background:var(--slide-bg,#fff)}
+.slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
+img,video,canvas,svg{max-width:100%;max-height:100%}
+.deck-controls{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:1000}
+@media print{html,body{width:1920px;height:auto;overflow:visible;background:#fff}.deck-viewport{position:static;overflow:visible;background:#fff}.deck-stage{position:static;width:auto;height:auto;transform:none!important;background:none}.slide{position:relative;display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;width:1920px;height:1080px;break-after:page;page-break-after:always}.slide:last-child{break-after:auto;page-break-after:auto}.deck-controls{display:none!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.2s!important}}
+
+/* ============================================================
+   === ATMOSPHERE / 每页一层太阳黄光晕 +  subordinate 暖桃反温 ===
+   ============================================================ */
+.slide{
+  font-family:var(--f-cjk);color:var(--ink);
+  background:
+    radial-gradient(ellipse var(--bw,900px) var(--bh,700px) at var(--bx,26%) var(--by,30%),
+      rgba(241,238,46,.72) 0%,rgba(248,243,155,.38) 38%,rgba(240,218,124,.15) 66%,transparent 88%),
+    radial-gradient(ellipse 560px 420px at 94% 94%,rgba(226,107,74,.16) 0%,transparent 72%),
+    var(--paper);
+}
+/* 海报式半透明黄方块底纹，仅用于封面与收束页 */
+.tiles{position:absolute;inset:0;pointer-events:none;opacity:.5}
+.tiles i{position:absolute;display:block;background:var(--sun);opacity:.42}
+.tiles i:nth-child(1){left:4%;top:12%;width:250px;height:210px;transform:rotate(-9deg)}
+.tiles i:nth-child(2){left:14%;top:66%;width:170px;height:300px;transform:rotate(11deg)}
+.tiles i:nth-child(3){left:52%;top:78%;width:310px;height:130px;transform:rotate(-6deg)}
+.tiles i:nth-child(4){left:70%;top:6%;width:140px;height:190px;transform:rotate(14deg)}
+
+/* ============================================================
+   === PERSISTENT CHROME / 页眉、页码、章节轨 ===
+   ============================================================ */
+.chrome{position:absolute;left:var(--pad);right:var(--pad);top:56px;height:46px;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  border-bottom:1px solid var(--ink)}
+.chrome .k{font-family:var(--f-sans);font-size:17px;font-weight:600;letter-spacing:0;line-height:1.2}
+.chrome .k .lat{font-family:var(--f-sans);font-weight:600;letter-spacing:.16em}
+.chrome .sec{font-family:var(--f-mono);font-size:16px;letter-spacing:.04em;text-align:right}
+.pagenum{position:absolute;right:var(--pad);bottom:38px;font-family:var(--f-mono);
+  font-size:16px;letter-spacing:.08em;opacity:.75}
+.navhint{position:fixed;left:18px;bottom:16px;z-index:1200;font-family:var(--f-mono);
+  font-size:11px;color:#1B2566;opacity:.4;letter-spacing:.04em}
+.rail{position:absolute;left:26px;top:50%;transform:rotate(-90deg) translateX(-50%);transform-origin:left center;
+  font-family:var(--f-sans);font-size:14px;font-weight:600;letter-spacing:.28em;white-space:nowrap;opacity:.7}
+
+/* ============================================================
+   === TYPOGRAPHY / 中文角色分工 ===
+   标题：思源宋体；标签：思源黑体 600 + 下方细线；数据：等宽。
+   CJK 字距恒为 0，行高较拉丁规格放宽，标题不加尾句号。
+   ============================================================ */
+.h1{font-family:var(--f-cjk);font-weight:900;font-size:76px;line-height:1.16;letter-spacing:0}
+.h1 em{font-family:var(--f-latin);font-weight:400;font-style:italic;font-size:.92em;letter-spacing:-.01em}
+.h2{font-family:var(--f-cjk);font-weight:700;font-size:38px;line-height:1.3;letter-spacing:0}
+.latin-display{font-family:var(--f-latin);font-weight:400;font-size:82px;line-height:1;letter-spacing:-.018em}
+.latin-it{font-family:var(--f-latin);font-style:italic;font-weight:400;font-size:52px;line-height:1.16;letter-spacing:-.005em}
+.jumbo{font-family:var(--f-latin);font-weight:400;font-size:300px;line-height:.9;letter-spacing:-.04em}
+.lede{font-family:var(--f-cjk);font-weight:400;font-size:25px;line-height:1.8;letter-spacing:0}
+.body{font-family:var(--f-cjk);font-weight:400;font-size:21px;line-height:1.75;letter-spacing:0}
+.body b{font-weight:700}
+.small{font-family:var(--f-cjk);font-weight:400;font-size:18px;line-height:1.72}
+.mono{font-family:var(--f-mono);font-size:17px;line-height:1.5;letter-spacing:.02em}
+.mono-s{font-family:var(--f-mono);font-size:15px;line-height:1.55;letter-spacing:.02em}
+.label{font-family:var(--f-sans);font-weight:600;font-size:17px;letter-spacing:0;line-height:1.3}
+.label-lat{font-family:'Archivo',sans-serif;font-weight:600;font-size:14px;letter-spacing:.2em;text-transform:uppercase}
+
+/*证据等级徽章：不用第二种文字色，靠描边方框 + 字母 + 黄条宽度区分*/
+.grade{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-mono);font-size:15px;letter-spacing:.06em}
+.grade i{display:inline-block;width:26px;height:26px;border:1px solid var(--ink);
+  font-style:normal;text-align:center;line-height:24px;font-size:15px}
+.grade i.lit{background:var(--sun)}
+.grade u{display:block;width:46px;height:8px;background:var(--ink);text-decoration:none}
+.grade.a u{width:46px}.grade.b u{width:34px}.grade.c u{width:22px}.grade.d u{width:10px}
+
+/* ============================================================
+   === LAYOUT PRIMITIVES / 账本行、编号行、黄面板、细线 ===
+   高密度靠「很多安静的重复行」，不靠边框卡片。
+   ============================================================ */
+.content{position:absolute;left:var(--pad);right:var(--pad);top:150px;bottom:112px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px}
+.head .right{font-family:var(--f-mono);font-size:16px;opacity:.8;text-align:right;line-height:1.6}
+.rule{height:1px;background:var(--ink);width:100%}
+.rule-soft{height:1px;background:var(--soft-rule);width:100%}
+.mb14{margin-bottom:14px}.mb20{margin-bottom:20px}.mb28{margin-bottom:28px}.mb36{margin-bottom:36px}
+.mt18{margin-top:18px}.mt20{margin-top:20px}.mt28{margin-top:28px}.mt36{margin-top:36px}
+/* 纸底注解：紧跟黄色高亮行时使用，避免两块黄底连成一片 */
+.note{border-top:1px solid var(--ink);border-bottom:1px solid var(--soft-rule);
+  padding:18px 0;font-family:var(--f-cjk);font-size:20px;line-height:1.7}
+.sunbar{background:var(--sun);height:14px;display:block}
+.ypanel{position:absolute;right:0;top:0;bottom:0;width:600px;background:var(--sun);overflow:hidden}
+.ypanel .inner{position:absolute;left:56px;right:56px;top:150px;bottom:110px}
+.ypanel .ghost{position:absolute;right:-90px;top:70px;width:340px;height:340px;background:var(--sun-soft);opacity:.55;transform:rotate(18deg)}
+.ypanel .square{position:absolute;left:56px;bottom:120px;width:150px;height:150px;border:1px solid var(--ink);transform:rotate(10deg);opacity:.45}
+.ledger{display:flex;flex-direction:column}
+.lrow{display:grid;align-items:center;border-bottom:1px solid var(--soft-rule);padding:15px 0;column-gap:26px}
+.lrow:first-child{border-top:1px solid var(--ink)}
+.lrow .col-title{font-family:var(--f-cjk);font-weight:700;font-size:23px;line-height:1.4}
+.lrow .col-body{font-family:var(--f-cjk);font-size:20px;line-height:1.65}
+.lrow .col-mono{font-family:var(--f-mono);font-size:17px;letter-spacing:.02em}
+.lrow .col-grade{justify-self:end}
+.lrow.featured{background:linear-gradient(90deg,rgba(241,238,46,.85),rgba(241,238,46,.85)) no-repeat;background-size:100% 100%}
+.strand{display:grid;grid-template-columns:76px 1fr;column-gap:24px;align-items:start;
+  border-bottom:1px solid var(--soft-rule);padding:17px 0}
+.strand .n{font-family:var(--f-latin);font-size:44px;line-height:1;letter-spacing:-.02em}
+.strand .t{font-family:var(--f-cjk);font-weight:700;font-size:23px;line-height:1.4;margin-bottom:5px}
+.strand .d{font-family:var(--f-cjk);font-size:19px;line-height:1.65}
+.cols2{display:grid;grid-template-columns:1fr 1fr;column-gap:56px}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:44px}
+.callout{background:var(--sun);padding:22px 30px;font-family:var(--f-cjk);font-size:21px;line-height:1.65}
+.tagline{font-family:var(--f-latin);font-style:italic;font-size:34px;line-height:1.25}
+.footer-band{position:absolute;left:var(--pad);right:var(--pad);bottom:96px;display:grid;grid-template-columns:1.1fr 1fr 1.3fr 1.6fr;gap:40px}
+.footer-band .cell{border-top:1px solid var(--ink);padding-top:14px}
+.footer-band .cell .label-lat{display:block;margin-bottom:8px}
+.footer-band .cell p{font-family:var(--f-cjk);font-size:17px;line-height:1.6}
+
+/* ============================================================
+   === SLIDE 01 / 封面 ===
+   ============================================================ */
+.cover-left{position:absolute;left:152px;top:96px;width:1080px}
+.cover-left h1{font-family:var(--f-cjk);font-weight:900;font-size:190px;line-height:1.12;letter-spacing:0;margin-top:56px}
+.cover-left .en{font-family:var(--f-latin);font-style:italic;font-size:86px;line-height:1;letter-spacing:-.01em;margin-top:-6px}
+.cover-left .sub{font-family:var(--f-cjk);font-size:29px;line-height:1.85;margin-top:48px;max-width:900px}
+.cover-left .quote{font-family:var(--f-latin);font-style:italic;font-size:42px;line-height:1.3;margin-top:48px;max-width:900px}
+.cover-left .quote span{display:block;font-family:var(--f-mono);font-style:normal;font-size:16px;margin-top:14px;letter-spacing:.04em}
+.cover-panel{position:absolute;right:0;top:0;bottom:0;width:648px;background:var(--sun);overflow:hidden}
+.cover-panel .tp{position:absolute;left:66px;top:214px;font-family:var(--f-latin);font-style:italic;font-size:116px;line-height:.96;letter-spacing:-.02em}
+.cover-panel .tm{position:absolute;left:70px;bottom:104px;font-family:var(--f-mono);font-size:17px;line-height:2;letter-spacing:.03em}
+.cover-panel .tr{position:absolute;left:70px;bottom:194px;width:280px;height:1px;background:var(--ink)}
+
+/* ============================================================
+   === SLIDE 04 / 形态学几何示意（单色抽象剪影，不用真实图片） ===
+   ============================================================ */
+.specimen{position:relative;width:520px;height:590px}
+.specimen svg{width:100%;height:100%;overflow:visible}
+.specimen .cap{position:absolute;left:0;bottom:-6px;font-family:var(--f-mono);font-size:15px;letter-spacing:.04em}
+
+/* ============================================================
+   === SLIDE 09 / 时间轴 ===
+   ============================================================ */
+.timeline .lrow{grid-template-columns:190px 1fr 1.05fr 130px}
+.timeline .lrow .col-mono{font-size:19px}
+.timeline .bar{height:12px;background:var(--ink);display:inline-block;vertical-align:middle}
+
+/* ============================================================
+   === SLIDE 15 / 争议辨析双栏对照 ===
+   ============================================================ */
+.compare .lrow{grid-template-columns:180px 1fr 1fr}
+.compare .lrow .col-body{font-size:19px;line-height:1.6}
+.compare .headrow{display:grid;grid-template-columns:180px 1fr 1fr;column-gap:26px;padding-bottom:12px}
+.compare .headrow span{font-family:var(--f-sans);font-weight:600;font-size:17px}
+
+/* ============================================================
+   === REVEAL ANIMATIONS / 逐段错峰淡入，纯 @keyframes ===
+   ============================================================ */
+@keyframes rvIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes rvFade{from{opacity:0}to{opacity:1}}
+@keyframes rvSide{from{opacity:0;transform:translateX(44px)}to{opacity:1;transform:none}}
+@keyframes rvRule{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.rv,.rv-f,.rv-s{opacity:0}
+.slide.visible .rv{animation:rvIn .7s var(--ease) both}
+.slide.visible .rv-f{animation:rvFade .8s ease both}
+.slide.visible .rv-s{animation:rvSide .85s var(--ease) both}
+.slide.visible .rule{animation:rvRule .8s var(--ease) both;transform-origin:left center}
+.d1{animation-delay:.06s!important}.d2{animation-delay:.16s!important}.d3{animation-delay:.28s!important}
+.d4{animation-delay:.40s!important}.d5{animation-delay:.54s!important}.d6{animation-delay:.68s!important}
+
+/* ============================================================
+   === INLINE EDITING CONTROLS / 悬停左上角或按 E ===
+   ============================================================ */
+.edit-hotzone{position:fixed;left:0;top:0;width:80px;height:80px;z-index:10000;cursor:pointer}
+.edit-toggle{position:fixed;left:16px;top:16px;z-index:10001;width:40px;height:40px;
+  border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;
+  font-size:18px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.edit-toggle.show,.edit-toggle.active{opacity:1;pointer-events:auto}
+.edit-toggle.active{background:var(--sun)}
+.editing [data-editable]{outline:1px dashed rgba(27,37,102,.5);outline-offset:3px;cursor:text}
+.edit-banner{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:10002;
+  display:none;font-family:var(--f-mono);font-size:12px;background:var(--ink);color:var(--paper);
+  padding:8px 16px;letter-spacing:.04em}
+.editing .edit-banner{display:block}
+</style>
+</head>
+<body>
+<div class="edit-hotzone" id="editHotzone" title="编辑模式"></div>
+<button class="edit-toggle" id="editToggle" title="编辑模式（E）">✎</button>
+<div class="edit-banner">编辑中 · 点击任意文字修改 · Ctrl+S 保存副本 · E 退出</div>
+<div class="navhint">← / → · SPACE</div>
+
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- ============================================================
+     === SLIDE 01 / 封面 ===
+     ============================================================ -->
+<section class="slide active visible" style="--bx:24%;--by:32%;--bw:1000px;--bh:760px">
+  <div class="rail rv-f d2">CURATORIAL RESEARCH · VOLUME 01</div>
+  <div class="cover-left">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;max-width:900px" class="rv-f d1">
+      <span class="label-lat">奶娃学 · 研究卷宗</span>
+      <span class="mono-s">2026 / 11 / 12</span>
+    </div>
+    <div class="rule mt18 rv-f d1"></div>
+    <h1 class="rv d2">奶娃学</h1>
+    <div class="en rv d3">Naiwa Studies</div>
+    <div class="sub rv d4" data-editable>一只被 AI 画歪的黄色小蛙，如何在两年里长成中文互联网最大的公共符号。<br><b>本卷以考据为主线，逐条标注证据等级。</b></div>
+    <div class="quote rv d5" data-editable>「正因为不属于任何人，所以属于所有人」
+      <span>— 关于无作者迷因的通行评语</span></div>
+  </div>
+  <div class="cover-panel rv-s d3">
+    <div class="tp">a frog<br>that<br>laughs.</div>
+    <div class="tr"></div>
+    <div class="tm">SPECIMEN / 2024 — 2026<br>ORIGIN / AI RENDER ERROR<br>STATUS / AUTHOR UNCLAIMED</div>
+  </div>
+  <div class="footer-band rv-f d6" style="right:712px">
+    <div class="cell"><span class="label-lat">Scope</span><p>正名 · 考据 · 谱系<br>传播 · 争议辨析</p></div>
+    <div class="cell"><span class="label-lat">Method</span><p>四级证据标注<br>A / B / C / D</p></div>
+    <div class="cell"><span class="label-lat">Extent</span><p>16 页 · 11 类来源<br>2020 — 2026</p></div>
+    <div class="cell"><span class="label-lat">Compiler</span><p>整理 · 奶龙<br>2026 年 11 月</p></div>
+  </div>
+  <div class="pagenum">01 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 02 / 导读：本卷怎么读 ===
+     ============================================================ -->
+<section class="slide" style="--bx:78%;--by:18%;--bw:820px;--bh:640px">
+  <div class="chrome rv-f d1"><div class="k">卷首 · <span class="lat">HOW TO READ THIS DOSSIER</span></div><div class="sec">02 — 16 &nbsp;/&nbsp; 方法</div></div>
+  <div class="content">
+    <div class="head rv d1"><div><div class="label mb14">凡例</div><h2 class="h1" data-editable>本卷怎么读</h2></div>
+      <div class="right">一份迷因考据，最怕的不是没结论<br>而是把转述当成事实</div></div>
+    <div class="rule mb28 rv-f d2"></div>
+
+    <div class="ledger mb28" style="grid-template-columns:none">
+      <div class="lrow rv d2" style="grid-template-columns:190px 1fr 1.2fr 150px">
+        <div class="col-title">A · 一手条目</div><div class="col-body">维基／百科条目、官方声明原文、平台可查记录</div>
+        <div class="col-mono">失传媒体中文维基 · 萌娘百科 · 官方回复</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div>
+      </div>
+      <div class="lrow rv d3" style="grid-template-columns:190px 1fr 1.2fr 150px">
+        <div class="col-title">B · 署名报道</div><div class="col-body">有作者、有出处的媒体文章与行业评论</div>
+        <div class="col-mono">虎嗅 · 腾讯新闻 · 网易 / 3DM · 手谈姬</div><div class="col-grade"><span class="grade b"><i>B</i><u></u></span></div>
+      </div>
+      <div class="lrow rv d3" style="grid-template-columns:190px 1fr 1.2fr 150px">
+        <div class="col-title">C · 社群 / 存疑</div><div class="col-body">社群考据、公众号转述、平台话题数据、残留疑点</div>
+        <div class="col-mono">NGA · B 站评论 · 抖音话题页 · 留学观察</div><div class="col-grade"><span class="grade c"><i>C</i><u></u></span></div>
+      </div>
+      <div class="lrow rv d4" style="grid-template-columns:190px 1fr 1.2fr 150px">
+        <div class="col-title">D · 商业叙事</div><div class="col-body">站点自述、推广合集稿、带收编意图的再叙事</div>
+        <div class="col-mono">milkyfrog.com · 小游戏合集类 SEO 稿</div><div class="col-grade"><span class="grade d"><i>D</i><u></u></span></div>
+      </div>
+    </div>
+
+    <div class="cols2 mt18">
+      <div class="rv d4">
+        <div class="label mb14">三条阅读约定</div>
+        <div class="strand"><div class="n">01</div><div><div class="t">能追到原文才写结论</div><div class="d">每个关键数字后面都标来源类型；追不到就写「未知」。</div></div></div>
+        <div class="strand"><div class="n">02</div><div><div class="t">冲突叙事不合并、不抹平</div><div class="d">第 15 页专设辨析章，把两套说法并列，各自标级。</div></div></div>
+        <div class="strand"><div class="n">03</div><div><div class="t">快照数字注明时间与出处</div><div class="d">馆藏数、播放量会变；不同站点不可相加或互相印证。</div></div></div>
+      </div>
+      <div class="rv d5" style="align-self:end">
+        <div class="callout" data-editable>本卷不判定「它到底是不是艺术」，只回答三件事：<b>它从哪来、怎么长成这样、谁在改写它的来历</b>。</div>
+        <div class="mono-s mt18" style="opacity:.8">全卷目录 / 正名 → 形态 → 谱系 → 溯源 → 声源 → 时间线 → 官方 → 二创 → 圣殿 → 立牌 → 解读 → 辨析 → 索引</div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">02 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 03 / 正名：一词四义 ===
+     ============================================================ -->
+<section class="slide" style="--bx:16%;--by:74%;--bw:760px;--bh:600px">
+  <div class="chrome rv-f d1"><div class="k">第一章 · <span class="lat">DISAMBIGUATION</span></div><div class="sec">03 — 16 &nbsp;/&nbsp; 正名</div></div>
+  <div class="content" style="right:696px">
+    <div class="head rv d1"><div><div class="label mb14">同名异义</div><h2 class="h1" style="font-size:60px" data-editable>同一个词，四样东西</h2></div></div>
+    <div class="lede mb28 rv d2" data-editable>「奶娃」不是 2026 年才造出来的词。混用这四义，是绝大多数科普稿的第一个坑。</div>
+    <div class="rule mb20 rv-f d2"></div>
+    <div class="ledger">
+      <div class="lrow rv d2" style="grid-template-columns:150px 1fr 90px">
+        <div class="col-mono">传统义</div><div class="col-body"><b>吃奶的婴儿。</b>现代作家沙汀《风浪》：「一面生火，一面给半岁大的奶娃喂奶。」</div><div class="col-grade"><span class="grade c"><i>C</i><u></u></span></div>
+      </div>
+      <div class="lrow featured rv d3" style="grid-template-columns:150px 1fr 90px">
+        <div class="col-mono">梗义</div><div class="col-body"><b>2026 年抽象迷因</b>，一只 AI 生成畸变的黄色生物。<b>本卷只讨论这一义。</b></div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div>
+      </div>
+      <div class="lrow rv d3" style="grid-template-columns:150px 1fr 90px">
+        <div class="col-mono">育儿衍生</div><div class="col-body">「奶瓶给你打掉」调侃幼稚、云养娃／奶嗝文学，与「鸡娃」「渣娃」同族。</div><div class="col-grade"><span class="grade c"><i>C</i><u></u></span></div>
+      </div>
+      <div class="lrow rv d4" style="grid-template-columns:150px 1fr 90px">
+        <div class="col-mono">游戏术语</div><div class="col-body">「奶」作动词＝治疗／加血，「别奶我了」＝别毒奶。同字同源，语义已分家。</div><div class="col-grade"><span class="grade c"><i>C</i><u></u></span></div>
+      </div>
+    </div>
+    <div class="callout mt28 rv d5" data-editable>判定：讨论「奶娃梗」时，不要拿婴儿义或育儿焦虑去解释它的爆红——那是另一条词源线。</div>
+  </div>
+  <div class="ypanel" style="width:600px">
+    <div class="ghost"></div><div class="square"></div>
+    <div class="inner">
+      <div class="label-lat mb20" style="display:block">Alias Index / 别名体系</div>
+      <div class="h2 mb28" style="font-size:34px">名字越多<br>越说明没人说得清它是什么</div>
+      <div class="rule mb20"></div>
+      <div class="mono" style="line-height:2.15">大笑奶龙<br>变异奶龙<br>奶蛙 &nbsp;/&nbsp; 奶娃<br>Milky Frog &nbsp;/&nbsp; Naiwa<br>流动奶龙（立牌背面）<br>奶家人 &nbsp;/&nbsp; 奶家军<br>黄色三幻神（组合名）</div>
+      <div class="rule mt36 mb20"></div>
+      <div class="small">「奶蛙」因形似青蛙得名；「奶娃」是同音异写，在社区与题库盘点中最常见。</div>
+    </div>
+  </div>
+  <div class="pagenum">03 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 04 / 形态学 ===
+     ============================================================ -->
+<section class="slide" style="--bx:34%;--by:24%;--bw:780px;--bh:700px">
+  <div class="chrome rv-f d1"><div class="k">第二章 · <span class="lat">MORPHOLOGY</span></div><div class="sec">04 — 16 &nbsp;/&nbsp; 形态学</div></div>
+  <div class="content">
+    <div class="head rv d1"><div><div class="label mb14">视觉语法</div><h2 class="h1" style="font-size:64px" data-editable>它长什么样，为什么好用</h2></div>
+      <div class="right">规格来源：milkyfrog.com / Design 页<br>为收编后的规范化规格，非原始 AI 参数　[C / D]</div></div>
+    <div class="rule mb28 rv-f d2"></div>
+    <div class="cols2" style="grid-template-columns:560px 1fr;column-gap:70px">
+      <div class="specimen rv d2">
+        <svg viewBox="0 0 520 590" aria-label="奶蛙形态几何示意">
+          <!-- 梨形主体：上窄下宽，一笔轮廓，无颈 -->
+          <path d="M260 62 C214 62 186 126 176 202 C163 296 132 372 112 420 C84 488 138 540 260 540 C382 540 436 488 408 420 C388 372 357 296 344 202 C334 126 306 62 260 62 Z"
+                fill="#F1EE2E" stroke="#1B2566" stroke-width="1.4"/>
+          <!-- 乳白肚皮 -->
+          <path d="M260 300 C322 300 366 358 372 424 C378 480 336 512 260 512 C184 512 142 480 148 424 C154 358 198 300 260 300 Z"
+                fill="#E9E5DB" opacity=".85"/>
+          <!-- 绿眼圈以墨线环表示，黑瞳无眼白 -->
+          <ellipse cx="216" cy="196" rx="31" ry="34" fill="#E9E5DB" stroke="#1B2566" stroke-width="1.4"/>
+          <ellipse cx="304" cy="196" rx="31" ry="34" fill="#E9E5DB" stroke="#1B2566" stroke-width="1.4"/>
+          <circle cx="216" cy="198" r="13" fill="#1B2566"/><circle cx="304" cy="198" r="13" fill="#1B2566"/>
+          <!-- 一字嘴 -->
+          <line x1="222" y1="262" x2="298" y2="262" stroke="#1B2566" stroke-width="3"/>
+          <!-- 无花纹、无服装；渐变橄榄手脚以墨色矩形示意 -->
+          <rect x="126" y="452" width="18" height="86" fill="#1B2566" opacity=".72"/>
+          <rect x="376" y="452" width="18" height="86" fill="#1B2566" opacity=".72"/>
+          <!-- 标注引线 -->
+          <line x1="185" y1="196" x2="74" y2="150" stroke="#1B2566" stroke-width="1"/>
+          <line x1="74" y1="150" x2="30" y2="150" stroke="#1B2566" stroke-width="1"/>
+          <text x="30" y="140" font-family="JetBrains Mono, monospace" font-size="14" fill="#1B2566">EYE / 无眼白</text>
+          <line x1="298" y1="262" x2="424" y2="292" stroke="#1B2566" stroke-width="1"/>
+          <text x="386" y="312" font-family="JetBrains Mono, monospace" font-size="14" fill="#1B2566">一字嘴</text>
+          <line x1="408" y1="420" x2="470" y2="404" stroke="#1B2566" stroke-width="1"/>
+          <text x="404" y="392" font-family="JetBrains Mono, monospace" font-size="14" fill="#1B2566">梨形</text>
+        </svg>
+        <div class="cap">FIG. 01 / 单色几何示意 · 非原图复刻</div>
+      </div>
+      <div>
+        <div class="ledger">
+          <div class="lrow rv d3" style="grid-template-columns:180px 1fr"><div class="col-mono">轮廓</div><div class="col-body">头与腹一笔连成，<b>没有脖子</b>；梨形，上窄下宽</div></div>
+          <div class="lrow rv d3" style="grid-template-columns:180px 1fr"><div class="col-mono">配色</div><div class="col-body">黄油黄身体、乳白肚皮、绿眼圈＋纯黑瞳孔、<b>无眼白</b></div></div>
+          <div class="lrow rv d4" style="grid-template-columns:180px 1fr"><div class="col-mono">面部</div><div class="col-body">一字嘴，表情恒定；呆滞中带一点「看透一切」</div></div>
+          <div class="lrow rv d4" style="grid-template-columns:180px 1fr"><div class="col-mono">四肢</div><div class="col-body">手脚修长、由黄渐变为深橄榄，像戴了一双手套</div></div>
+          <div class="lrow rv d5" style="grid-template-columns:180px 1fr"><div class="col-mono">设定</div><div class="col-body"><b>无花纹、无服装、无世界观、无台词</b>，核心动作只有一个：捧腹大笑</div></div>
+        </div>
+        <div class="callout mt28 rv d6" data-editable>形态越简，可粘贴性越强：缩到 120px 仍认得出，AI 一秒能生成一百个。这是它能从表情包升级成「语法」的物理前提。　[C]</div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">04 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 05 / 谱系对照 ===
+     ============================================================ -->
+<section class="slide" style="--bx:84%;--by:76%;--bw:820px;--bh:700px">
+  <div class="chrome rv-f d1"><div class="k">第三章 · <span class="lat">LINEAGE</span></div><div class="sec">05 — 16 &nbsp;/&nbsp; 谱系</div></div>
+  <div class="content">
+    <div class="head rv d1"><div><div class="label mb14">正版与变体</div><h2 class="h1" style="font-size:64px" data-editable>不是同人，是畸变</h2></div>
+      <div class="right">[A] 萌娘百科「奶龙」条目<br>[B] 维基百科镜像 / 品牌注册信息</div></div>
+    <div class="rule mb20 rv-f d2"></div>
+    <div class="compare mb20">
+      <div class="headrow rv d2"><span>维度</span><span>正版《奶龙》</span><span>奶蛙 / 大笑奶龙</span></div>
+    </div>
+    <div class="ledger">
+      <div class="lrow rv d2" style="grid-template-columns:180px 1fr 1fr"><div class="col-mono">出品</div><div class="col-body">第七印象文化传媒（深圳）有限公司，导演谢承恩</div><div class="col-body"><b>无出品方</b>，匿名网友的 AI 生成物</div></div>
+      <div class="lrow rv d3" style="grid-template-columns:180px 1fr 1fr"><div class="col-mono">时间</div><div class="col-body">2020 年上线；2020-10-14 注册商标，专用权至 2030-10-13</div><div class="col-body">2024 年 10 月起可考，2026 年爆发</div></div>
+      <div class="lrow rv d3" style="grid-template-columns:180px 1fr 1fr"><div class="col-mono">受众</div><div class="col-body">子供向，全年龄（4–6 岁）短视频动画，约 500 集</div><div class="col-body">成年抽象圈、高校社群、鬼畜二创</div></div>
+      <div class="lrow rv d4" style="grid-template-columns:180px 1fr 1fr"><div class="col-mono">形象</div><div class="col-body">圆润的异星幼龙，会喷火，与小七冒险</div><div class="col-body">黄色梨形、绿眼、畸变四肢，恒定捧腹大笑</div></div>
+      <div class="lrow rv d4" style="grid-template-columns:180px 1fr 1fr"><div class="col-mono">版权</div><div class="col-body">注册商标＋大量游戏／品牌联动，官方主动维权</div><div class="col-body"><b>无版权主张、无官方设定、原作者不认领</b></div></div>
+      <div class="lrow featured rv d5" style="grid-template-columns:180px 1fr 1fr"><div class="col-mono">体量</div><div class="col-body">抖音粉丝 2200 万＋，B 站播放 18.6 亿次（截至 2025-01-26）[B]</div><div class="col-body">「播放过亿」为平台口径，未见独立核验　[C]</div></div>
+    </div>
+    <div class="cols2 mt28">
+      <div class="rv d5"><div class="tagline">「同父异母，但父亲不想要这个孩子」</div><div class="mono-s mt18">— 公众号对二者关系的戏称　[C]</div></div>
+      <div class="rv d6"><div class="small" data-editable>关键差别不在长相，在<b>权属</b>：一个有法务部，一个连作者都跑了。正是这个空缺，让后者获得了前者永远给不了的传播速度。</div></div>
+    </div>
+  </div>
+  <div class="pagenum">05 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 06 / 溯源链 I ===
+     ============================================================ -->
+<section class="slide" style="--bx:20%;--by:20%;--bw:900px;--bh:640px">
+  <div class="chrome rv-f d1"><div class="k">第四章 · <span class="lat">SOURCE HUNT I</span></div><div class="sec">06 — 16 &nbsp;/&nbsp; 溯源</div></div>
+  <div class="content" style="right:696px">
+    <div class="head rv d1"><div><div class="label mb14">可考的六个节点</div><h2 class="h1" style="font-size:58px" data-editable>一张找不到作者的图</h2></div></div>
+    <div class="lede mb20 rv d2">在早期可观测的历史线里，它出现得毫无征兆：任何角落都能看见，却没有一条传播链指向确切源头。</div>
+    <div class="rule mb20 rv-f d2"></div>
+    <div class="ledger">
+      <div class="lrow rv d2" style="grid-template-columns:150px 1fr 76px"><div class="col-mono">2024.10.02</div><div class="col-body">星野 App 用户「纲手[百豪]」创建「奶龙」智能体 <span class="mono-s">ID zNCvQDKfXy</span>，AI 生成背景图形体畸变</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div></div>
+      <div class="lrow rv d3" style="grid-template-columns:150px 1fr 76px"><div class="col-mono">2024.12</div><div class="col-body">抖音博主「欢迎大家恐龙世界」上传带「星野」字样的封面；该账号现已设私密</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div></div>
+      <div class="lrow rv d3" style="grid-template-columns:150px 1fr 76px"><div class="col-mono">2025.03.07</div><div class="col-body">网友把奶蛙与季洪行视频做 AI 融合，导致长期被误认成「季洪行＋奶龙」的产物</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div></div>
+      <div class="lrow rv d4" style="grid-template-columns:150px 1fr 76px"><div class="col-mono">2026.08.04</div><div class="col-body">B 站用户「雾蚀心忘症」称在星野找到符合形象的奶蛙智能体</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div></div>
+      <div class="lrow rv d4" style="grid-template-columns:150px 1fr 76px"><div class="col-mono">2026.08.08</div><div class="col-body">Q 群发现 2024-08-23 的更早 B 站视频出现同形象，但 <b>AI 水印与星野不同</b>；主流理论「后期换源」</div><div class="col-grade"><span class="grade c"><i>C</i><u></u></span></div></div>
+      <div class="lrow featured rv d5" style="grid-template-columns:150px 1fr 76px"><div class="col-mono">2026.08.22</div><div class="col-body">词条被归档至 <span class="mono-s">deleted:</span> 命名空间，原因「逾期」，归档人 Thyj_w</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div></div>
+    </div>
+    <div class="mono-s mt28 rv d6" style="opacity:.8">[A] 失传媒体中文维基《奶蛙（来源确定的奶龙恶搞图片；2024 年）》全文考据此页。</div>
+  </div>
+  <div class="ypanel" style="width:600px">
+    <div class="ghost"></div>
+    <div class="inner">
+      <div class="label-lat mb20" style="display:block">Finding / 条目结论</div>
+      <div class="tagline mb28" style="font-size:44px">「该媒体来源已被正式确认」</div>
+      <div class="rule mb28"></div>
+      <div class="body mb28">但同一个词条里仍留着一句更早的话：<br><b>「由于星野平台下架整改，无法确定奶蛙是否来自星野 App。」</b></div>
+      <div class="small">确认的是<b>创作者与智能体</b>，不是每一次生成的技术细节。这两件事常被二手文章合并成一句。</div>
+      <div class="square"></div>
+    </div>
+  </div>
+  <div class="pagenum">06 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 07 / 溯源链 II：残留疑点 ===
+     ============================================================ -->
+<section class="slide" style="--bx:72%;--by:82%;--bw:900px;--bh:700px">
+  <div class="chrome rv-f d1"><div class="k">第四章 · <span class="lat">SOURCE HUNT II</span></div><div class="sec">07 — 16 &nbsp;/&nbsp; 存疑清单</div></div>
+  <div class="content">
+    <div class="head rv d1"><div><div class="label mb14">反查</div><h2 class="h1" style="font-size:64px" data-editable>别急着写「已证实」</h2></div>
+      <div class="right">结论写「来源已确认、细节存疑」<br>比写一个漂亮的定论更重要</div></div>
+    <div class="rule mb20 rv-f d2"></div>
+    <div class="cols2" style="grid-template-columns:1.25fr .75fr;column-gap:64px">
+      <div>
+        <div class="strand rv d2"><div class="n">01</div><div><div class="t">更早的视频与对不上的水印</div><div class="d">2024-08-23 的 B 站视频比星野智能体早两个月，右下角 AI 水印不同。主流解释是「后期换源」，但未见文件级鉴定。　[C]</div></div></div>
+        <div class="strand rv d3"><div class="n">02</div><div><div class="t">平台批量下架造成的证据断层</div><div class="d">星野曾对大量智能体下架整改，早期社群因此无法确认来源是否来自该平台。　[A]</div></div></div>
+        <div class="strand rv d3"><div class="n">03</div><div><div class="t">当事人缺席</div><div class="d">「纲手[百豪]」删投稿、关评论、销号；2025 年还在为作品出圈高兴，2026 年只留下一句「卧槽你们咋了我有点害怕啊」。无自述可核。　[C]</div></div></div>
+        <div class="strand rv d4"><div class="n">04</div><div><div class="t">删不掉的「出生证明」</div><div class="d">星野智能体无法彻底删除，成为唯一线索，但现已无法搜索及分享，评论区关闭。　[A]</div></div></div>
+        <div class="strand rv d4"><div class="n">05</div><div><div class="t">词条本身不是定稿状态</div><div class="d">被移入 deleted: 命名空间，页面顶部注明「该页面已不再被认可／使用」，并请求勿骚扰原作者。　[A]</div></div></div>
+      </div>
+      <div class="rv d5" style="align-self:start">
+        <div class="label mb14">本卷判定</div>
+        <div class="callout mb20" data-editable>主流链条可信度高，但存在<b>未消解的更早影像</b>。凡涉及「唯一源头」「原创作者」的表述，一律降级为 C，不写定论。</div>
+        <div class="rule mb20"></div>
+        <div class="small mb20">这也是本卷不采用「浙大设计师原创」那套说法的原因之一——它恰恰把最不确定的一段讲得最肯定。</div>
+        <div class="latin-it">追不到，<br>就写未知。</div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">07 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 08 / 声音与身体 ===
+     ============================================================ -->
+<section class="slide" style="--bx:28%;--by:76%;--bw:940px;--bh:620px">
+  <div class="chrome rv-f d1"><div class="k">第五章 · <span class="lat">BODY &amp; VOICE</span></div><div class="sec">08 — 16 &nbsp;/&nbsp; 缝合</div></div>
+  <div class="content">
+    <div class="head rv d1"><div><div class="label mb14">两段素材拼出一个模因</div><h2 class="h1" style="font-size:64px" data-editable>身体是借的，笑声也是借的</h2></div>
+      <div class="right">[A] 萌娘百科「大笑奶龙／奶蛙」段<br>[A] EverybodyWiki「奶娃」条目</div></div>
+    <div class="rule mb28 rv-f d2"></div>
+    <div class="cols2" style="column-gap:70px">
+      <div class="rv d2">
+        <div class="latin-display mb14" style="font-size:56px">The Body</div>
+        <div class="small mb20">动作／肢体来源　[A]</div>
+        <div class="body mb20">抖音博主 <b>季洪行</b>（「沧州六大神人」之一，ID「用实力证明自己」）的军体拳／武打视频，被 AI 技术全身替换为奶龙形象，奠定了「大笑奶龙」的基本肢体动作。</div>
+        <div class="rule mb20"></div>
+        <div class="small">补充：2025-03-07 的这次融合太成功，以致于很长时间里大众把「季洪行」当成了形象作者，而它其实只是<b>动作</b>作者。　[A]</div>
+      </div>
+      <div class="rv d3">
+        <div class="latin-display mb14" style="font-size:56px">The Laugh</div>
+        <div class="small mb20">声音来源的完整链条　[A]</div>
+        <div class="body mb20">主播「<b>王麻衣</b>」直播间里一位连线男嘉宾的似人笑声 → 经《无畏契约》游戏解说「<b>八级哥</b>」用「<b>老水牛变声器</b>」处理 → 成为标志性的「雷霆笑声」。</div>
+        <div class="rule mb20"></div>
+        <div class="small">来源差异：EverybodyWiki 只记「八级哥＋老水牛变声器」，萌娘百科给出更完整的连麦来源链。本卷采用后者，并保留差异说明。　[A]</div>
+      </div>
+    </div>
+    <div class="callout mt36 rv d5" style="display:flex;align-items:center;gap:44px" data-editable>
+      <div style="font-family:var(--f-mono);font-size:19px;white-space:nowrap">二创公式　[A]</div>
+      <div style="font-size:23px"><b>荒诞桥段（任意题材）</b>　→　结尾一律捧腹大笑「众宾欢也」　→　常叠《王者荣耀》不知火舞台词变调版</div>
+    </div>
+    <div class="small mt18 rv d6">视觉的诡异 ＋ 声音的癫狂，让一张静态表情包获得了短视频需要的「两秒钩子」；AI 视频生成工具（含 Seedance 类模型）随后把生产门槛压到地板以下。　[C]</div>
+  </div>
+  <div class="pagenum">08 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 09 / 时间线 ===
+     ============================================================ -->
+<section class="slide" style="--bx:82%;--by:26%;--bw:780px;--bh:760px">
+  <div class="chrome rv-f d1"><div class="k">第六章 · <span class="lat">CHRONOLOGY</span></div><div class="sec">09 — 16 &nbsp;/&nbsp; 时间线</div></div>
+  <div class="content">
+    <div class="head rv d1"><div><div class="label mb14">2020 → 2026</div><h2 class="h1" style="font-size:62px" data-editable>六个年份，八次变形</h2></div>
+      <div class="right">高亮行＝现象级爆发点<br>等级标注见每页凡例</div></div>
+    <div class="rule mb20 rv-f d2"></div>
+    <div class="ledger timeline">
+      <div class="lrow rv d2"><div class="col-mono">2020</div><div class="col-title">正版《奶龙》上线</div><div class="col-body">子供向动画，10-14 注册商标；后来成为被魔改的母本</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div></div>
+      <div class="lrow rv d2"><div class="col-mono">2024.10</div><div class="col-title">AI 生成畸变图</div><div class="col-body">星野智能体头像，似龙非龙似蛙非蛙；12 月被搬上抖音</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div></div>
+      <div class="lrow rv d3"><div class="col-mono">2025</div><div class="col-title">军体拳换脸 ＋ 雷霆笑声</div><div class="col-body">季洪行动作与变声笑声缝合，奠定短视频形态</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div></div>
+      <div class="lrow featured rv d3"><div class="col-mono">2026 初</div><div class="col-title">「大笑奶龙」爆发</div><div class="col-body">B 站／抖音引爆，2026 首个现象级模因；官方关闭评论区</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div></div>
+      <div class="lrow rv d4"><div class="col-mono">2026.06—07</div><div class="col-title">名画二创「神圣奶蛙艺术」</div><div class="col-body">《最唐的晚餐》《堕落奶龙》等；腾讯新闻 07-14 专文报道</div><div class="col-grade"><span class="grade b"><i>B</i><u></u></span></div></div>
+      <div class="lrow rv d4"><div class="col-mono">2026.08</div><div class="col-title">社群溯源并归档词条</div><div class="col-body">08-04 找到智能体、08-08 出现更早影像、08-22 词条移入 deleted:</div><div class="col-grade"><span class="grade a"><i class="lit">A</i><u></u></span></div></div>
+      <div class="lrow featured rv d5"><div class="col-mono">2026.09</div><div class="col-title">流动立牌席卷高校</div><div class="col-body">近百所高校目击记录；奶蛙艺术圣殿上线；10-11 游民星空专题</div><div class="col-grade"><span class="grade b"><i>B</i><u></u></span></div></div>
+      <div class="lrow rv d5"><div class="col-mono">2026.10</div><div class="col-title">出海与商业化</div><div class="col-body">周边、网页小游戏、App、博物馆站点涌现；留学生把立牌带向海外校园</div><div class="col-grade"><span class="grade c"><i>C</i><u></u></span></div></div>
+    </div>
+  </div>
+  <div class="pagenum">09 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 10 / 官方反应 ===
+     ============================================================ -->
+<section class="slide" style="--bx:16%;--by:80%;--bw:820px;--bh:640px">
+  <div class="chrome rv-f d1"><div class="k">第七章 · <span class="lat">THE OFFICIAL REPLY</span></div><div class="sec">10 — 16 &nbsp;/&nbsp; 反向背书</div></div>
+  <div class="content">
+    <div class="head rv d1"><div><div class="label mb14">一次教科书级的史翠珊效应</div><h2 class="h1" style="font-size:62px" data-editable>「请勿发布丑化、恶搞奶龙」</h2></div></div>
+    <div class="rule mb28 rv-f d2"></div>
+    <div class="cols2" style="grid-template-columns:1.05fr .95fr;column-gap:66px">
+      <div class="rv d2">
+        <div class="label-lat mb20" style="display:block">官方定型文 · 原文　[A]</div>
+        <div class="body" style="font-size:24px;line-height:1.95" data-editable>请勿发布丑化、恶搞奶龙的非官方表情包。奶龙的可爱形象需要大家共同守护，建议分享正版素材。请大家遵守，一起维护积极愉快的氛围，感谢配合！</div>
+        <div class="rule mt36 mb20"></div>
+        <div class="small">这段话在多个平台被反复回复，随后被乐子人化用成新型「定型文」（复制粘贴榜），本身也成了梗的一部分。　[A]</div>
+      </div>
+      <div>
+        <div class="label mb14 rv d2">因果链　[A / B]</div>
+        <div class="strand rv d2"><div class="n">01</div><div><div class="t">官方发抵制声明</div><div class="d">并在官方视频评论区拉黑发奶蛙图的用户</div></div></div>
+        <div class="strand rv d3"><div class="n">02</div><div><div class="t">网友读出反向认证</div><div class="d">「你刚刚说了，这个是奶龙，对吧？」——抵制被解读为官方承认变体身份</div></div></div>
+        <div class="strand rv d3"><div class="n">03</div><div><div class="t">创作获得命名权</div><div class="d">创作者可堂而皇之冠以「奶龙」之名，用户因熟悉词＋陌生形象而点进去</div></div></div>
+        <div class="strand rv d4"><div class="n">04</div><div><div class="t">官方一度关闭评论区</div><div class="d">「战绩可查」式截图反而成了新的传播素材</div></div></div>
+        <div class="strand rv d4"><div class="n">05</div><div><div class="t">乌龙外溢</div><div class="d">毛绒品牌「多爱玩具」客服误回奶蛙表情包，随后发道歉声明　[B]</div></div></div>
+      </div>
+    </div>
+    <div class="callout mt18 rv d5" data-editable>抵制增加了而非减少了供给：一个试图收回解释权的动作，反而把解释权彻底交了出去。</div>
+  </div>
+  <div class="pagenum">10 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 11 / 二创宇宙 ===
+     ============================================================ -->
+<section class="slide" style="--bx:74%;--by:20%;--bw:860px;--bh:680px">
+  <div class="chrome rv-f d1"><div class="k">第八章 · <span class="lat">THE FORMULA</span></div><div class="sec">11 — 16 &nbsp;/&nbsp; 二创宇宙</div></div>
+  <div class="content" style="right:696px">
+    <div class="head rv d1"><div><div class="label mb14">从形象升级为语法</div><h2 class="h1" style="font-size:58px" data-editable>公式化，才是永动机</h2></div></div>
+    <div class="lede mb20 rv d2" style="font-size:22px">所有二创内容不同，结尾几乎一致：不同身份的奶蛙一同捧腹大笑。</div>
+    <div class="rule mb20 rv-f d2"></div>
+    <div class="ledger">
+      <div class="lrow rv d2" style="grid-template-columns:160px 1fr"><div class="col-mono">标题模板</div><div class="col-body">《恭喜你刷到了 oo 奶龙》《地球还要被这样的萌物统治多久》</div></div>
+      <div class="lrow rv d3" style="grid-template-columns:160px 1fr"><div class="col-mono">稀有话术</div><div class="col-body">声称「概率仅若干分之一」「若干年才出现一次」，观众回「我怎么这么倒霉」</div></div>
+      <div class="lrow rv d3" style="grid-template-columns:160px 1fr"><div class="col-mono">声音梗</div><div class="col-body">模仿《王者荣耀》不知火舞台词、秒开战斗脸、与变调语音／豆包等联动</div></div>
+      <div class="lrow rv d4" style="grid-template-columns:160px 1fr"><div class="col-mono">科普系列</div><div class="col-body">全角色替换讲生物／化学知识，BGM 为《东南苦行山》，评论区「这集有教育意义」</div></div>
+      <div class="lrow rv d4" style="grid-template-columns:160px 1fr"><div class="col-mono">名画系列</div><div class="col-body">演绎名画时间节点前的小段剧情，BGM 为降调《人鱼的眼泪》《兰亭序》／古风 DJ</div></div>
+      <div class="lrow featured rv d5" style="grid-template-columns:160px 1fr"><div class="col-mono">家族化</div><div class="col-body">变体：数字奶龙、奶蛋、奶蛙蛋、「奶家人」；有了家族，梗就能无限连载</div></div>
+    </div>
+    <div class="small mt28 rv d6">[A] 萌娘百科「大笑奶龙／奶蛙」段；[B] 手谈姬（观察者网风闻）关于结尾一致性的观察。</div>
+  </div>
+  <div class="ypanel" style="width:600px">
+    <div class="ghost"></div>
+    <div class="inner">
+      <div class="label-lat mb20" style="display:block">Mechanism</div>
+      <div class="tagline mb28" style="font-size:42px">二创不是 IP 的衍生品，<br>而是 IP 本身的生产方式。</div>
+      <div class="rule mb28"></div>
+      <div class="body mb20">换成数字、换成年代、换成职业，就是一条新内容。<b>梗从「形象」升级成「语法」</b>，参与门槛低到只需要一个模板。</div>
+      <div class="small">站主／原作者一旦出现，反而会终止这种开放性——这也是第 15 页那套「原创 IP」叙事最值得警惕的地方。</div>
+      <div class="square"></div>
+    </div>
+  </div>
+  <div class="pagenum">11 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 12 / 神圣奶蛙艺术 ===
+     ============================================================ -->
+<section class="slide" style="--bx:22%;--by:24%;--bw:880px;--bh:720px">
+  <div class="chrome rv-f d1"><div class="k">第九章 · <span class="lat">THE TEMPLE</span></div><div class="sec">12 — 16 &nbsp;/&nbsp; 加冕</div></div>
+  <div class="content">
+    <div class="head rv d1"><div><div class="label mb14">把梗放进西方美术史</div><h2 class="h1" style="font-size:62px" data-editable>庄严不邀请他们，<br>他们就自己盖一座</h2></div>
+      <div class="right">[B] 腾讯新闻 2026-07-14<br>《奶龙，正在成为一件艺术品》</div></div>
+    <div class="rule mb28 rv-f d2"></div>
+    <div class="cols2" style="grid-template-columns:1fr 1fr;column-gap:64px">
+      <div class="rv d2">
+        <div class="label mb14">被重演的名画（部分）　[B / C]</div>
+        <div class="mono" style="line-height:2.05;font-size:19px">《最唐的晚餐》 · 《自由引导奶龙》<br>《创造奶龙》 · 《奶蛙夜巡》<br>《维纳斯奶蛙诞生》 · 《圣母怜奶蛙》<br>《奶破蛙翻越阿尔卑斯山》<br>《华盛顿横渡特拉华河》<br>《堕落奶龙》（网友「泽央 zeyang」，2026）</div>
+        <div class="rule mt28 mb20"></div>
+        <div class="small">共同手法：保留原作构图、光影、氛围，只把主角换成永远在大笑的黄色生物。庄重与荒诞的落差，制造出一种无法被严肃对待的审美体验。</div>
+      </div>
+      <div>
+        <div class="label mb14 rv d3">三套「馆藏数字」，别混用</div>
+        <div class="lrow rv d3" style="grid-template-columns:1fr 1fr;border-top:1px solid var(--ink)"><div class="col-title">艺术宇宙 · 圣殿</div><div class="col-body"><span class="mono-s">nailong-studio.github.io</span><br><b>186 件 / 8 展厅</b>／32 枚圣咏表情／311MB　[C]</div></div>
+        <div class="lrow rv d4" style="grid-template-columns:1fr 1fr"><div class="col-title">同一站的另一篇记录</div><div class="col-body">掘金社区记为 <b>185 件 / 8 展厅</b>，22 张表情包　[C]</div></div>
+        <div class="lrow featured rv d4" style="grid-template-columns:1fr 1fr"><div class="col-title">奶蛙博物馆（另一站）</div><div class="col-body"><span class="mono-s">neta.art</span>　<b>94 件 / 16 展厅</b><br>西方艺术史 85 ＋ 中国艺术史 9　[C]</div></div>
+        <div class="note mt20 rv d5" data-editable>这是不同站点、不同时间的快照，<b>不可相加，也不可互相印证</b>。任何把它们揉成「两百多件馆藏」的说法都是二手加工。</div>
+      </div>
+    </div>
+    <div class="latin-it mt28 rv d6" style="font-size:38px">「它不讨论艺术史，它只负责快乐。」</div>
+  </div>
+  <div class="pagenum">12 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 13 / 线下迁移 ===
+     ============================================================ -->
+<section class="slide" style="--bx:80%;--by:76%;--bw:860px;--bh:700px">
+  <div class="chrome rv-f d1"><div class="k">第十章 · <span class="lat">OFFLINE MIGRATION</span></div><div class="sec">13 — 16 &nbsp;/&nbsp; 流动奶蛙</div></div>
+  <div class="content" style="right:696px">
+    <div class="head rv d1"><div><div class="label mb14">一块两米高的塑料板</div><h2 class="h1" style="font-size:58px" data-editable>没有主办方的接力</h2></div></div>
+    <div class="rule mb20 rv-f d2"></div>
+    <div class="rv d2">
+      <div class="label mb14">机制　[B]</div>
+      <div class="strand"><div class="n">01</div><div><div class="t">背面手写通知</div><div class="d">称它为「流动奶龙」，欢迎搬到校园里各种「神圣的地方」；最初一句是「我将在 3DM 门口放一个奶蛙」</div></div></div>
+      <div class="strand"><div class="n">02</div><div><div class="t">升级为打印版小贴士</div><div class="d">措辞逐渐规范，并列出禁放区：教学区域、宿舍楼内部、消防通道等影响秩序或安全的位置</div></div></div>
+      <div class="strand"><div class="n">03</div><div><div class="t">搬运＝参与，拍照＝凭证</div><div class="d">线下荒诞发回线上，线上热度催生下一块立牌，形成自我加速循环</div></div></div>
+    </div>
+    <div class="rule mt28 mb20 rv-f d4"></div>
+    <div class="rv d4">
+      <div class="label mb14">目击与外溢</div>
+      <div class="body">宿舍阳台、军训操场、绿化带、招新摊位；戴迷彩帽检阅新生、披透明雨衣淋雨。据不完全统计，<b>国内近百所高校</b>有目击记录。　[B]</div>
+      <div class="small mt18">类比：四川农业大学「搬牛」传统持续近 20 年，校方甚至复制五头专供搬运；评论概括为「牛是川农的，奶蛙是大家的」。　[B]　2026 年秋季起，留学生把立牌带到中国香港、英国、澳洲、美国校园。　[C]</div>
+    </div>
+  </div>
+  <div class="ypanel" style="width:600px">
+    <div class="ghost"></div>
+    <div class="inner">
+      <div class="label-lat mb20" style="display:block">Found Object / 立牌背面</div>
+      <div class="h2 mb28" style="font-size:34px;line-height:1.6">「流动奶龙<br>小贴士」</div>
+      <div class="rule mb28"></div>
+      <div class="body" style="font-size:22px;line-height:1.9">欢迎大家把它带到校园里的不同地方，记录属于自己的小惊喜。<br><br>请勿放置于教学区域、宿舍楼内部、消防通道等影响正常秩序或安全的位置。</div>
+      <div class="rule mt36 mb20"></div>
+      <div class="small">一种自发的秩序，在玩梗的冲动里悄悄长出来：没有社团盖章、没有审批、没有品牌预算，却比多数官方活动更快铺开。</div>
+      <div class="square"></div>
+    </div>
+  </div>
+  <div class="pagenum">13 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 14 / 文化解读 ===
+     ============================================================ -->
+<section class="slide" style="--bx:24%;--by:82%;--bw:900px;--bh:660px">
+  <div class="chrome rv-f d1"><div class="k">第十一章 · <span class="lat">WHY IT WORKED</span></div><div class="sec">14 — 16 &nbsp;/&nbsp; 解读</div></div>
+  <div class="content">
+    <div class="head rv d1"><div><div class="label mb14">以及反方意见</div><h2 class="h1" style="font-size:64px" data-editable>我们在笑什么</h2></div>
+      <div class="right">以下解读多为评论性观点　[C]<br>属阐释，不属可核验事实</div></div>
+    <div class="rule mb20 rv-f d2"></div>
+    <div class="cols2" style="grid-template-columns:1.15fr .85fr;column-gap:60px">
+      <div>
+        <div class="strand rv d2"><div class="n">01</div><div><div class="t">无版权＝开放文本</div><div class="d">谁都能 fork 一份、改两行，谁都不必对结果负责。没有作者，反而获得了最快传播速度。</div></div></div>
+        <div class="strand rv d3"><div class="n">02</div><div><div class="t">没有对象的笑</div><div class="d">不嘲笑谁，也不为谁高兴；所以能贴到加班、挂科、分手、面试被拒上，无需解释。</div></div></div>
+        <div class="strand rv d3"><div class="n">03</div><div><div class="t">「符合我的精神状态」</div><div class="d">一种拒绝命名的情绪；不卷、不躺、先笑一下，是低烈度的乐观。</div></div></div>
+        <div class="strand rv d4"><div class="n">04</div><div><div class="t">社交货币与共同体</div><div class="d">搬运不需要语言，素不相识的人完成一次协作；以学校为单元的玩梗共同体。</div></div></div>
+        <div class="strand rv d4"><div class="n">05</div><div><div class="t">造神权转移</div><div class="d">与牛来、肥嘟嘟袋鼠被网友凑成「黄色三幻神」，神格不再由版权方定义。</div></div></div>
+      </div>
+      <div class="rv d5">
+        <div class="label mb14">不能只讲好话</div>
+        <div class="body mb20">评论者把它归入「抽象文化」与脑腐内容（Brain Rot）：在碎片化、高刺激环境里消解意义，是后现代式的虚无宣泄；长期观看此类缺乏高阶认知参与的内容，易致审美疲劳与注意力分散。</div>
+        <div class="rule mb20"></div>
+        <div class="small mb20">还有三层现实：从解构滑向虚无、从玩梗变成骚扰（双方都有）、以及算法放大——你以为在玩梗，其实也在被梗玩。</div>
+        <div class="callout" data-editable>它不提供答案，只提供一张许可：<b>暂时不成为任何人</b>。</div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">14 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 15 / 争议辨析（独立章） ===
+     ============================================================ -->
+<section class="slide" style="--bx:16%;--by:20%;--bw:1000px;--bh:780px">
+  <div class="chrome rv-f d1"><div class="k">第十二章 · <span class="lat">CONTESTED NARRATIVE</span></div><div class="sec">15 — 16 &nbsp;/&nbsp; 辨析</div></div>
+  <div class="content">
+    <div class="head rv d1"><div><div class="label mb14">两套打架的叙事</div><h2 class="h1" style="font-size:62px" data-editable>是谁把它讲成了<br>「原创治愈系 IP」</h2></div>
+      <div class="right">左栏 [A/B]　右栏 [D]<br>本页为全卷最关键的一处辨析</div></div>
+    <div class="rule mb20 rv-f d2"></div>
+    <div class="compare">
+      <div class="headrow rv d2"><span>维度</span><span>主流考据链　[A / B]</span><span>Milky Frog 商业叙事　[D]</span></div>
+      <div class="lrow rv d2"><div class="col-mono">诞生</div><div class="col-body">2024-10 星野 App 生成「奶龙」头像时模型理解偏差、形体畸变</div><div class="col-body">「浙大设计师李想原创打造的治愈系萌蛙 IP」</div></div>
+      <div class="lrow rv d3"><div class="col-mono">性质</div><div class="col-body">对儿童向 IP 的恶搞二创；无版权、无官方设定、作者不认领</div><div class="col-body">「纯原创二次元治愈形象」，主打治愈、松弛、解压</div></div>
+      <div class="lrow rv d3"><div class="col-mono">时间</div><div class="col-body">2024 起可考，2026 年初爆发，9 月线下迁移</div><div class="col-body">称「2026 下半年爆红」，并把自家站点写作「一切故事的起点」</div></div>
+      <div class="lrow rv d4"><div class="col-mono">依据</div><div class="col-body">失传媒体中文维基、萌娘百科、EverybodyWiki、虎嗅／腾讯新闻／网易等多家署名报道</div><div class="col-body">站点自述 ＋ 小游戏合集类推广稿；未见第三方独立佐证</div></div>
+      <div class="lrow featured rv d4"><div class="col-mono">自相矛盾</div><div class="col-body">—</div><div class="col-body">同一站点档案页却写「2024–∞ / AI-BORN MEME」「一个儿童向 IP，长出了属于成年人的变异版本」</div></div>
+    </div>
+    <div class="callout mt20 rv d5" style="font-size:20px" data-editable><b>判定：D 级商业再叙事／收编。</b>它把「无作者的公共迷因」改写为「有作者的原创 IP」，把开放文本收回成一个可主张版权的形象。这不是起源证据，而是流传到商业化阶段后长出来的新设定。</div>
+    <div class="cols2 mt18">
+      <div class="small rv d5"><b>数字快照警示：</b>「9.6 亿次播放 / 12.0 万人参与」为平台话题页截图，未经独立核验　[C]；94 件／185 件／186 件为不同站点、不同时点的馆藏快照，不可混用。</div>
+      <div class="small rv d6" style="text-align:right">这正是本卷坚持逐条标级的原因：<b>看起来最完整的那个故事，往往是最晚才被写上去的。</b></div>
+    </div>
+  </div>
+  <div class="pagenum">15 / 16</div>
+</section>
+
+<!-- ============================================================
+     === SLIDE 16 / 结论与来源索引 ===
+     ============================================================ -->
+<section class="slide" style="--bx:50%;--by:88%;--bw:1200px;--bh:700px">
+  <div class="chrome rv-f d1"><div class="k">卷末 · <span class="lat">COLOPHON &amp; SOURCES</span></div><div class="sec">16 — 16 &nbsp;/&nbsp; 索引</div></div>
+  <div class="content">
+    <div class="cols2" style="grid-template-columns:.95fr 1.05fr;column-gap:70px">
+      <div>
+        <div class="rv d2"><div class="label mb14">三条结论</div>
+          <div class="body mb20" data-editable><b>一、</b>它是一次 AI 生成偏差，被两段借来的素材（军体拳＋变声笑声）激活，靠极简形态变成可无限复用的语法。</div>
+          <div class="body mb20"><b>二、</b>它的传播力恰恰来自三个「缺席」：无作者、无版权、无设定——也因此属于所有人。</div>
+          <div class="body mb20"><b>三、</b>凡是后来出现的「官方原点」「原创 IP」，都属于流传史，不属于起源史。</div>
+        </div>
+        <div class="rule mt28 mb28 rv-f d3"></div>
+        <div class="latin-it rv d3" style="font-size:56px">迷因会老。<br>大笑不会。</div>
+        <div class="small mt28 rv d4">仍未解决的问题：2024-08-23 那条更早视频是否确为换源？原作者是否会认领？词条为何以「逾期」归档？——本卷均记为<b>未知</b>。</div>
+      </div>
+      <div class="rv d3">
+        <div class="label mb14">来源索引 · 按证据等级</div>
+        <div class="rule mb14"></div>
+        <div class="mb20"><div class="mono-s mb14"><b>A</b>　一手／准一手条目</div>
+          <div class="small">lostmediawiki.cn / deleted:naiwa（奶蛙词条，含搜索历史）　·　zh.moegirl.org.cn / 奶龙（大笑奶龙段）　·　zh.everybodywiki.com / 奶娃　·　维基百科「奶龙」镜像　·　奶龙官方回复原文</div></div>
+        <div class="mb20"><div class="mono-s mb14"><b>B</b>　署名媒体报道</div>
+          <div class="small">虎嗅《流动奶蛙，大学最好的招生简章》　·　腾讯新闻《奶龙，正在成为一件艺术品》（2026-07-14）　·　网易／3DM《2026 第一猎奇梗》　·　观察者网风闻・手谈姬　·　游民星空（2026-10-11）　·　搜狐四象工作室　·　掘金《奶蛙圣殿》</div></div>
+        <div class="mb20"><div class="mono-s mb14"><b>C</b>　社群考据／平台数据／阐释</div>
+          <div class="small">划水 meme 专题　·　NGA「奶娃归猴」　·　ACGO 2026 热梗盘点　·　抖音话题页截图　·　留学观察类公众号　·　neta.art 奶蛙百科　·　各类文化评论</div></div>
+        <div class="mb20"><div class="mono-s mb14"><b>D</b>　商业／推广叙事</div>
+          <div class="small">milkyfrog.com（主站与 Design 页）　·　「最全奶蛙小游戏合集」类稿件　·　相关 App／馆藏站点自述</div></div>
+        <div class="rule mt28 mb14"></div>
+        <div class="mono-s">检索日期 2026-11-12　·　整理 奶龙　·　共 16 页 / 12 章</div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">16 / 16</div>
+</section>
+
+</main>
+</div>
+
+<script>
+/* ============================================================
+   === PRESENTATION CONTROLLER / 舞台缩放与导航 ===
+   ============================================================ */
+class SlidePresentation{
+  constructor(){
+    this.slides=[...document.querySelectorAll('.slide')];
+    this.total=this.slides.length;
+    this.current=0;
+    this.stage=document.getElementById('deckStage');
+    this.setupStageScale();
+    this.setupKeyboardNav();
+    this.setupTouchNav();
+    this.setupWheelNav();
+    this.showSlide(0);
+  }
+  /* 1920×1080 固定画布，整体等比缩放，四周留边，不重排内容 */
+  setupStageScale(){
+    const scale=()=>{
+      const f=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+      const x=(window.innerWidth-1920*f)/2, y=(window.innerHeight-1080*f)/2;
+      this.stage.style.transform=`translate(${x}px, ${y}px) scale(${f})`;
+    };
+    scale(); window.addEventListener('resize',scale);
+  }
+  setupKeyboardNav(){
+    document.addEventListener('keydown',(e)=>{
+      if(e.target.getAttribute && e.target.getAttribute('contenteditable')==='true') return;
+      if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();this.next();}
+      else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();this.prev();}
+      else if(e.key==='Home'){e.preventDefault();this.showSlide(0);}
+      else if(e.key==='End'){e.preventDefault();this.showSlide(this.total-1);}
+    });
+  }
+  setupTouchNav(){
+    let x0=null;
+    document.addEventListener('touchstart',(e)=>{x0=e.touches[0].clientX;},{passive:true});
+    document.addEventListener('touchend',(e)=>{
+      if(x0===null) return;
+      const dx=e.changedTouches[0].clientX-x0;
+      if(Math.abs(dx)>40){dx<0?this.next():this.prev();}
+      x0=null;
+    },{passive:true});
+  }
+  setupWheelNav(){
+    let lock=false;
+    document.addEventListener('wheel',(e)=>{
+      if(lock||Math.abs(e.deltaY)<12) return;
+      lock=true; e.deltaY>0?this.next():this.prev();
+      setTimeout(()=>{lock=false;},420);
+    },{passive:true});
+  }
+  next(){this.showSlide(this.current+1);}
+  prev(){this.showSlide(this.current-1);}
+  showSlide(i){
+    this.current=Math.max(0,Math.min(i,this.total-1));
+    this.slides.forEach((s,n)=>{
+      const on=n===this.current;
+      s.classList.toggle('active',on);
+      s.classList.toggle('visible',on);
+      if(!on){ // 移除可见态以便下次进入时重播错峰动画
+        s.querySelectorAll('.rv,.rv-f,.rv-s,.rule').forEach(el=>{
+          el.style.animation='none'; void el.offsetWidth; el.style.animation='';
+        });
+      }
+    });
+  }
+}
+const deck=new SlidePresentation();
+
+/* ============================================================
+   === INLINE EDITING / 悬停左上角或按 E，Ctrl+S 导出副本 ===
+   ============================================================ */
+class InlineEditor{
+  constructor(){
+    this.active=false;
+    this.toggle=document.getElementById('editToggle');
+    this.hotzone=document.getElementById('editHotzone');
+    this.key='naiwa-studies-edits-v1';
+    this.bind();
+    this.restore();
+  }
+  bind(){
+    let hide=null;
+    const show=()=>{clearTimeout(hide);this.toggle.classList.add('show');};
+    const deferHide=()=>{hide=setTimeout(()=>{if(!this.active)this.toggle.classList.remove('show');},400);};
+    this.hotzone.addEventListener('mouseenter',show);
+    this.hotzone.addEventListener('mouseleave',deferHide);
+    this.toggle.addEventListener('mouseenter',show);
+    this.toggle.addEventListener('mouseleave',deferHide);
+    this.hotzone.addEventListener('click',()=>this.toggleMode());
+    this.toggle.addEventListener('click',()=>this.toggleMode());
+    document.addEventListener('keydown',(e)=>{
+      const editing=e.target.getAttribute && e.target.getAttribute('contenteditable')==='true';
+      if((e.key==='e'||e.key==='E')&&!editing) this.toggleMode();
+      if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();this.saveFile();}
+    });
+    document.querySelectorAll('[data-editable]').forEach(el=>{
+      el.addEventListener('input',()=>this.persist());
+      el.addEventListener('blur',()=>this.persist());
+    });
+  }
+  toggleMode(){
+    this.active=!this.active;
+    document.body.classList.toggle('editing',this.active);
+    this.toggle.classList.toggle('active',this.active);
+    document.querySelectorAll('[data-editable]').forEach(el=>{
+      el.setAttribute('contenteditable',this.active?'true':'false');
+    });
+    if(!this.active) this.persist();
+  }
+  persist(){
+    const data={};
+    document.querySelectorAll('[data-editable]').forEach((el,i)=>{data[i]=el.innerHTML;});
+    try{localStorage.setItem(this.key,JSON.stringify(data));}catch(err){}
+  }
+  restore(){
+    try{
+      const raw=localStorage.getItem(this.key); if(!raw) return;
+      const data=JSON.parse(raw);
+      document.querySelectorAll('[data-editable]').forEach((el,i)=>{if(data[i])el.innerHTML=data[i];});
+    }catch(err){}
+  }
+  saveFile(){
+    this.persist();
+    const clone=document.documentElement.cloneNode(true);
+    const html='<!DOCTYPE html>\n'+clone.outerHTML;
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='naiwa-studies-edited.html';
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  }
+}
+new InlineEditor();
+</script>
+</body>
+</html>

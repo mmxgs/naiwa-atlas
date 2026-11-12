@@ -1,0 +1,2541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>奶娃图鉴 · 变体识别｜必修 第一册</title>
+<meta name="description" content="以教科书体例逐个介绍奶娃本体与 38 种变体，配教材原图与图注，可筛选、可打卡、可测验。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<style>
+
+:root{
+  --paper:#F1E6CB; --paper2:#E5D6B0;
+  --ink:#3A2516; --soft:#7A5C42;
+  --grid:rgba(58,37,22,.16); --faint:rgba(58,37,22,.24);
+  --red:#E5392A; --pink:#E54489; --orange:#F09131;
+  --yellow:#F0BC2A; --green:#3D9F47; --blue:#3F8BC4;
+  --disp:'Big Shoulders Display','Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif;
+  --body:'Albert Sans','Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif;
+  --mono:'JetBrains Mono',Consolas,'Microsoft YaHei',monospace;
+  --edge:clamp(20px,4vw,72px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+  -webkit-text-size-adjust:100%;line-height:1.75}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.16;
+  background-image:radial-gradient(circle at 1px 1px,rgba(58,37,22,.55) 1px,transparent 1.6px);
+  background-size:4px 4px}
+body>*{position:relative;z-index:1}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--red);color:var(--paper)}
+
+/* ── 进度与顶栏 ── */
+#readbar{position:fixed;top:0;left:0;height:4px;width:0;background:var(--red);z-index:60}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(229,214,176,.97);
+  backdrop-filter:blur(8px);border-bottom:1.5px solid var(--ink);
+  display:flex;align-items:center;gap:14px;padding:9px var(--edge)}
+.tb-brand{font-family:var(--mono);font-size:12px;letter-spacing:.06em;white-space:nowrap}
+.tb-brand b{font-weight:700}
+.tb-spacer{flex:1}
+.tb-link{font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  border:1.5px solid var(--ink);padding:6px 10px;white-space:nowrap;background:var(--paper)}
+.tb-link:hover{background:var(--red);color:var(--paper);border-color:var(--red)}
+.tb-menu{display:none}
+#tocBtn{display:none}
+
+/* ── 目录侧栏 ── */
+.layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:0;max-width:1500px;margin:0 auto}
+.rail{position:sticky;top:56px;align-self:start;height:calc(100vh - 56px);
+  border-right:1.5px solid var(--ink);padding:28px 18px 28px var(--edge);overflow:auto;
+  background:linear-gradient(90deg,rgba(229,214,176,.5),transparent)}
+.rail h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;font-weight:500;
+  margin:0 0 16px;opacity:.7}
+.rail a{display:flex;gap:10px;align-items:baseline;padding:9px 0;
+  border-bottom:1px solid var(--faint);font-size:13px;line-height:1.4}
+.rail a span{font-family:var(--mono);font-size:10px;opacity:.6;flex:none}
+.rail a.on{font-weight:700;color:var(--red)}
+.rail a.on::after{content:"■";margin-left:auto;font-size:8px;color:var(--red)}
+.rail .rail-note{font-family:var(--mono);font-size:10px;line-height:1.9;opacity:.65;margin-top:22px;
+  border-top:1px dashed var(--ink);padding-top:12px}
+main{min-width:0;padding:0 var(--edge) 100px}
+section{scroll-margin-top:64px}
+.rule{border-top:1.5px solid var(--ink);margin:0}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+
+/* ── 封面：卡带包装 ── */
+#cover{position:relative;padding:clamp(48px,9vh,110px) 0 54px;overflow:hidden}
+#cover>:not(.glitch):not(.petals):not(.seal):not(.stamp){position:relative;z-index:2}
+.glitch{position:absolute;right:-130px;top:-60px;width:clamp(340px,44vw,640px);
+  height:calc(100% + 120px);pointer-events:none;opacity:.5;z-index:0;
+  transform:rotate(-22deg);
+  background:repeating-linear-gradient(90deg,
+     var(--red) 0 20px,var(--pink) 20px 40px,var(--orange) 40px 60px,
+     var(--yellow) 60px 80px,var(--green) 80px 100px,var(--blue) 100px 120px);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34%,#000 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 34%,#000 100%)}
+.petals{position:absolute;right:27%;top:30px;width:96px;height:96px;z-index:1;pointer-events:none}
+.petals i{position:absolute;width:46px;height:46px;border-radius:50%;opacity:.88}
+.petals i:nth-child(1){left:0;top:24px;background:var(--pink)}
+.petals i:nth-child(2){left:26px;top:0;background:var(--orange)}
+.petals i:nth-child(3){left:48px;top:26px;background:var(--yellow)}
+.petals i:nth-child(4){left:26px;top:48px;background:var(--green)}
+.petals i:nth-child(5){left:6px;top:52px;background:var(--blue)}
+.seal{position:absolute;right:4%;top:112px;width:96px;height:96px;z-index:3;
+  background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;
+  clip-path:polygon(50.00% 0.00%,57.51% 12.24%,69.13% 3.81%,71.39% 17.99%,85.36% 14.64%,82.01% 28.61%,96.19% 30.87%,87.76% 42.49%,100.00% 50.00%,87.76% 57.51%,96.19% 69.13%,82.01% 71.39%,85.36% 85.36%,71.39% 82.01%,69.13% 96.19%,57.51% 87.76%,50.00% 100.00%,42.49% 87.76%,30.87% 96.19%,28.61% 82.01%,14.64% 85.36%,17.99% 71.39%,3.81% 69.13%,12.24% 57.51%,0.00% 50.00%,12.24% 42.49%,3.81% 30.87%,17.99% 28.61%,14.64% 14.64%,28.61% 17.99%,30.87% 3.81%,42.49% 12.24%)}
+.seal span{font-family:var(--disp);font-weight:900;font-size:36px;line-height:1;letter-spacing:-.02em}
+.stamp{position:absolute;right:2%;top:246px;z-index:3;background:var(--red);color:var(--paper);
+  padding:8px 15px;font-family:var(--disp);font-weight:900;font-size:15px;letter-spacing:.06em;
+  transform:rotate(-3deg)}
+.cover-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border-bottom:1.5px solid var(--ink);padding-bottom:12px;margin-bottom:34px;
+  background:rgba(241,230,203,.72)}
+.cover-meta span{font-family:var(--mono);font-size:11px;letter-spacing:.08em}
+.qr{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;width:76px;height:76px;
+  background:var(--paper);box-shadow:0 0 0 1.5px var(--ink);padding:4px;margin-left:auto}
+.qr i{background:var(--paper2)}
+.qr i.on:nth-child(6n+1){background:var(--red)}
+.qr i.on:nth-child(6n+2){background:var(--pink)}
+.qr i.on:nth-child(6n+3){background:var(--orange)}
+.qr i.on:nth-child(6n+4){background:var(--green)}
+.qr i.on:nth-child(6n+5){background:var(--blue)}
+.qr i.on:nth-child(6n){background:var(--ink)}
+#cover h1{font-family:var(--disp);font-weight:900;font-size:clamp(56px,9vw,124px);
+  line-height:1.02;letter-spacing:0;margin:0 0 8px}
+#cover h1 .cn{font-weight:900}
+#cover .sub{font-family:var(--mono);font-size:clamp(11px,1.3vw,14px);letter-spacing:.22em;
+  text-transform:uppercase;line-height:1.4;margin:0 0 26px;color:var(--red)}
+.cover-lede{font-size:clamp(15px,1.6vw,19px);line-height:1.85;max-width:620px;margin:0 0 30px}
+.cover-lede b{color:var(--red)}
+.cover-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px}
+.btn{font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+  border:1.5px solid var(--ink);padding:12px 18px;background:var(--paper);color:var(--ink)}
+.btn.solid{background:var(--red);color:var(--paper);border-color:var(--ink)}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.cover-grid{display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);
+  background:rgba(241,230,203,.82)}
+.cover-grid>div{padding:16px 12px 14px;border-right:1px solid var(--faint);position:relative}
+.cover-grid>div:last-child{border-right:0}
+.cover-grid>div::before{content:"";position:absolute;top:0;left:0;right:0;height:7px;background:var(--red)}
+.cover-grid>div:nth-child(2)::before{background:var(--orange)}
+.cover-grid>div:nth-child(3)::before{background:var(--green)}
+.cover-grid>div:nth-child(4)::before{background:var(--blue)}
+.cover-grid .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;opacity:.7;display:block;margin-bottom:6px}
+.cover-grid .v{font-size:13px;line-height:1.6}
+
+/* ── 通用章节 ── */
+.chap{padding:64px 0 34px;border-top:1.5px solid var(--ink);margin-top:56px;position:relative}
+.pageno{position:absolute;right:0;top:66px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.06em;color:var(--red)}
+.chap-no{font-family:var(--mono);font-size:11px;letter-spacing:.16em;display:block;
+  margin-bottom:14px;color:var(--red);text-transform:uppercase}
+.chap h2{font-family:var(--disp);font-weight:900;font-size:clamp(36px,5.6vw,76px);
+  line-height:1.1;letter-spacing:0;margin:0 0 16px}
+.chap h2 .cn{font-weight:900}
+.chap .lede{font-size:clamp(15px,1.5vw,18px);line-height:1.9;max-width:760px;margin:0 0 26px}
+.goals{border-top:1px dashed var(--ink);border-bottom:1px dashed var(--ink);padding:16px 0;margin:0 0 34px}
+.goals .kicker{display:block;margin-bottom:10px;color:var(--red)}
+.goals ol{margin:0;padding-left:20px;font-size:14px;line-height:1.9}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,48px)}
+.plate{border:1.5px solid var(--ink);padding:14px;background:var(--paper)}
+.plate img{width:100%;max-height:340px;object-fit:contain;background:#fff}
+.plate .pc{border-top:1px dashed var(--ink);margin-top:12px;padding-top:10px;font-size:12px;line-height:1.7}
+.plate .pk{font-family:var(--mono);font-size:10px;letter-spacing:.1em;opacity:.7;display:block;margin-bottom:3px}
+.quote{border:1.5px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:18px 22px;margin:30px 0;
+  background:var(--paper);font-size:16px;line-height:1.9}
+.quote .qsrc{display:block;font-family:var(--mono);font-size:10px;opacity:.7;margin-top:10px}
+.ledger{border-top:1.5px solid var(--ink);margin-top:26px}
+.ledger .lr{display:grid;grid-template-columns:90px 1fr 2fr;gap:14px;padding:12px 0;
+  border-bottom:1px solid var(--faint);font-size:14px;line-height:1.75}
+.ledger .lr .n{font-family:var(--mono);font-size:11px;letter-spacing:.06em;opacity:.7}
+.ledger .lr .t{font-family:var(--disp);font-size:20px;font-weight:900;letter-spacing:0}
+.ledger .lh{font-family:var(--mono);font-size:10px;letter-spacing:.14em;opacity:.7}
+.catgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--faint);border:1.5px solid var(--ink)}
+.catgrid>div{background:var(--paper);padding:22px 18px}
+.catgrid .cn{font-family:var(--disp);font-size:28px;font-weight:900;margin-bottom:8px}
+.catgrid .cl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;opacity:.7;margin-bottom:12px}
+.catgrid p{font-size:14px;line-height:1.85;margin:0}
+
+/* ── 图鉴：产品目录 ── */
+.atlas-bar{position:sticky;top:52px;z-index:40;background:var(--ink);color:var(--paper);
+  border:0;border-bottom:1.5px solid var(--ink);padding:12px 14px;margin:0 0 8px}
+.atlas-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  border:1px solid var(--paper);padding:7px 12px;white-space:nowrap;color:var(--paper)}
+.chip.on{background:var(--red);border-color:var(--red);color:var(--paper)}
+.search{flex:1;min-width:160px;display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid rgba(241,230,203,.6);padding:5px 2px}
+.search input{flex:1;min-width:0;border:0;background:none;outline:none;color:var(--paper);
+  font-family:var(--body);font-size:14px}
+.search input::placeholder{color:var(--paper);opacity:.55}
+.count{font-family:var(--mono);font-size:11px;white-space:nowrap;color:var(--paper)}
+.prog-wrap{display:flex;align-items:center;gap:10px;margin-top:10px}
+.prog-line{flex:1;height:8px;border:1px solid rgba(241,230,203,.55);
+  background:repeating-linear-gradient(90deg,rgba(241,230,203,.08) 0 18px,rgba(241,230,203,.18) 18px 20px)}
+.prog-line i{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.prog-txt{font-family:var(--mono);font-size:10px;white-space:nowrap;color:var(--paper)}
+.grp{padding-top:44px}
+.grp-head{display:grid;grid-template-columns:64px 1fr auto;gap:18px;align-items:start;
+  border-bottom:1.5px solid var(--ink);padding-bottom:14px;margin-bottom:22px}
+.grp-no{font-family:var(--disp);font-size:52px;line-height:1;font-weight:900;color:var(--red);opacity:1}
+.grp-lat{font-family:var(--mono);font-size:10px;letter-spacing:.16em;opacity:.7}
+.grp-title{font-family:var(--disp);font-weight:900;
+  font-size:clamp(20px,2.6vw,32px);line-height:1.35;margin:4px 0 6px;letter-spacing:0}
+.grp-desc{font-size:13px;line-height:1.75;margin:0;opacity:.88}
+.grp-count{font-family:var(--mono);font-size:11px;white-space:nowrap;padding-top:6px}
+.spec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;background:transparent}
+.spec{position:relative;background:var(--paper);padding:28px 20px 20px;
+  display:grid;grid-template-columns:180px minmax(0,1fr);gap:20px;align-items:start;
+  border:1.5px solid var(--ink);transition:background .2s}
+.spec::before{content:"";position:absolute;top:0;left:0;right:0;height:9px;background:var(--red)}
+.spec[data-cat="换皮"]::before{background:var(--orange)}
+.spec[data-cat="异形"]::before{background:var(--green)}
+.spec[data-cat="客串"]::before{background:var(--blue)}
+.spec.hidden{display:none}
+.spec.flash{background:var(--yellow)}
+.spec-media{position:relative;border:1.5px solid var(--ink);background:#fff;padding:8px}
+.imgbtn{display:block;width:100%;padding:0;position:relative}
+.imgbtn img{width:100%;height:170px;object-fit:contain}
+.zoom{position:absolute;right:4px;bottom:4px;font-family:var(--mono);font-size:9px;
+  background:var(--red);color:var(--paper);padding:3px 6px;opacity:0;transition:opacity .2s}
+.imgbtn:hover .zoom,.imgbtn:focus .zoom{opacity:1}
+.media-no{font-family:var(--mono);font-size:9px;letter-spacing:.06em;
+  border-top:1px dashed var(--faint);margin-top:8px;padding-top:6px;opacity:.8}
+.spec-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.spec-id{font-family:var(--mono);font-size:10px;letter-spacing:.06em;opacity:.75;color:var(--red)}
+.spec-cat{font-family:var(--mono);font-size:10px;padding:2px 7px;
+  background:var(--red);color:var(--paper)}
+.spec[data-cat="换皮"] .spec-cat{background:var(--orange)}
+.spec[data-cat="异形"] .spec-cat{background:var(--green)}
+.spec[data-cat="客串"] .spec-cat{background:var(--blue)}
+.mark{margin-left:auto;display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.04em;
+  border:0;padding:0;background:none;white-space:nowrap}
+.mark .bx{width:14px;height:14px;border:2px solid var(--ink);
+  background:var(--paper);position:relative;flex:none}
+.mark.on .bx{background:var(--ink)}
+.mark.on .bx::after{content:"×";position:absolute;inset:0;display:flex;
+  align-items:center;justify-content:center;color:var(--paper);
+  font:900 13px/1 var(--disp)}
+.mark.on span{color:var(--red);font-weight:700}
+.spec h3{font-family:var(--disp);font-weight:900;
+  font-size:clamp(20px,2.1vw,28px);line-height:1.25;margin:0 0 8px;letter-spacing:0}
+.spec h3 .en{display:block;font-family:var(--mono);font-weight:400;
+  font-size:11px;letter-spacing:.04em;opacity:.7;margin-top:3px}
+.spec .lead{font-size:14px;font-weight:700;line-height:1.7;margin:0 0 8px}
+.spec .desc{font-size:13px;line-height:1.85;margin:0 0 10px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.tag{font-family:var(--mono);font-size:9px;border:1px solid var(--faint);padding:2px 6px}
+.capline{font-size:11px;line-height:1.65;border-top:1px dashed var(--ink);padding-top:8px;opacity:.9}
+.capline span{font-family:var(--mono);font-size:10px;margin-right:6px;color:var(--red)}
+.srcline{font-family:var(--mono);font-size:9px;line-height:1.6;opacity:.6;margin-top:6px}
+.empty{padding:50px 20px;text-align:center;font-family:var(--disp);font-size:26px;font-weight:900}
+
+/* ── 测验 ── */
+.quiz{border:1.5px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+  padding:clamp(18px,3vw,34px);background:var(--paper)}
+.quiz-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border-bottom:1.5px solid var(--ink);padding-bottom:12px;margin-bottom:22px}
+.quiz-head .t{font-family:var(--disp);font-size:28px;font-weight:900;letter-spacing:0}
+.quiz-head .s{font-family:var(--mono);font-size:11px}
+.quiz-body{display:grid;grid-template-columns:260px 1fr;gap:28px;align-items:start}
+.quiz-img{width:100%;height:240px;object-fit:contain;background:#fff;border:1.5px solid var(--ink)}
+.quiz-cap{font-family:var(--mono);font-size:10px;line-height:1.6;margin-top:8px;opacity:.75}
+.quiz-q{font-size:16px;line-height:1.8;margin:0 0 16px;font-weight:700}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{text-align:left;border:1.5px solid var(--ink);padding:11px 13px;
+  font-size:14px;line-height:1.5;background:var(--paper)}
+.opt:hover{background:var(--yellow)}
+.opt.right{background:var(--green);color:var(--paper);border-color:var(--ink)}
+.opt.wrong{border-color:var(--red);color:var(--red);text-decoration:line-through;opacity:.7}
+.quiz-fb{min-height:52px;margin-top:16px;border-top:1px dashed var(--ink);
+  padding-top:12px;font-size:14px;line-height:1.8}
+.quiz-fb b{font-family:var(--disp);font-size:21px;font-weight:900}
+.quiz-end{text-align:center;padding:24px 0}
+.quiz-end .big{font-family:var(--disp);font-size:clamp(38px,6vw,72px);
+  line-height:1.1;color:var(--red);font-weight:900}
+
+/* ── 灯箱 ── */
+#lb{position:fixed;inset:0;z-index:100;background:rgba(58,37,22,.94);
+  display:none;align-items:center;justify-content:center;padding:20px}
+#lb.open{display:flex}
+.lb-inner{max-width:900px;width:100%;max-height:92vh;display:flex;flex-direction:column;gap:12px;
+  background:var(--paper);border:1.5px solid var(--ink);box-shadow:8px 8px 0 var(--red);padding:18px}
+.lb-top{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  border-bottom:1.5px solid var(--ink);padding-bottom:10px;font-family:var(--mono);font-size:11px}
+.lb-img{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;
+  background:#fff;padding:12px;border:1px solid var(--faint)}
+.lb-img img{max-height:60vh;max-width:100%;object-fit:contain}
+.lb-cap{font-size:13px;line-height:1.7}
+.lb-nav{display:flex;gap:8px}
+.lb-nav button{font-family:var(--mono);font-size:11px;border:1.5px solid var(--ink);padding:8px 12px}
+.lb-nav button:hover{background:var(--red);color:var(--paper);border-color:var(--red)}
+
+footer{border-top:1.5px solid var(--ink);margin-top:70px;padding:28px 0 0;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;font-size:12px;line-height:1.85}
+footer .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;opacity:.7;display:block;margin-bottom:6px}
+
+/* ── 响应式 ── */
+@media(max-width:1100px){
+  .spec-grid{grid-template-columns:1fr}
+  .spec{grid-template-columns:200px minmax(0,1fr)}
+}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .rail{display:none}
+  .rail.open{display:block;position:relative;top:0;height:auto;border-right:0;
+    border-bottom:1.5px solid var(--ink);padding:18px var(--edge)}
+  #tocBtn{display:inline-block}
+  .topbar{flex-wrap:wrap}
+  .tb-brand{font-size:11px}
+  main{padding:0 var(--edge) 80px}
+  .cols2,.catgrid{grid-template-columns:1fr}
+  .cover-grid{grid-template-columns:repeat(2,1fr)}
+  .cover-grid>div:nth-child(2){border-right:0}
+  .quiz-body{grid-template-columns:1fr}
+  .quiz-img{height:200px}
+  .grp-head{grid-template-columns:44px 1fr;gap:10px}
+  .grp-count{grid-column:2}
+  .glitch{width:80px;opacity:.35}
+}
+@media(max-width:560px){
+  .spec{grid-template-columns:1fr;gap:12px}
+  .spec-media{max-width:240px}
+  .imgbtn img{height:180px}
+  .opts{grid-template-columns:1fr}
+  .cover-grid{grid-template-columns:1fr 1fr}
+  .ledger .lr{grid-template-columns:70px 1fr;gap:6px}
+  .ledger .lr .d{grid-column:2}
+  footer{grid-template-columns:1fr 1fr}
+  .topbar{position:relative}
+  .atlas-bar{top:0}
+  .chips{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+  .qr{width:58px;height:58px}
+}
+
+/* ── 补编两组的图版色标 ── */
+.spec[data-cat="十二奶肖"]::before{background:var(--pink)}
+.spec[data-cat="奶字母"]::before{background:var(--yellow)}
+.spec[data-cat="十二奶肖"] .spec-cat{background:var(--pink)}
+.spec[data-cat="奶字母"] .spec-cat{background:var(--yellow)}
+/* ── 彩条不压封面文字 ── */
+.glitch{opacity:.36}
+.cover-meta,.cover-grid{background:rgba(241,230,203,.94)}
+.cover-actions,.cover-lede,#cover h1,#cover .sub{text-shadow:0 1px 0 rgba(241,230,203,.85)}
+/* ── 末轮修整：出处可读 / 按钮 / 窄屏分组头 ── */
+.srcline{font-size:10px;opacity:.76}
+.atlas-bar .tb-link{background:var(--red);color:var(--paper);border:1px solid var(--paper)}
+.atlas-bar .tb-link:hover{background:var(--pink);color:var(--paper);border-color:var(--paper)}
+@media(max-width:820px){
+  .grp-head{grid-template-columns:1fr;gap:4px}
+  .grp-no{font-size:40px;line-height:1}
+  .grp-count{grid-column:1;padding-top:0}
+  .grp-lat{margin-top:2px}
+}
+/* ── Sakura 移动端补充 ── */
+@media(max-width:820px){
+  .glitch{width:280px;right:-100px;opacity:.34}
+  .seal{width:66px;height:66px;right:2%;top:76px}
+  .seal span{font-size:24px}
+  .stamp{top:172px;font-size:11px;padding:5px 9px}
+  .petals{display:none}
+  #cover h1{font-size:clamp(48px,12vw,86px)}
+  .cover-lede{max-width:80%}
+  .pageno{top:auto;bottom:12px}
+}
+@media(max-width:560px){
+  .glitch{width:190px;right:-80px;opacity:.30}
+  .seal{width:52px;height:52px;top:58px}
+  .seal span{font-size:19px}
+  .stamp{display:none}
+  .spec-grid{gap:10px}
+  .quiz{box-shadow:5px 5px 0 var(--ink)}
+  .quote{box-shadow:5px 5px 0 var(--ink)}
+  .cover-lede{max-width:100%}
+  .petals{display:none}
+}
+</style>
+</head>
+<body>
+<div id="readbar"></div>
+<header class="topbar">
+  <div class="tb-brand"><b>奶娃图鉴</b> · VARIANT ATLAS / 必修 第一册</div>
+  <div class="tb-spacer"></div>
+  <button class="tb-link" id="tocBtn">目录 ≡</button>
+  <a class="tb-link" href="#quiz">随堂测验 →</a>
+  <a class="tb-link" href="naiwa-studies.html">旧版演示稿 ↗</a>
+</header>
+<div class="layout">
+  <nav class="rail" id="rail">
+    <h4>CONTENTS / 目录</h4>
+<a href="#cover" data-toc="cover"><span>01</span>封面</a>
+<a href="#preface" data-toc="preface"><span>02</span>使用说明</a>
+<a href="#ch1" data-toc="ch1"><span>03</span>第一章 判据</a>
+<a href="#ch2" data-toc="ch2"><span>04</span>第二章 分类法</a>
+<a href="#atlas" data-toc="atlas"><span>05</span>第三章 变体图鉴</a>
+<a href="#quiz" data-toc="quiz"><span>06</span>练习与应用</a>
+<a href="#appendix" data-toc="appendix"><span>07</span>附录 图源</a>
+    <div class="rail-note">SAKURA CHROMA EDITION<br>六色印刷 · 半调网点纸<br>75 枚标本 · 全部配图<br>2026 / 11 / 12</div>
+  </nav>
+  <main>
+
+  <section id="cover">
+    <div class="petals"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="seal"><span>75</span></div>
+    <div class="stamp">必修 · 第一册</div>
+    <div class="glitch"></div>
+    <div class="cover-meta">
+      <span>普通高等教育「野生」通识教材 · 完全开源</span>
+      <span>2026 / 11 / 12 · VOL. 01</span>
+    </div>
+    <div class="qr" id="qr"></div>
+    <h1><span class="cn">奶娃图鉴</span></h1>
+    <p class="sub">A Field Guide to Milk Frog Variants</p>
+    <p class="cover-lede">本册不考据、不辩论，只做一件事：把这只黄色的蛙，以及由它长出来的每一种变体，<b>一个一个认清楚</b>。每条标本配教材原图、原图注与出处，可筛选、可打卡、可自测。</p>
+    <div class="cover-actions">
+      <a class="btn solid" href="#atlas">开始认蛙 →</a>
+      <button class="btn" id="randomBtn">随机翻一只 ↗</button>
+      <a class="btn" href="#preface">先读使用说明</a>
+    </div>
+    <div class="cover-grid">
+      <div><span class="k">COURSE / 课程</span><span class="v">变体识别 · 必修 第一册<br>不点名 / 不强制预习</span></div>
+      <div><span class="k">SPECIMENS / 标本</span><span class="v">75 枚 · 6 大类<br>逐条配图与图注</span></div>
+      <div><span class="k">PLATES / 图版</span><span class="v">教材原图 39 帧<br>外部形象图 56 帧</span></div>
+      <div><span class="k">COMPILER / 整理</span><span class="v">奶龙<br>按教材语法编目</span></div>
+    </div>
+  </section>
+
+  <section id="preface" class="chap">
+    <span class="chap-no">00 / 使用说明 · PLEASE DO NOT SKIP</span>
+    <h2><span class="cn">先说清楚这本册子怎么读</span></h2>
+    <p class="lede">「奶娃学」真正好玩的地方，不是有人考据出了什么，而是有人<strong>把一件荒唐事当成一门正经学科来办</strong>：编课本、写定理、出期中试卷、给每一只蛙编号登记。本册沿用这套语法。</p>
+    <div class="goals"><span class="kicker">本册的学习目标</span>
+      <ol><li>能说出奶蛙与官方奶龙的区别，以及「保留眼睛与大笑」这一判据。</li>
+      <li>能区分换皮、异形、客串三大类，并各举两例。</li>
+      <li>能认全本册收录的 75 枚标本，知道每一枚的来处。</li>
+      <li>完成「练习与应用」的辨认测验，笑出来就算通过。</li></ol>
+    </div>
+    <div class="cols2">
+      <div class="plate"><img src="assets/vg_01.webp" alt="奶家人合集图版" loading="lazy">
+        <div class="pc"><span class="pk">外部图版 00 / 11 位奶家人合集</span>社群盘点把奶狗、奶猫、奶鸡、奶鼠、奶猪等并称为「奶家动物园」。本册把它与开源教材的第七章互为参照。</div></div>
+      <div class="plate"><img src="assets/figure01_1.webp" alt="奶蛙形态图版" loading="lazy">
+        <div class="pc"><span class="pk">图 1.1 / 探头偷看的奶蛙与「有点小差异，各有各的美」</span>教材第一章先用图建立形态直觉，再谈定义。本册沿用这个顺序。</div></div>
+    </div>
+    <div class="quote">「本教材为完全开源通识课，不设期末考试，不点名，不强制预习。唯一考勤方式：你曾在宿舍群、朋友圈或任何一个深夜对话框里，发过一张黄色梨形生物捧腹大笑的表情包。」
+      <span class="qsrc">—《奶蛙学基础教程 · 必修一》课程说明</span></div>
+    <div class="ledger">
+      <div class="lr lh"><span>栏目</span><span>名称</span><span>说明</span></div>
+      <div class="lr"><span class="n">01</span><span class="t">资料卡片</span><span class="d">每枚标本的形象图与教材原图注，保留原始编号（图 7.x）。</span></div>
+      <div class="lr"><span class="n">02</span><span class="t">观察与描述</span><span class="d">每条的「一句话定义 + 完整介绍」，尽量用教材原文口径。</span></div>
+      <div class="lr"><span class="n">03</span><span class="t">思考与讨论</span><span class="d">分类法与模型边界：为什么有些魔改不算奶蛙变体。</span></div>
+      <div class="lr"><span class="n">04</span><span class="t">练习与应用</span><span class="d">看图猜名的辨认测验，即时判分，可反复重做。</span></div>
+    </div>
+  </section>
+
+  <section id="ch1" class="chap">
+    <span class="chap-no">01 / 第一章 · 观察与辨认</span>
+    <h2><span class="cn">此龙非彼蛙</span></h2>
+    <p class="lede">教材第一章先做区分：官方奶龙是儿童向 IP，奶蛙是它长出的成年版本。两者不是同一个形象，也不共享同一套设定；混为一谈正是社群里「龙蛙相争」的主要来源。</p>
+    <div class="cols2">
+      <div class="plate"><img src="assets/figure01_3.webp" alt="奶龙官方形象" loading="lazy">
+        <div class="pc"><span class="pk">图 1.3 / 奶龙的官方形象</span>圆脑袋、大肚皮、圆眼睛，呆萌、会喷火（主要用于加热食物）。</div></div>
+      <div class="plate"><img src="assets/figure01_4.webp" alt="奶蛙经典形象" loading="lazy">
+        <div class="pc"><span class="pk">图 1.4 / 奶蛙经典形象</span>黄色皮肤、绿色凸眼、四肢末端渐变发黑、肚皮突出，能发出爽朗大笑。</div></div>
+    </div>
+    <div class="quote">识别判据：<strong>保留「眼睛」与「大笑」两大核心特征，且处在社群共同语境中</strong>。也有部分魔改即便保留了特征，因脱离社群共同语境，并不被视作奶蛙变体。
+      <span class="qsrc">—《概论》第七章 /《奶蛙学基础教程》试卷第 28 题</span></div>
+    <div class="ledger">
+      <div class="lr lh"><span>别名</span><span>写法</span><span>说明</span></div>
+      <div class="lr"><span class="n">A-01</span><span class="t">奶蛙</span><span class="d">教材正文统一写法，本册沿用。</span></div>
+      <div class="lr"><span class="n">A-02</span><span class="t">奶娃</span><span class="d">同音异写，视频号、题库盘点与公众号标题里最常见。</span></div>
+      <div class="lr"><span class="n">A-03</span><span class="t">大笑奶龙 / 变异奶龙</span><span class="d">强调它仍属奶龙衍生谱系的叫法。</span></div>
+      <div class="lr"><span class="n">A-04</span><span class="t">Milk Frog / Naiwa</span><span class="d">英文与拼音写法；奶家人、奶家军为社群自称。</span></div>
+      <div class="lr"><span class="n">A-05</span><span class="t">黄色三幻神</span><span class="d">奶蛙、牛来、美团袋鼠的组合名，不是单指某一只。</span></div>
+    </div>
+  </section>
+
+  <section id="ch2" class="chap">
+    <span class="chap-no">02 / 第二章 · 分类法</span>
+    <h2><span class="cn">什么才算一只奶蛙</span></h2>
+    <p class="lede">第七章把变体分成三支。分类不看「像不像」，看两件事：<strong>形体保留了多少</strong>，以及<strong>谁在用、怎么用</strong>。</p>
+    <div class="catgrid">
+      <div><div class="cl">I / RESKIN</div><div class="cn">换皮奶蛙</div><p>仅皮肤、图标或封面发生变化，大部分形体特征保留下来。例：异色奶蛙、植奶、VIVO 奶蛙。</p></div>
+      <div><div class="cl">II / MORPH</div><div class="cn">异形奶蛙</div><p>丢失大量形体特征，但仍保留眼睛与大笑。例：奶蛋、奶狗、奶蝠、西格玛奶蛙。</p></div>
+      <div><div class="cl">III / CROSSOVER</div><div class="cn">客串角色</div><p>本身不是奶蛙，因颜色或抽象气质相近而联动，分主要与次要两级。</p></div>
+    </div>
+    <div class="quote">「这些『设定』没有官方文本，全部由二创作品互相引用、逐渐沉淀而成，教材只是替它们做了编目。」
+      <span class="qsrc">— 本册研究者旁注</span></div>
+    <p class="lede">所以本册把 <strong>75 枚标本</strong> 按「本体 / 换皮 / 异形 / 客串 / 十二奶肖 / 奶字母」归档：本体 4 条是源流与参照，中间 33 条是变体与联动，末两组 38 条是补编的族群图版。每一条都能点开大图、标记已认识。</p>
+  </section>
+
+  <section id="atlas" class="chap">
+    <span class="chap-no">03 / 第三章 · 变体图鉴</span>
+    <h2><span class="cn">逐枚辨认</span></h2>
+    <p class="lede">前六组按教材第七章的分组顺序排列；第七、八组是补编的「十二奶肖」与「奶字母」，把原先只有一张合集图的两个族群拆成逐枚条目。每枚标本都有形象图、图号、原图注、定义、完整介绍与出处。用筛选和搜索找蛙，点图放大，点「☆ 已认识」打卡。</p>
+  </section>
+
+  <div class="atlas-bar">
+    <div class="atlas-row">
+      <div class="chips" id="chips">
+        <button class="chip on" data-cat="全部">全部 75</button>
+        <button class="chip" data-cat="本体">本体 4</button>
+<button class="chip" data-cat="换皮">换皮 6</button>
+<button class="chip" data-cat="异形">异形 19</button>
+<button class="chip" data-cat="客串">客串 8</button>
+<button class="chip" data-cat="十二奶肖">十二奶肖 12</button>
+<button class="chip" data-cat="奶字母">奶字母 26</button>
+      </div>
+      <div class="search"><span class="kicker">⌕</span><input id="q" type="search" placeholder="搜名字 / 别名 / 标签，如「安迪」「粉」「VIVO」" autocomplete="off"></div>
+      <div class="count" id="count">显示 75 / 75</div>
+    </div>
+    <div class="prog-wrap">
+      <span class="prog-txt">已认识</span>
+      <div class="prog-line"><i id="progFill"></i></div>
+      <span class="prog-txt" id="progTxt">0 / 75</span>
+      <button class="tb-link" id="clearMarks" style="padding:3px 8px">清空</button>
+    </div>
+  </div>
+  <div id="atlasBody">
+<div class="grp" data-grp="一 · 源流与本体">
+  <div class="grp-head">
+    <div class="grp-no">01</div>
+    <div>
+      <div class="grp-lat">ORIGIN & CANON</div>
+      <h2 class="grp-title">一 · 源流与本体</h2>
+      <p class="grp-desc">源流与母本：官方奶龙、AI 畸变后的奶蛙，以及命名与形态的参照物。</p>
+    </div>
+    <div class="grp-count">4 条</div>
+  </div>
+  <div class="spec-grid"><article class="spec" id="spec-001" data-cat="本体" data-id="001"
+  data-search="奶龙 nailong 本体 一切变异的起点，是 2020 年上线的儿童向动画角色。 第七印象文化传媒（深圳）创作的异星幼龙，圆脑袋、大肚皮、一对圆圆的大眼睛，性情呆萌又带点小机灵，是一枚大吃货；会喷火，但主要用于加热食物。2020 年在短视频平台上线，同年抖音粉丝破千万，此后三季番剧陆续播出，成为后来所有「奶化」二创的共同母本。 官方原版 2020 子供向 ip 第七印象">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure01_3.webp" data-name="奶龙" data-fig="图 1.3" data-cap="奶龙的官方形象" aria-label="放大查看奶龙形象">
+      <img src="assets/figure01_3.webp" alt="奶龙形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 1.3</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 001</span>
+      <span class="spec-cat">本体</span>
+      <button class="mark" data-id="001" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶龙 <span class="en">Nailong</span></h3>
+    <p class="lead">一切变异的起点，是 2020 年上线的儿童向动画角色。</p>
+    <p class="desc">第七印象文化传媒（深圳）创作的异星幼龙，圆脑袋、大肚皮、一对圆圆的大眼睛，性情呆萌又带点小机灵，是一枚大吃货；会喷火，但主要用于加热食物。2020 年在短视频平台上线，同年抖音粉丝破千万，此后三季番剧陆续播出，成为后来所有「奶化」二创的共同母本。</p>
+    <div class="tags"><span class="tag">官方原版</span><span class="tag">2020</span><span class="tag">子供向 IP</span><span class="tag">第七印象</span></div>
+    <div class="capline"><span>图 1.3</span> 奶龙的官方形象</div>
+    <div class="srcline">出处 · 《捧腹大笑思想与奶龙学概论》第一章 · 定义 01；萌娘百科「奶龙」</div>
+  </div>
+</article>
+<article class="spec" id="spec-002" data-cat="本体" data-id="002"
+  data-search="奶蛙 milk frog / naiwa 本体 又称大笑奶龙、变异奶龙，教材写作「奶蛙」，社群常写作「奶娃」。 一般认为由 2024 年 10 月星野 app 上「奶龙」智能体的 ai 头像畸变而来：ai 把圆滚滚的小黄龙画成四肢细长、肚子硕大、眼神清澈的黄色生物。教材定义为「由奶龙演变而来的黄色皮肤、绿色眼睛、四肢末端渐变发黑、肚皮突出、能发出爽朗大笑的半人半蛙生物」，因与非洲爪蟾形似而得名。 本体 ai 事故 2024-10 同音异写">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure01_4.webp" data-name="奶蛙" data-fig="图 1.4" data-cap="奶蛙经典形象" aria-label="放大查看奶蛙形象">
+      <img src="assets/figure01_4.webp" alt="奶蛙形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 1.4</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 002</span>
+      <span class="spec-cat">本体</span>
+      <button class="mark" data-id="002" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶蛙 <span class="en">Milk Frog / Naiwa</span></h3>
+    <p class="lead">又称大笑奶龙、变异奶龙，教材写作「奶蛙」，社群常写作「奶娃」。</p>
+    <p class="desc">一般认为由 2024 年 10 月星野 App 上「奶龙」智能体的 AI 头像畸变而来：AI 把圆滚滚的小黄龙画成四肢细长、肚子硕大、眼神清澈的黄色生物。教材定义为「由奶龙演变而来的黄色皮肤、绿色眼睛、四肢末端渐变发黑、肚皮突出、能发出爽朗大笑的半人半蛙生物」，因与非洲爪蟾形似而得名。</p>
+    <div class="tags"><span class="tag">本体</span><span class="tag">AI 事故</span><span class="tag">2024-10</span><span class="tag">同音异写</span></div>
+    <div class="capline"><span>图 1.4</span> 奶蛙经典形象</div>
+    <div class="srcline">出处 · 《概论》第一章 · 定义 02；失传媒体中文维基 deleted:naiwa</div>
+  </div>
+</article>
+<article class="spec" id="spec-003" data-cat="本体" data-id="003"
+  data-search="奶娃 papa naiwa papa / 奶 pa 本体 出自婴儿流口水图，是很早一批与空耳梗绑定的形象。 把一张广为流传的婴儿吐口水黑白照片换上奶蛙的黄色身体，得到「奶娃 papa／奶 pa」。它属于最早一批传播的形象，常与《王者荣耀》不知火舞语音变速变调后空耳出的「安迪」「嘎嘎滴辣虾」一起出现，是「奶娃」这一同音写法最直观的来源之一。 早期形象 空耳 安迪 婴儿图">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="vg_04.webp" data-name="奶娃 papa" data-fig="外部图版 01" data-cap="奶娃 papa：婴儿流口水图与奶蛙身体的合成" aria-label="放大查看奶娃 papa形象">
+      <img src="assets/vg_04.webp" alt="奶娃 papa形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 01</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 003</span>
+      <span class="spec-cat">本体</span>
+      <button class="mark" data-id="003" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶娃 papa <span class="en">Naiwa Papa / 奶 pa</span></h3>
+    <p class="lead">出自婴儿流口水图，是很早一批与空耳梗绑定的形象。</p>
+    <p class="desc">把一张广为流传的婴儿吐口水黑白照片换上奶蛙的黄色身体，得到「奶娃 papa／奶 pa」。它属于最早一批传播的形象，常与《王者荣耀》不知火舞语音变速变调后空耳出的「安迪」「嘎嘎滴辣虾」一起出现，是「奶娃」这一同音写法最直观的来源之一。</p>
+    <div class="tags"><span class="tag">早期形象</span><span class="tag">空耳</span><span class="tag">安迪</span><span class="tag">婴儿图</span></div>
+    <div class="capline"><span>外部图版 01</span> 奶娃 papa：婴儿流口水图与奶蛙身体的合成</div>
+    <div class="srcline">出处 · 电玩帮《奶家人大集合！你真的能把奶龙们认全吗？》2026-10-19</div>
+  </div>
+</article>
+<article class="spec" id="spec-004" data-cat="本体" data-id="004"
+  data-search="非洲爪蟾 african clawed frog 本体 教材用来解释「蛙」字由来的现实参照物，不是变体。 教材第一章把非洲爪蟾与奶蛙的三视图并置，指出奶蛙后视图具有明显的蛙类特征，以此说明「奶蛙」命名并非纯粹玩笑。它也构成了全书最典型的语气：用最严谨的形态学语言，去描述一只根本不存在的黄色生物。 形态参照 命名由来 资料卡片">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure01_5.webp" data-name="非洲爪蟾" data-fig="图 1.5" data-cap="「现实中的奶蛙」非洲爪蟾（左）与奶蛙三视图（右），后视图具明显蛙类特征" aria-label="放大查看非洲爪蟾形象">
+      <img src="assets/figure01_5.webp" alt="非洲爪蟾形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 1.5</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 004</span>
+      <span class="spec-cat">本体</span>
+      <button class="mark" data-id="004" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>非洲爪蟾 <span class="en">African Clawed Frog</span></h3>
+    <p class="lead">教材用来解释「蛙」字由来的现实参照物，不是变体。</p>
+    <p class="desc">教材第一章把非洲爪蟾与奶蛙的三视图并置，指出奶蛙后视图具有明显的蛙类特征，以此说明「奶蛙」命名并非纯粹玩笑。它也构成了全书最典型的语气：用最严谨的形态学语言，去描述一只根本不存在的黄色生物。</p>
+    <div class="tags"><span class="tag">形态参照</span><span class="tag">命名由来</span><span class="tag">资料卡片</span></div>
+    <div class="capline"><span>图 1.5</span> 「现实中的奶蛙」非洲爪蟾（左）与奶蛙三视图（右），后视图具明显蛙类特征</div>
+    <div class="srcline">出处 · 《概论》第一章 图 1.5 图注</div>
+  </div>
+</article></div>
+</div>
+<div class="grp" data-grp="二 · 换皮奶蛙">
+  <div class="grp-head">
+    <div class="grp-no">02</div>
+    <div>
+      <div class="grp-lat">RESKIN</div>
+      <h2 class="grp-title">二 · 换皮奶蛙</h2>
+      <p class="grp-desc">仅皮肤、图标或封面发生变化，大部分形体特征保留。</p>
+    </div>
+    <div class="grp-count">6 条</div>
+  </div>
+  <div class="spec-grid"><article class="spec" id="spec-005" data-cat="换皮" data-id="005"
+  data-search="异色奶蛙 color variants 换皮 仅皮肤发生变化，大部分形体特征保留。 教材把「只换色、不换形」的一类归入换皮奶蛙，图中给出了蓝、红、白等不同模式的异色版本。判别要点是轮廓、绿眼、大肚皮与大笑姿态仍在，改变的是表面颜色或材质；因此它仍被算作奶蛙，而不是新物种。 换皮 保留形体 判据样本">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_1.webp" data-name="异色奶蛙" data-fig="图 7.1" data-cap="一些不同模式的异色奶蛙形象" aria-label="放大查看异色奶蛙形象">
+      <img src="assets/figure07_1.webp" alt="异色奶蛙形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.1</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 005</span>
+      <span class="spec-cat">换皮</span>
+      <button class="mark" data-id="005" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>异色奶蛙 <span class="en">Color Variants</span></h3>
+    <p class="lead">仅皮肤发生变化，大部分形体特征保留。</p>
+    <p class="desc">教材把「只换色、不换形」的一类归入换皮奶蛙，图中给出了蓝、红、白等不同模式的异色版本。判别要点是轮廓、绿眼、大肚皮与大笑姿态仍在，改变的是表面颜色或材质；因此它仍被算作奶蛙，而不是新物种。</p>
+    <div class="tags"><span class="tag">换皮</span><span class="tag">保留形体</span><span class="tag">判据样本</span></div>
+    <div class="capline"><span>图 7.1</span> 一些不同模式的异色奶蛙形象</div>
+    <div class="srcline">出处 · 《概论》第七章 一（1）；图 7.1</div>
+  </div>
+</article>
+<article class="spec" id="spec-006" data-cat="换皮" data-id="006"
+  data-search="植奶 / 僵奶 pvz milk frog 换皮 把奶蛙嫁接进《植物大战僵尸》的爆款系列。 b 站 up 主「暖气杀手 aaa」制作的《植奶大战僵龙》系列，将奶蛙与 pvz 的植物／僵尸设定结合，产出多款百万播放视频，被教材称为「奶蛙爆火的强力引擎之一」。图中是海豚僵奶与猫尾奶，属于角色皮肤置换而非形体改造。 换皮 pvz 百万播放 b 站">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_2.webp" data-name="植奶 / 僵奶" data-fig="图 7.2" data-cap="《植奶大战僵龙》系列视频中的海豚僵奶和猫尾奶形象" aria-label="放大查看植奶 / 僵奶形象">
+      <img src="assets/figure07_2.webp" alt="植奶 / 僵奶形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.2</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 006</span>
+      <span class="spec-cat">换皮</span>
+      <button class="mark" data-id="006" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>植奶 / 僵奶 <span class="en">PVZ Milk Frog</span></h3>
+    <p class="lead">把奶蛙嫁接进《植物大战僵尸》的爆款系列。</p>
+    <p class="desc">B 站 UP 主「暖气杀手 AAA」制作的《植奶大战僵龙》系列，将奶蛙与 PVZ 的植物／僵尸设定结合，产出多款百万播放视频，被教材称为「奶蛙爆火的强力引擎之一」。图中是海豚僵奶与猫尾奶，属于角色皮肤置换而非形体改造。</p>
+    <div class="tags"><span class="tag">换皮</span><span class="tag">PVZ</span><span class="tag">百万播放</span><span class="tag">B 站</span></div>
+    <div class="capline"><span>图 7.2</span> 《植奶大战僵龙》系列视频中的海豚僵奶和猫尾奶形象</div>
+    <div class="srcline">出处 · 《概论》第七章 一（2）；图 7.2</div>
+  </div>
+</article>
+<article class="spec" id="spec-007" data-cat="换皮" data-id="007"
+  data-search="线代课本奶蛙 linear algebra 换皮 把课本封面换成奶蛙，是大学生最熟悉的一类换皮。 教材把「用图标、封面等进行换皮」的其他例子集中展示，线性代数课本封面的奶化版本是其中之一。这类形象的意义不在造型，而在场景：它把大学生日常最痛的符号换成了最抽象的符号，转发的笑点来自两者的落差。 换皮 校园符号 封面置换">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="s_linear.webp" data-name="线代课本奶蛙" data-fig="图 7.3 左" data-cap="线代课本奶蛙（左）、VIVO 奶蛙（中）、学习通奶蛙（右）" aria-label="放大查看线代课本奶蛙形象">
+      <img src="assets/s_linear.webp" alt="线代课本奶蛙形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.3 左</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 007</span>
+      <span class="spec-cat">换皮</span>
+      <button class="mark" data-id="007" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>线代课本奶蛙 <span class="en">Linear Algebra</span></h3>
+    <p class="lead">把课本封面换成奶蛙，是大学生最熟悉的一类换皮。</p>
+    <p class="desc">教材把「用图标、封面等进行换皮」的其他例子集中展示，线性代数课本封面的奶化版本是其中之一。这类形象的意义不在造型，而在场景：它把大学生日常最痛的符号换成了最抽象的符号，转发的笑点来自两者的落差。</p>
+    <div class="tags"><span class="tag">换皮</span><span class="tag">校园符号</span><span class="tag">封面置换</span></div>
+    <div class="capline"><span>图 7.3 左</span> 线代课本奶蛙（左）、VIVO 奶蛙（中）、学习通奶蛙（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 一（3）；图 7.3</div>
+  </div>
+</article>
+<article class="spec" id="spec-008" data-cat="换皮" data-id="008"
+  data-search="vivo 奶蛙 vivo milk frog 换皮 品牌图标的奶化版本，蓝色皮肤、捧腹姿态不变。 与线代课本奶蛙、学习通奶蛙同属「图标／封面换皮」一组。教材强调这类变体只替换识别符号，形体与神态仍是奶蛙；它们之所以能一眼被认出，正因为保留了绿眼与大笑这两个核心特征。 换皮 品牌图标 保留核心特征">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="s_vivo.webp" data-name="VIVO 奶蛙" data-fig="图 7.3 中" data-cap="VIVO 图标奶化形象" aria-label="放大查看VIVO 奶蛙形象">
+      <img src="assets/s_vivo.webp" alt="VIVO 奶蛙形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.3 中</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 008</span>
+      <span class="spec-cat">换皮</span>
+      <button class="mark" data-id="008" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>VIVO 奶蛙 <span class="en">VIVO Milk Frog</span></h3>
+    <p class="lead">品牌图标的奶化版本，蓝色皮肤、捧腹姿态不变。</p>
+    <p class="desc">与线代课本奶蛙、学习通奶蛙同属「图标／封面换皮」一组。教材强调这类变体只替换识别符号，形体与神态仍是奶蛙；它们之所以能一眼被认出，正因为保留了绿眼与大笑这两个核心特征。</p>
+    <div class="tags"><span class="tag">换皮</span><span class="tag">品牌图标</span><span class="tag">保留核心特征</span></div>
+    <div class="capline"><span>图 7.3 中</span> VIVO 图标奶化形象</div>
+    <div class="srcline">出处 · 《概论》第七章 一（3）；图 7.3</div>
+  </div>
+</article>
+<article class="spec" id="spec-009" data-cat="换皮" data-id="009"
+  data-search="学习通奶蛙 xuexitong milk frog 换皮 把上课签到软件的图标奶化，教材收进同一组换皮样本。 红色的学习通图标被改造成捧腹大笑的奶蛙，仍属于形体特征大部分保留的换皮类型。它与线代课本、vivo 一起构成教材的「其他换皮」举例，说明换皮可以发生在任意现成视觉符号上。 换皮 校园 app 图标置换">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="s_xuexitong.webp" data-name="学习通奶蛙" data-fig="图 7.3 右" data-cap="学习通图标奶化形象" aria-label="放大查看学习通奶蛙形象">
+      <img src="assets/s_xuexitong.webp" alt="学习通奶蛙形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.3 右</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 009</span>
+      <span class="spec-cat">换皮</span>
+      <button class="mark" data-id="009" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>学习通奶蛙 <span class="en">Xuexitong Milk Frog</span></h3>
+    <p class="lead">把上课签到软件的图标奶化，教材收进同一组换皮样本。</p>
+    <p class="desc">红色的学习通图标被改造成捧腹大笑的奶蛙，仍属于形体特征大部分保留的换皮类型。它与线代课本、VIVO 一起构成教材的「其他换皮」举例，说明换皮可以发生在任意现成视觉符号上。</p>
+    <div class="tags"><span class="tag">换皮</span><span class="tag">校园 App</span><span class="tag">图标置换</span></div>
+    <div class="capline"><span>图 7.3 右</span> 学习通图标奶化形象</div>
+    <div class="srcline">出处 · 《概论》第七章 一（3）；图 7.3</div>
+  </div>
+</article>
+<article class="spec" id="spec-010" data-cat="换皮" data-id="010"
+  data-search="奶字母 / 数字奶龙 milk alphabet 换皮 把整套字母表奶化，是「保留基本特征、置换载体」的极端例子。 外部盘点文章把 26 个字母的奶化形象称作「奶字母」，与萌娘百科提到的「数字奶龙」属于同一思路：在保留奶蛙基本特征的前提下，把它塑造为其他事物的形状。它说明变体的边界不由造型决定，而由社群是否仍把它读作奶蛙决定。 换皮 字母表 数字奶龙 载体置换">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="vg_18.webp" data-name="奶字母 / 数字奶龙" data-fig="外部图版 02" data-cap="26 个字母的奶化形象" aria-label="放大查看奶字母 / 数字奶龙形象">
+      <img src="assets/vg_18.webp" alt="奶字母 / 数字奶龙形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 02</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 010</span>
+      <span class="spec-cat">换皮</span>
+      <button class="mark" data-id="010" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 / 数字奶龙 <span class="en">Milk Alphabet</span></h3>
+    <p class="lead">把整套字母表奶化，是「保留基本特征、置换载体」的极端例子。</p>
+    <p class="desc">外部盘点文章把 26 个字母的奶化形象称作「奶字母」，与萌娘百科提到的「数字奶龙」属于同一思路：在保留奶蛙基本特征的前提下，把它塑造为其他事物的形状。它说明变体的边界不由造型决定，而由社群是否仍把它读作奶蛙决定。</p>
+    <div class="tags"><span class="tag">换皮</span><span class="tag">字母表</span><span class="tag">数字奶龙</span><span class="tag">载体置换</span></div>
+    <div class="capline"><span>外部图版 02</span> 26 个字母的奶化形象</div>
+    <div class="srcline">出处 · 电玩帮「奶家人大集合」；萌娘百科「奶龙」大笑奶龙节</div>
+  </div>
+</article></div>
+</div>
+<div class="grp" data-grp="三 · 异形奶蛙（上）奶伴动物园">
+  <div class="grp-head">
+    <div class="grp-no">03</div>
+    <div>
+      <div class="grp-lat">MORPH</div>
+      <h2 class="grp-title">三 · 异形奶蛙（上）奶伴动物园</h2>
+      <p class="grp-desc">丢失大量形体特征，但仍保留「眼睛」与「大笑」两大核心特征。</p>
+    </div>
+    <div class="grp-count">10 条</div>
+  </div>
+  <div class="spec-grid"><article class="spec" id="spec-011" data-cat="异形" data-id="011"
+  data-search="奶蛋 milk egg 异形 将奶蛙简化到极致的产物：一个圆滚滚的黄色球体加一张笑脸。 四肢与尾巴全部删去，只留下笑脸。在 b 站 up 主「奶史_」的《选择你的奶伴》系列里与衍生语「安迪」高频结伴、几乎从无败绩，因而有「奶蛋轮椅」「俺无敌」的说法，被默认为奶伴中的至强者之一，设定上拥有空间转移、时间加速、召唤陨石、催眠洗脑等能力；日常向作品里则不显实力。 异形 安迪 至强者 选择你的奶伴">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_4.webp" data-name="奶蛋" data-fig="图 7.4" data-cap="奶蛋的标准形象（左）与带小脚的版本（右）" aria-label="放大查看奶蛋形象">
+      <img src="assets/figure07_4.webp" alt="奶蛋形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.4</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 011</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="011" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶蛋 <span class="en">Milk Egg</span></h3>
+    <p class="lead">将奶蛙简化到极致的产物：一个圆滚滚的黄色球体加一张笑脸。</p>
+    <p class="desc">四肢与尾巴全部删去，只留下笑脸。在 B 站 UP 主「奶史_」的《选择你的奶伴》系列里与衍生语「安迪」高频结伴、几乎从无败绩，因而有「奶蛋轮椅」「俺无敌」的说法，被默认为奶伴中的至强者之一，设定上拥有空间转移、时间加速、召唤陨石、催眠洗脑等能力；日常向作品里则不显实力。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">安迪</span><span class="tag">至强者</span><span class="tag">选择你的奶伴</span></div>
+    <div class="capline"><span>图 7.4</span> 奶蛋的标准形象（左）与带小脚的版本（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 二（1）；图 7.4</div>
+  </div>
+</article>
+<article class="spec" id="spec-012" data-cat="异形" data-id="012"
+  data-search="奶狗 milk dog 异形 从「十二奶肖」中脱颖而出的蠢萌形象，四脚着地、垂耳咧嘴笑。 教材设定：智商较低、嗅觉敏锐，拥有特有动作「打滚转圈大笑」。单只很弱，但一群奶狗能力显著提升；极度愤怒且拥有项链时可召唤数只小奶狗协同作战，两只小奶狗合作的威力就接近奶蛙；某些情况下还能用嗅觉找到奶蛋，短暂获得奶蛋的无敌能力。 异形 十二奶肖 打滚转圈大笑 召唤术">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="s_dog.webp" data-name="奶狗" data-fig="图 7.5 左" data-cap="奶狗（左）和奶屎（右）的形象" aria-label="放大查看奶狗形象">
+      <img src="assets/s_dog.webp" alt="奶狗形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.5 左</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 012</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="012" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶狗 <span class="en">Milk Dog</span></h3>
+    <p class="lead">从「十二奶肖」中脱颖而出的蠢萌形象，四脚着地、垂耳咧嘴笑。</p>
+    <p class="desc">教材设定：智商较低、嗅觉敏锐，拥有特有动作「打滚转圈大笑」。单只很弱，但一群奶狗能力显著提升；极度愤怒且拥有项链时可召唤数只小奶狗协同作战，两只小奶狗合作的威力就接近奶蛙；某些情况下还能用嗅觉找到奶蛋，短暂获得奶蛋的无敌能力。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">十二奶肖</span><span class="tag">打滚转圈大笑</span><span class="tag">召唤术</span></div>
+    <div class="capline"><span>图 7.5 左</span> 奶狗（左）和奶屎（右）的形象</div>
+    <div class="srcline">出处 · 《概论》第七章 二（2）；图 7.5、图 7.6</div>
+  </div>
+</article>
+<article class="spec" id="spec-013" data-cat="异形" data-id="013"
+  data-search="奶屎 milk shit 异形 与奶狗绑定的形象，一般没有移动能力。 教材设定为可由奶狗体内排出，具有吸引奶狗的能力；一般不能移动，只会对身边的奶伴大笑。但在一些二创作品里可以长出小短腿缓慢移动。它与奶狗构成一组固定的喜剧关系，也是「奶伴」世界观里最不讲道理的一条设定。 异形 绑定奶狗 无移动能力">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="s_shit.webp" data-name="奶屎" data-fig="图 7.5 右" data-cap="奶屎的形象" aria-label="放大查看奶屎形象">
+      <img src="assets/s_shit.webp" alt="奶屎形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.5 右</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 013</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="013" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶屎 <span class="en">Milk Shit</span></h3>
+    <p class="lead">与奶狗绑定的形象，一般没有移动能力。</p>
+    <p class="desc">教材设定为可由奶狗体内排出，具有吸引奶狗的能力；一般不能移动，只会对身边的奶伴大笑。但在一些二创作品里可以长出小短腿缓慢移动。它与奶狗构成一组固定的喜剧关系，也是「奶伴」世界观里最不讲道理的一条设定。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">绑定奶狗</span><span class="tag">无移动能力</span></div>
+    <div class="capline"><span>图 7.5 右</span> 奶屎的形象</div>
+    <div class="srcline">出处 · 《概论》第七章 二（2）；图 7.5</div>
+  </div>
+</article>
+<article class="spec" id="spec-014" data-cat="异形" data-id="014"
+  data-search="奶鸡 milk hen 异形 从十二奶肖中脱颖而出的原因不是造型，而是和奶蛋有现实逻辑的强相关性。 头顶鸡冠、通体黄色。教材指出它能进行「奶蛋的生产」，具有一定的滑翔和缓降能力。外部盘点文章则补了一条更直白的解释：网友发现「奶家人的生育问题终于有了解答」，甚至做出《奶丑蛋的故事》——蛋还没孵出来就已经会笑了。 异形 十二奶肖 生产奶蛋 滑翔">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_7.webp" data-name="奶鸡" data-fig="图 7.7" data-cap="奶鸡的形象" aria-label="放大查看奶鸡形象">
+      <img src="assets/figure07_7.webp" alt="奶鸡形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.7</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 014</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="014" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶鸡 <span class="en">Milk Hen</span></h3>
+    <p class="lead">从十二奶肖中脱颖而出的原因不是造型，而是和奶蛋有现实逻辑的强相关性。</p>
+    <p class="desc">头顶鸡冠、通体黄色。教材指出它能进行「奶蛋的生产」，具有一定的滑翔和缓降能力。外部盘点文章则补了一条更直白的解释：网友发现「奶家人的生育问题终于有了解答」，甚至做出《奶丑蛋的故事》——蛋还没孵出来就已经会笑了。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">十二奶肖</span><span class="tag">生产奶蛋</span><span class="tag">滑翔</span></div>
+    <div class="capline"><span>图 7.7</span> 奶鸡的形象</div>
+    <div class="srcline">出处 · 《概论》第七章 二（2）；图 7.7；电玩帮「奶家人大集合」</div>
+  </div>
+</article>
+<article class="spec" id="spec-015" data-cat="异形" data-id="015"
+  data-search="奶鼠 milk rat 异形 两只巨大圆耳朵，被形容为「被奶龙附体的杰瑞」。 教材设定：因可爱萌趣的形象从十二奶肖中脱颖而出，情商较低，常因做嘲讽动作而被远程攻击手段弄翻车，拥有特有语音「奶鼠奶鼠」。在《奶家人躲猫猫大赛》里，猎人用一块奶酪就能把它从藏身处勾引出来，是它最著名的弱点。 异形 十二奶肖 奶酪弱点 奶鼠奶鼠">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="s_rat.webp" data-name="奶鼠" data-fig="图 7.8 左" data-cap="奶鼠（左）和奶粉（右）的形象" aria-label="放大查看奶鼠形象">
+      <img src="assets/s_rat.webp" alt="奶鼠形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.8 左</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 015</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="015" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶鼠 <span class="en">Milk Rat</span></h3>
+    <p class="lead">两只巨大圆耳朵，被形容为「被奶龙附体的杰瑞」。</p>
+    <p class="desc">教材设定：因可爱萌趣的形象从十二奶肖中脱颖而出，情商较低，常因做嘲讽动作而被远程攻击手段弄翻车，拥有特有语音「奶鼠奶鼠」。在《奶家人躲猫猫大赛》里，猎人用一块奶酪就能把它从藏身处勾引出来，是它最著名的弱点。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">十二奶肖</span><span class="tag">奶酪弱点</span><span class="tag">奶鼠奶鼠</span></div>
+    <div class="capline"><span>图 7.8 左</span> 奶鼠（左）和奶粉（右）的形象</div>
+    <div class="srcline">出处 · 《概论》第七章 二（2）；图 7.8；电玩帮「奶家人大集合」</div>
+  </div>
+</article>
+<article class="spec" id="spec-016" data-cat="异形" data-id="016"
+  data-search="奶粉 pink naiwa 异形 除了身体是粉红色，与正常奶蛙没有明显区别。 教材一般认为它是奶蛙族的雌性个体，与奶鼠绑定，拥有「必定能全方位克制奶鼠并一定使其吃瘪」的能力，人称「奶鼠最严厉的母亲」。外部盘点把它总结得更俏皮：别的奶家人还守着家族传统的黄色外观，奶粉直接连色号都换了。 异形 粉红 克制奶鼠 绑定形象">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="s_pink.webp" data-name="奶粉" data-fig="图 7.8 右" data-cap="奶粉的形象" aria-label="放大查看奶粉形象">
+      <img src="assets/s_pink.webp" alt="奶粉形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.8 右</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 016</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="016" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶粉 <span class="en">Pink Naiwa</span></h3>
+    <p class="lead">除了身体是粉红色，与正常奶蛙没有明显区别。</p>
+    <p class="desc">教材一般认为它是奶蛙族的雌性个体，与奶鼠绑定，拥有「必定能全方位克制奶鼠并一定使其吃瘪」的能力，人称「奶鼠最严厉的母亲」。外部盘点把它总结得更俏皮：别的奶家人还守着家族传统的黄色外观，奶粉直接连色号都换了。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">粉红</span><span class="tag">克制奶鼠</span><span class="tag">绑定形象</span></div>
+    <div class="capline"><span>图 7.8 右</span> 奶粉的形象</div>
+    <div class="srcline">出处 · 《概论》第七章 二（2）；图 7.8；电玩帮「奶家人大集合」</div>
+  </div>
+</article>
+<article class="spec" id="spec-017" data-cat="异形" data-id="017"
+  data-search="奶茶 milk teacup 异形 常常作为饮品以复数形式出现，和奶蛋关系貌似很好。 把奶蛙做成一只带把手、盛着「珍珠」的杯子，杯身仍是一张捧腹大笑的脸。教材对它的描述极短，却很能说明奶伴世界的编目方式：设定不来自官方文本，而是二创作品互相引用、逐渐沉淀，教材只是替它们登记造册。 异形 饮品 复数出现">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_9.webp" data-name="奶茶" data-fig="图 7.9" data-cap="奶茶的形象" aria-label="放大查看奶茶形象">
+      <img src="assets/figure07_9.webp" alt="奶茶形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.9</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 017</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="017" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶茶 <span class="en">Milk Teacup</span></h3>
+    <p class="lead">常常作为饮品以复数形式出现，和奶蛋关系貌似很好。</p>
+    <p class="desc">把奶蛙做成一只带把手、盛着「珍珠」的杯子，杯身仍是一张捧腹大笑的脸。教材对它的描述极短，却很能说明奶伴世界的编目方式：设定不来自官方文本，而是二创作品互相引用、逐渐沉淀，教材只是替它们登记造册。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">饮品</span><span class="tag">复数出现</span></div>
+    <div class="capline"><span>图 7.9</span> 奶茶的形象</div>
+    <div class="srcline">出处 · 《概论》第七章 二（2）；图 7.9</div>
+  </div>
+</article>
+<article class="spec" id="spec-018" data-cat="异形" data-id="018"
+  data-search="豆奶 nai doubao 异形 豆包与奶蛙的结合体，拥有豆包特有的大笑声音。 豆包被网友默认为「能上桌的 ai 中最弱档次」，先与奶龙糖糖联合形成豆奶的前身；奶蛙热度飙升后，豆包与奶蛙结合成为豆奶。外部盘点的说法是「把两位卧龙凤雏放在一起」——一个顶着傻乐大脸，一个回答问题一本正经、犯傻时格外认真。 异形 豆包 ai 奶化 魔性笑声">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_10.webp" data-name="豆奶" data-fig="图 7.10" data-cap="豆奶的原型（左）和经典形象（右）" aria-label="放大查看豆奶形象">
+      <img src="assets/figure07_10.webp" alt="豆奶形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.10</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 018</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="018" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>豆奶 <span class="en">Nai Doubao</span></h3>
+    <p class="lead">豆包与奶蛙的结合体，拥有豆包特有的大笑声音。</p>
+    <p class="desc">豆包被网友默认为「能上桌的 AI 中最弱档次」，先与奶龙糖糖联合形成豆奶的前身；奶蛙热度飙升后，豆包与奶蛙结合成为豆奶。外部盘点的说法是「把两位卧龙凤雏放在一起」——一个顶着傻乐大脸，一个回答问题一本正经、犯傻时格外认真。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">豆包</span><span class="tag">AI 奶化</span><span class="tag">魔性笑声</span></div>
+    <div class="capline"><span>图 7.10</span> 豆奶的原型（左）和经典形象（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 二（2）；图 7.10；电玩帮「奶家人大集合」</div>
+  </div>
+</article>
+<article class="spec" id="spec-019" data-cat="异形" data-id="019"
+  data-search="奶猫 milk cat 异形 给奶龙安上一对尖耳朵、再让它趴下，就算成功出厂。 外部盘点文章指出，网友显然没打算认真研究猫科动物的生理结构：尖耳加趴姿，配上奶蛙的绿眼与微笑，一只奶猫就成立了。它和奶狗、奶鸡、奶鼠、奶猪一起被戏称为「奶家动物园」，是变体从单个梗扩写成族群的典型路径。 异形 奶家动物园 尖耳 趴姿">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="vg_07.webp" data-name="奶猫" data-fig="外部图版 03" data-cap="奶猫的形象" aria-label="放大查看奶猫形象">
+      <img src="assets/vg_07.webp" alt="奶猫形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 03</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 019</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="019" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶猫 <span class="en">Milk Cat</span></h3>
+    <p class="lead">给奶龙安上一对尖耳朵、再让它趴下，就算成功出厂。</p>
+    <p class="desc">外部盘点文章指出，网友显然没打算认真研究猫科动物的生理结构：尖耳加趴姿，配上奶蛙的绿眼与微笑，一只奶猫就成立了。它和奶狗、奶鸡、奶鼠、奶猪一起被戏称为「奶家动物园」，是变体从单个梗扩写成族群的典型路径。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">奶家动物园</span><span class="tag">尖耳</span><span class="tag">趴姿</span></div>
+    <div class="capline"><span>外部图版 03</span> 奶猫的形象</div>
+    <div class="srcline">出处 · 电玩帮「奶家人大集合」2026-10-19</div>
+  </div>
+</article>
+<article class="spec" id="spec-020" data-cat="异形" data-id="020"
+  data-search="奶猪 milk pig 异形 往这一躺跟个二大爷一样，就静静看着你。 外部盘点对奶猪的全部描述只有一句「猪倒是人老，实话不多，往这一躺跟个二大爷一样」。这类几乎零设定的形象恰恰说明：变体的门槛不是世界观完整度，而是「一眼能认出属于奶家」——绿眼、黄色、那张不太聪明的笑脸。 异形 奶家动物园 零设定">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="vg_12.webp" data-name="奶猪" data-fig="外部图版 04" data-cap="奶猪的形象" aria-label="放大查看奶猪形象">
+      <img src="assets/vg_12.webp" alt="奶猪形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 04</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 020</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="020" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶猪 <span class="en">Milk Pig</span></h3>
+    <p class="lead">往这一躺跟个二大爷一样，就静静看着你。</p>
+    <p class="desc">外部盘点对奶猪的全部描述只有一句「猪倒是人老，实话不多，往这一躺跟个二大爷一样」。这类几乎零设定的形象恰恰说明：变体的门槛不是世界观完整度，而是「一眼能认出属于奶家」——绿眼、黄色、那张不太聪明的笑脸。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">奶家动物园</span><span class="tag">零设定</span></div>
+    <div class="capline"><span>外部图版 04</span> 奶猪的形象</div>
+    <div class="srcline">出处 · 电玩帮「奶家人大集合」2026-10-19</div>
+  </div>
+</article></div>
+</div>
+<div class="grp" data-grp="四 · 异形奶蛙（下）拟人与其他">
+  <div class="grp-head">
+    <div class="grp-no">04</div>
+    <div>
+      <div class="grp-lat">MORPH</div>
+      <h2 class="grp-title">四 · 异形奶蛙（下）拟人与其他</h2>
+      <p class="grp-desc">丢失大量形体特征，但仍保留「眼睛」与「大笑」两大核心特征。</p>
+    </div>
+    <div class="grp-count">9 条</div>
+  </div>
+  <div class="spec-grid"><article class="spec" id="spec-021" data-cat="异形" data-id="021"
+  data-search="奶蛙娘 milk frog girl 异形 奶蛙最经典的娘化形象之一，教材注明「搜不到原画师」。 因奶蛙的手是黑色，娘化后的手也是黑色。由此产生一个跨作品关联梗：游戏《魔法少女的魔女审判》里魔女化的魔法少女手也会变黑，于是可以把奶蛙看作「奶蛙娘魔奶化后的残骸」。教材把这种一本正经的牵强附会直接写进正文。 异形 娘化 黑手 跨作品梗">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_11.webp" data-name="奶蛙娘" data-fig="图 7.11" data-cap="奶蛙娘的形象" aria-label="放大查看奶蛙娘形象">
+      <img src="assets/figure07_11.webp" alt="奶蛙娘形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.11</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 021</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="021" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶蛙娘 <span class="en">Milk Frog Girl</span></h3>
+    <p class="lead">奶蛙最经典的娘化形象之一，教材注明「搜不到原画师」。</p>
+    <p class="desc">因奶蛙的手是黑色，娘化后的手也是黑色。由此产生一个跨作品关联梗：游戏《魔法少女的魔女审判》里魔女化的魔法少女手也会变黑，于是可以把奶蛙看作「奶蛙娘魔奶化后的残骸」。教材把这种一本正经的牵强附会直接写进正文。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">娘化</span><span class="tag">黑手</span><span class="tag">跨作品梗</span></div>
+    <div class="capline"><span>图 7.11</span> 奶蛙娘的形象</div>
+    <div class="srcline">出处 · 《概论》第七章 二（3）；图 7.11、图 7.12</div>
+  </div>
+</article>
+<article class="spec" id="spec-022" data-cat="异形" data-id="022"
+  data-search="奶蝠 milk bat 异形 二创最多、被教材称作「最神」的娘化奶蛙形象。 一般以黑色洛丽塔少女的模样出现，本体是一只吸血鬼奶蛙，具有黑色巨型翅膀、尖锐牙齿与又长又尖的耳朵，有一定飞行能力。教材特地补了一句「我们姑且认为奶蝠不会随着外貌的变化改变性别」——连这种细节都要立个假设，正是这门学科的语气。 异形 娘化 吸血鬼 洛丽塔">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_13.webp" data-name="奶蝠" data-fig="图 7.13" data-cap="奶蝠的标准形象（左）、白纱形象（中）和二次元形象（右）" aria-label="放大查看奶蝠形象">
+      <img src="assets/figure07_13.webp" alt="奶蝠形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.13</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 022</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="022" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶蝠 <span class="en">Milk Bat</span></h3>
+    <p class="lead">二创最多、被教材称作「最神」的娘化奶蛙形象。</p>
+    <p class="desc">一般以黑色洛丽塔少女的模样出现，本体是一只吸血鬼奶蛙，具有黑色巨型翅膀、尖锐牙齿与又长又尖的耳朵，有一定飞行能力。教材特地补了一句「我们姑且认为奶蝠不会随着外貌的变化改变性别」——连这种细节都要立个假设，正是这门学科的语气。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">娘化</span><span class="tag">吸血鬼</span><span class="tag">洛丽塔</span></div>
+    <div class="capline"><span>图 7.13</span> 奶蝠的标准形象（左）、白纱形象（中）和二次元形象（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 二（4）；图 7.13</div>
+  </div>
+</article>
+<article class="spec" id="spec-023" data-cat="异形" data-id="023"
+  data-search="奶正太 milk shota 异形 奶蛙的正太形象，定位与奶蝠类似。 教材对它的介绍只有一句，把它归入「拟人化分支」的另一侧。这类条目在课本里承担着图鉴的功能：不解释笑点，只登记形态、编号与出处，让读者自行体会「连这个都有」的荒诞感。 异形 拟人化 图鉴条目">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_14.webp" data-name="奶正太" data-fig="图 7.14" data-cap="奶正太的形象" aria-label="放大查看奶正太形象">
+      <img src="assets/figure07_14.webp" alt="奶正太形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.14</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 023</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="023" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶正太 <span class="en">Milk Shota</span></h3>
+    <p class="lead">奶蛙的正太形象，定位与奶蝠类似。</p>
+    <p class="desc">教材对它的介绍只有一句，把它归入「拟人化分支」的另一侧。这类条目在课本里承担着图鉴的功能：不解释笑点，只登记形态、编号与出处，让读者自行体会「连这个都有」的荒诞感。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">拟人化</span><span class="tag">图鉴条目</span></div>
+    <div class="capline"><span>图 7.14</span> 奶正太的形象</div>
+    <div class="srcline">出处 · 《概论》第七章 二（5）；图 7.14</div>
+  </div>
+</article>
+<article class="spec" id="spec-024" data-cat="异形" data-id="024"
+  data-search="奶龙娘 nailong girl 异形 更偏向奶龙（而非奶蛙）的经典娘化形象之一。 教材用「更偏向奶龙」把它与奶蛙娘、奶蝠区分开：娘化的对象回到原版 ip，而不是 ai 畸变后的蛙。这条区分呼应第一章的提醒——奶龙同好会不必然等于奶蛙同好会，不作区分会大幅增加「龙蛙相争」的风险。 异形 娘化 偏向原版 龙蛙之辨">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_15.webp" data-name="奶龙娘" data-fig="图 7.15" data-cap="奶龙娘的形象" aria-label="放大查看奶龙娘形象">
+      <img src="assets/figure07_15.webp" alt="奶龙娘形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.15</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 024</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="024" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶龙娘 <span class="en">Nailong Girl</span></h3>
+    <p class="lead">更偏向奶龙（而非奶蛙）的经典娘化形象之一。</p>
+    <p class="desc">教材用「更偏向奶龙」把它与奶蛙娘、奶蝠区分开：娘化的对象回到原版 IP，而不是 AI 畸变后的蛙。这条区分呼应第一章的提醒——奶龙同好会不必然等于奶蛙同好会，不作区分会大幅增加「龙蛙相争」的风险。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">娘化</span><span class="tag">偏向原版</span><span class="tag">龙蛙之辨</span></div>
+    <div class="capline"><span>图 7.15</span> 奶龙娘的形象</div>
+    <div class="srcline">出处 · 《概论》第七章 二（6）；图 7.15</div>
+  </div>
+</article>
+<article class="spec" id="spec-025" data-cat="异形" data-id="025"
+  data-search="奶蛙妹 milk frog sister 异形 画风备受好评的新生代娘化形象，作者为 ality5s（小红书）。 教材少见地标注了具体作者与平台。图中两格分别是「打奶蛙拳」与「绷不住了」，把本体最著名的两个动作移植到拟人角色身上，是形象从表情包走向角色化、再被教材收录的完整闭环。 异形 娘化 新生代 奶蛙拳">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_16.webp" data-name="奶蛙妹" data-fig="图 7.16" data-cap="奶蛙妹打奶蛙拳（左）和绷不住了（右）" aria-label="放大查看奶蛙妹形象">
+      <img src="assets/figure07_16.webp" alt="奶蛙妹形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.16</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 025</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="025" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶蛙妹 <span class="en">Milk Frog Sister</span></h3>
+    <p class="lead">画风备受好评的新生代娘化形象，作者为 ality5s（小红书）。</p>
+    <p class="desc">教材少见地标注了具体作者与平台。图中两格分别是「打奶蛙拳」与「绷不住了」，把本体最著名的两个动作移植到拟人角色身上，是形象从表情包走向角色化、再被教材收录的完整闭环。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">娘化</span><span class="tag">新生代</span><span class="tag">奶蛙拳</span></div>
+    <div class="capline"><span>图 7.16</span> 奶蛙妹打奶蛙拳（左）和绷不住了（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 二（7）；图 7.16</div>
+  </div>
+</article>
+<article class="spec" id="spec-026" data-cat="异形" data-id="026"
+  data-search="西格玛奶蛙 sigma milk frog 异形 奶蛙的硬汉形象，「西格玛效果」套用在奶蛙身上的产物。 肌肉化的黄色躯体配上抱胸或捧腹的姿态，把「西格玛男性」那套网络人设原样扣到一只蛙上。教材把它与一堆娘化形象并列收录，形成刻意反差：同一个母体可以被塑造成任何性别、任何气质，只要眼睛与大笑还在。 异形 硬汉 西格玛 肌肉化">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_17.webp" data-name="西格玛奶蛙" data-fig="图 7.17" data-cap="西格玛奶蛙的标准形象（左）和大笑形象（右）" aria-label="放大查看西格玛奶蛙形象">
+      <img src="assets/figure07_17.webp" alt="西格玛奶蛙形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.17</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 026</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="026" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>西格玛奶蛙 <span class="en">Sigma Milk Frog</span></h3>
+    <p class="lead">奶蛙的硬汉形象，「西格玛效果」套用在奶蛙身上的产物。</p>
+    <p class="desc">肌肉化的黄色躯体配上抱胸或捧腹的姿态，把「西格玛男性」那套网络人设原样扣到一只蛙上。教材把它与一堆娘化形象并列收录，形成刻意反差：同一个母体可以被塑造成任何性别、任何气质，只要眼睛与大笑还在。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">硬汉</span><span class="tag">西格玛</span><span class="tag">肌肉化</span></div>
+    <div class="capline"><span>图 7.17</span> 西格玛奶蛙的标准形象（左）和大笑形象（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 二（8）；图 7.17</div>
+  </div>
+</article>
+<article class="spec" id="spec-027" data-cat="异形" data-id="027"
+  data-search="现实幻视（奶帘 / 奶五味子） real-life pareidolia 异形 生活中和奶蛙形象神似的物品，教材注明「较为稀有」。 教材把「现实幻视」单列为一类：不是有人画了它，而是有人看见它。窗帘的褶皱、盆景的果实因为形似黄色梨形生物而被拍照收录。这是整本教材最接近博物学的一页——辨认的对象从图像转回了现实世界。 异形 空想性错视 现实物品 稀有">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_18.webp" data-name="现实幻视（奶帘 / 奶五味子）" data-fig="图 7.18" data-cap="生活中的奶帘（左）和奶五味子盆景（右）" aria-label="放大查看现实幻视（奶帘 / 奶五味子）形象">
+      <img src="assets/figure07_18.webp" alt="现实幻视（奶帘 / 奶五味子）形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.18</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 027</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="027" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>现实幻视（奶帘 / 奶五味子） <span class="en">Real-life Pareidolia</span></h3>
+    <p class="lead">生活中和奶蛙形象神似的物品，教材注明「较为稀有」。</p>
+    <p class="desc">教材把「现实幻视」单列为一类：不是有人画了它，而是有人看见它。窗帘的褶皱、盆景的果实因为形似黄色梨形生物而被拍照收录。这是整本教材最接近博物学的一页——辨认的对象从图像转回了现实世界。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">空想性错视</span><span class="tag">现实物品</span><span class="tag">稀有</span></div>
+    <div class="capline"><span>图 7.18</span> 生活中的奶帘（左）和奶五味子盆景（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 二（9）；图 7.18</div>
+  </div>
+</article>
+<article class="spec" id="spec-028" data-cat="异形" data-id="028"
+  data-search="奶菜 / 奶葡 milk veggie / milk grape 异形 生活中物品奶龙化的样子，教材「因篇幅原因仅举两例」。 白菜与葡萄被改造成奶蛙后，仍保留绿眼与咧嘴大笑。教材把它们放在「其他 ai 奶化形象」之后，作为异形分支的收尾：变体可以完全脱离动物形体，判据只剩社群共同语境里的那两个核心特征。 异形 物品奶化 绿眼 大笑">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_23.webp" data-name="奶菜 / 奶葡" data-fig="图 7.23" data-cap="奶菜的形象（左）和奶葡的形象（右）" aria-label="放大查看奶菜 / 奶葡形象">
+      <img src="assets/figure07_23.webp" alt="奶菜 / 奶葡形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.23</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 028</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="028" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶菜 / 奶葡 <span class="en">Milk Veggie / Milk Grape</span></h3>
+    <p class="lead">生活中物品奶龙化的样子，教材「因篇幅原因仅举两例」。</p>
+    <p class="desc">白菜与葡萄被改造成奶蛙后，仍保留绿眼与咧嘴大笑。教材把它们放在「其他 AI 奶化形象」之后，作为异形分支的收尾：变体可以完全脱离动物形体，判据只剩社群共同语境里的那两个核心特征。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">物品奶化</span><span class="tag">绿眼</span><span class="tag">大笑</span></div>
+    <div class="capline"><span>图 7.23</span> 奶菜的形象（左）和奶葡的形象（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 二（11）；图 7.23</div>
+  </div>
+</article>
+<article class="spec" id="spec-029" data-cat="异形" data-id="029"
+  data-search="奶工智能四巨头 milk ai giants 异形 deepseek、openai、anthropic、grok 等 ai 被集体奶化。 教材称 ai 是奶蛙的「助推者」，因此其他 ai 也受到了奶化：正在捧腹大笑的 deepseek、正在深度思考的 nailongseek、ope「nai」图标，乃至「奶蛋神力由来的传说」与四巨头合影。这组图把「用 ai 生成奶蛙」这件事反过来画成了奶蛙统治 ai。 异形 ai 奶化 deepseek 四巨头">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_22.webp" data-name="奶工智能四巨头" data-fig="图 7.19–7.22" data-cap="奶工智能四巨头；另含 deepseek、nailongseek、Ope「nai」图标与「奶蛋神力由来的传说」" aria-label="放大查看奶工智能四巨头形象">
+      <img src="assets/figure07_22.webp" alt="奶工智能四巨头形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.19–7.22</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 029</span>
+      <span class="spec-cat">异形</span>
+      <button class="mark" data-id="029" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶工智能四巨头 <span class="en">Milk AI Giants</span></h3>
+    <p class="lead">deepseek、OpenAI、Anthropic、Grok 等 AI 被集体奶化。</p>
+    <p class="desc">教材称 AI 是奶蛙的「助推者」，因此其他 AI 也受到了奶化：正在捧腹大笑的 deepseek、正在深度思考的 nailongseek、Ope「nai」图标，乃至「奶蛋神力由来的传说」与四巨头合影。这组图把「用 AI 生成奶蛙」这件事反过来画成了奶蛙统治 AI。</p>
+    <div class="tags"><span class="tag">异形</span><span class="tag">AI 奶化</span><span class="tag">deepseek</span><span class="tag">四巨头</span></div>
+    <div class="capline"><span>图 7.19–7.22</span> 奶工智能四巨头；另含 deepseek、nailongseek、Ope「nai」图标与「奶蛋神力由来的传说」</div>
+    <div class="srcline">出处 · 《概论》第七章 二（10）；图 7.19–7.22</div>
+  </div>
+</article></div>
+</div>
+<div class="grp" data-grp="五 · 主要客串角色">
+  <div class="grp-head">
+    <div class="grp-no">05</div>
+    <div>
+      <div class="grp-lat">CROSSOVER</div>
+      <h2 class="grp-title">五 · 主要客串角色</h2>
+      <p class="grp-desc">本身不是奶蛙，因颜色、笑声或抽象气质相近而被拉进同一语境联动。</p>
+    </div>
+    <div class="grp-count">6 条</div>
+  </div>
+  <div class="spec-grid"><article class="spec" id="spec-030" data-cat="客串" data-id="030"
+  data-search="美团袋鼠 meituan kangaroo 客串 因为肥嘟嘟的颜色与奶蛙相近，常与奶蛙联动出场。 教材把它列为「主要客串角色」第一位：这些角色本身不是奶蛙，但因颜色、气质或笑声与奶蛙相近，被频繁拉进二创同框。黄色三幻神（奶蛙、牛来、美团袋鼠）的组合名也由此而来。 客串 黄色三幻神 颜色相近 联动">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_24.webp" data-name="美团袋鼠" data-fig="图 7.24" data-cap="伪装成美团袋鼠的奶蛙" aria-label="放大查看美团袋鼠形象">
+      <img src="assets/figure07_24.webp" alt="美团袋鼠形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.24</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 030</span>
+      <span class="spec-cat">客串</span>
+      <button class="mark" data-id="030" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>美团袋鼠 <span class="en">Meituan Kangaroo</span></h3>
+    <p class="lead">因为肥嘟嘟的颜色与奶蛙相近，常与奶蛙联动出场。</p>
+    <p class="desc">教材把它列为「主要客串角色」第一位：这些角色本身不是奶蛙，但因颜色、气质或笑声与奶蛙相近，被频繁拉进二创同框。黄色三幻神（奶蛙、牛来、美团袋鼠）的组合名也由此而来。</p>
+    <div class="tags"><span class="tag">客串</span><span class="tag">黄色三幻神</span><span class="tag">颜色相近</span><span class="tag">联动</span></div>
+    <div class="capline"><span>图 7.24</span> 伪装成美团袋鼠的奶蛙</div>
+    <div class="srcline">出处 · 《概论》第七章 三（1）；图 7.24</div>
+  </div>
+</article>
+<article class="spec" id="spec-031" data-cat="客串" data-id="031"
+  data-search="牛来 / 牛来妈 niulai 客串 牛来妈颜色相近，牛来与奶蛙抽象程度平分秋色，两母子常联动。 教材给的联动理由是双重的：颜色相似，加上抽象气质旗鼓相当。图 7.26 还有一张把历史照片里三巨头全部换成奶蛙的「雅尔糖会议」，说明客串角色会被整体置换进既有图像，而不只是并排出现。 客串 黄色三幻神 历史照片置换 抽象">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_25.webp" data-name="牛来 / 牛来妈" data-fig="图 7.25" data-cap="伪装成牛来妈的奶蛙（左）和捧腹大笑的牛来（右）；另见图 7.26「雅尔糖会议三巨头」" aria-label="放大查看牛来 / 牛来妈形象">
+      <img src="assets/figure07_25.webp" alt="牛来 / 牛来妈形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.25</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 031</span>
+      <span class="spec-cat">客串</span>
+      <button class="mark" data-id="031" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>牛来 / 牛来妈 <span class="en">Niulai</span></h3>
+    <p class="lead">牛来妈颜色相近，牛来与奶蛙抽象程度平分秋色，两母子常联动。</p>
+    <p class="desc">教材给的联动理由是双重的：颜色相似，加上抽象气质旗鼓相当。图 7.26 还有一张把历史照片里三巨头全部换成奶蛙的「雅尔糖会议」，说明客串角色会被整体置换进既有图像，而不只是并排出现。</p>
+    <div class="tags"><span class="tag">客串</span><span class="tag">黄色三幻神</span><span class="tag">历史照片置换</span><span class="tag">抽象</span></div>
+    <div class="capline"><span>图 7.25</span> 伪装成牛来妈的奶蛙（左）和捧腹大笑的牛来（右）；另见图 7.26「雅尔糖会议三巨头」</div>
+    <div class="srcline">出处 · 《概论》第七章 三（2）；图 7.25、图 7.26</div>
+  </div>
+</article>
+<article class="spec" id="spec-032" data-cat="客串" data-id="032"
+  data-search="熊大 / 熊二 boonie bears 客串 熊二颜色相近，熊大的「绷不住了」与奶蛙大笑高度契合。 教材注明两兄弟与奶蛙联动「次数较少」，理由却写得很认真：一个靠颜色，一个靠梗。这正体现客串角色的判定逻辑——不是长得像就行，还得有一处能接上奶蛙的语义接口。 客串 绷不住了 语义接口 联动较少">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="s_xionger.webp" data-name="熊大 / 熊二" data-fig="图 7.27 右" data-cap="绷不住的熊大（左）和捧腹大笑的熊二（右）" aria-label="放大查看熊大 / 熊二形象">
+      <img src="assets/s_xionger.webp" alt="熊大 / 熊二形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.27 右</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 032</span>
+      <span class="spec-cat">客串</span>
+      <button class="mark" data-id="032" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>熊大 / 熊二 <span class="en">Boonie Bears</span></h3>
+    <p class="lead">熊二颜色相近，熊大的「绷不住了」与奶蛙大笑高度契合。</p>
+    <p class="desc">教材注明两兄弟与奶蛙联动「次数较少」，理由却写得很认真：一个靠颜色，一个靠梗。这正体现客串角色的判定逻辑——不是长得像就行，还得有一处能接上奶蛙的语义接口。</p>
+    <div class="tags"><span class="tag">客串</span><span class="tag">绷不住了</span><span class="tag">语义接口</span><span class="tag">联动较少</span></div>
+    <div class="capline"><span>图 7.27 右</span> 绷不住的熊大（左）和捧腹大笑的熊二（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 三（3）；图 7.27</div>
+  </div>
+</article>
+<article class="spec" id="spec-033" data-cat="客串" data-id="033"
+  data-search="水豚噜噜 capybara lulu 客串 颜色相近，联动次数较少，但已经走进线下立牌场景。 教材图注里出现「某学校操场中的奶龙、噜噜」，把线上客串与校园里的实体立牌接了起来。这也是本册反复出现的线索：一个梗一旦有了形体，就会顺着网线走进三次元。 客串 水豚 线下立牌 颜色相近">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_28.webp" data-name="水豚噜噜" data-fig="图 7.28" data-cap="捧腹大笑的噜噜（左）和某学校操场中的奶龙、噜噜（右）" aria-label="放大查看水豚噜噜形象">
+      <img src="assets/figure07_28.webp" alt="水豚噜噜形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.28</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 033</span>
+      <span class="spec-cat">客串</span>
+      <button class="mark" data-id="033" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>水豚噜噜 <span class="en">Capybara Lulu</span></h3>
+    <p class="lead">颜色相近，联动次数较少，但已经走进线下立牌场景。</p>
+    <p class="desc">教材图注里出现「某学校操场中的奶龙、噜噜」，把线上客串与校园里的实体立牌接了起来。这也是本册反复出现的线索：一个梗一旦有了形体，就会顺着网线走进三次元。</p>
+    <div class="tags"><span class="tag">客串</span><span class="tag">水豚</span><span class="tag">线下立牌</span><span class="tag">颜色相近</span></div>
+    <div class="capline"><span>图 7.28</span> 捧腹大笑的噜噜（左）和某学校操场中的奶龙、噜噜（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 三（4）；图 7.28</div>
+  </div>
+</article>
+<article class="spec" id="spec-034" data-cat="客串" data-id="034"
+  data-search="说的道理 the reason 客串 动物园一代抽象宗师，拥有多种唐笑，「绝对有资格驾驭奶蛙的力量」。 教材解释：因电棍发出的神秘动静，说的道理拥有多种唐笑，又经常「夺舍」其他人，所以在抽象谱系里地位足够高，能与奶蛙合体成「道理奶蛙」。这一条几乎不谈外形，只谈气场，是客串分类里最抽象的一例。 客串 动物园梗 唐笑 夺舍">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_29.webp" data-name="说的道理" data-fig="图 7.29" data-cap="道理奶蛙" aria-label="放大查看说的道理形象">
+      <img src="assets/figure07_29.webp" alt="说的道理形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.29</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 034</span>
+      <span class="spec-cat">客串</span>
+      <button class="mark" data-id="034" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>说的道理 <span class="en">The Reason</span></h3>
+    <p class="lead">动物园一代抽象宗师，拥有多种唐笑，「绝对有资格驾驭奶蛙的力量」。</p>
+    <p class="desc">教材解释：因电棍发出的神秘动静，说的道理拥有多种唐笑，又经常「夺舍」其他人，所以在抽象谱系里地位足够高，能与奶蛙合体成「道理奶蛙」。这一条几乎不谈外形，只谈气场，是客串分类里最抽象的一例。</p>
+    <div class="tags"><span class="tag">客串</span><span class="tag">动物园梗</span><span class="tag">唐笑</span><span class="tag">夺舍</span></div>
+    <div class="capline"><span>图 7.29</span> 道理奶蛙</div>
+    <div class="srcline">出处 · 《概论》第七章 三（5）；图 7.29</div>
+  </div>
+</article>
+<article class="spec" id="spec-035" data-cat="客串" data-id="035"
+  data-search="绿猪 green pig 客串 《愤怒的小鸟》里玩家失败时的嘲讽笑容，与奶蛙强强联合。 绿猪的魔性笑脸本就是一套高频表情包，教材说「既然绿猪以笑出圈，就自然而然地和奶蛙强强联合，形成了奶蛙的绿猪模式」。它是用「笑」而非「黄」进入奶蛙宇宙的典型客串。 客串 愤怒的小鸟 嘲讽笑 绿猪模式">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_30.webp" data-name="绿猪" data-fig="图 7.30" data-cap="绿猪奶蛙" aria-label="放大查看绿猪形象">
+      <img src="assets/figure07_30.webp" alt="绿猪形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.30</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 035</span>
+      <span class="spec-cat">客串</span>
+      <button class="mark" data-id="035" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>绿猪 <span class="en">Green Pig</span></h3>
+    <p class="lead">《愤怒的小鸟》里玩家失败时的嘲讽笑容，与奶蛙强强联合。</p>
+    <p class="desc">绿猪的魔性笑脸本就是一套高频表情包，教材说「既然绿猪以笑出圈，就自然而然地和奶蛙强强联合，形成了奶蛙的绿猪模式」。它是用「笑」而非「黄」进入奶蛙宇宙的典型客串。</p>
+    <div class="tags"><span class="tag">客串</span><span class="tag">愤怒的小鸟</span><span class="tag">嘲讽笑</span><span class="tag">绿猪模式</span></div>
+    <div class="capline"><span>图 7.30</span> 绿猪奶蛙</div>
+    <div class="srcline">出处 · 《概论》第七章 三（6）；图 7.30</div>
+  </div>
+</article></div>
+</div>
+<div class="grp" data-grp="六 · 次要客串角色">
+  <div class="grp-head">
+    <div class="grp-no">06</div>
+    <div>
+      <div class="grp-lat">CROSSOVER</div>
+      <h2 class="grp-title">六 · 次要客串角色</h2>
+      <p class="grp-desc">本身不是奶蛙，因颜色、笑声或抽象气质相近而被拉进同一语境联动。</p>
+    </div>
+    <div class="grp-count">2 条</div>
+  </div>
+  <div class="spec-grid"><article class="spec" id="spec-036" data-cat="客串" data-id="036"
+  data-search="莲见蕾雅 hasumi reia 客串 金毛、糖笑，被称作「魔裁奶龙」。 《魔法少女的魔女审判》13 名囚犯少女之一，二周目从冷静优雅的明星演员滑坡成一直糖笑的嘉豪逗比（名场面「嘿嘿，哈哈哈哈～」）。教材由此给出一句判词：只要糖分够，即使没有奶蛙的外表，也拥有了奶蛙的灵魂。 客串 次要 魔裁 糖笑">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_31.webp" data-name="莲见蕾雅" data-fig="图 7.31" data-cap="一周目被串串香的蕾雅（左）和二周目捧腹大笑的蕾雅（右）" aria-label="放大查看莲见蕾雅形象">
+      <img src="assets/figure07_31.webp" alt="莲见蕾雅形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.31</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 036</span>
+      <span class="spec-cat">客串</span>
+      <button class="mark" data-id="036" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>莲见蕾雅 <span class="en">Hasumi Reia</span></h3>
+    <p class="lead">金毛、糖笑，被称作「魔裁奶龙」。</p>
+    <p class="desc">《魔法少女的魔女审判》13 名囚犯少女之一，二周目从冷静优雅的明星演员滑坡成一直糖笑的嘉豪逗比（名场面「嘿嘿，哈哈哈哈～」）。教材由此给出一句判词：只要糖分够，即使没有奶蛙的外表，也拥有了奶蛙的灵魂。</p>
+    <div class="tags"><span class="tag">客串</span><span class="tag">次要</span><span class="tag">魔裁</span><span class="tag">糖笑</span></div>
+    <div class="capline"><span>图 7.31</span> 一周目被串串香的蕾雅（左）和二周目捧腹大笑的蕾雅（右）</div>
+    <div class="srcline">出处 · 《概论》第七章 四（1）；图 7.31</div>
+  </div>
+</article>
+<article class="spec" id="spec-037" data-cat="客串" data-id="037"
+  data-search="刹暗天 sha an tin 客串 港漫《武神》强者，因空耳「仁者安迪」被拉进奶蛙宇宙。 《武神》中后期主角、《武神终极》最强者之一，以摸鱼摆烂出名。五级命格「仁者暗帝」可空耳成「仁者安迪」，招式「暗天车轮拳」可看成奶蛙拳，于是「莫名其妙就和奶蛙扯上了关系」。教材用他收束全章，把空耳这一造词机制再演示了一遍。 客串 次要 港漫 空耳 仁者安迪">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="figure07_32.webp" data-name="刹暗天" data-fig="图 7.32" data-cap="今天，仁者安迪就要捧他的最后一腹！" aria-label="放大查看刹暗天形象">
+      <img src="assets/figure07_32.webp" alt="刹暗天形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">图 7.32</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 037</span>
+      <span class="spec-cat">客串</span>
+      <button class="mark" data-id="037" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>刹暗天 <span class="en">Sha An Tin</span></h3>
+    <p class="lead">港漫《武神》强者，因空耳「仁者安迪」被拉进奶蛙宇宙。</p>
+    <p class="desc">《武神》中后期主角、《武神终极》最强者之一，以摸鱼摆烂出名。五级命格「仁者暗帝」可空耳成「仁者安迪」，招式「暗天车轮拳」可看成奶蛙拳，于是「莫名其妙就和奶蛙扯上了关系」。教材用他收束全章，把空耳这一造词机制再演示了一遍。</p>
+    <div class="tags"><span class="tag">客串</span><span class="tag">次要</span><span class="tag">港漫</span><span class="tag">空耳</span><span class="tag">仁者安迪</span></div>
+    <div class="capline"><span>图 7.32</span> 今天，仁者安迪就要捧他的最后一腹！</div>
+    <div class="srcline">出处 · 《概论》第七章 四（2）；图 7.32</div>
+  </div>
+</article></div>
+</div>
+    <div class="empty" id="empty" style="display:none">没有找到这只蛙。换个词试试？</div>
+<div class="grp" data-grp="七 · 十二奶肖">
+  <div class="grp-head">
+    <div class="grp-no">07</div>
+    <div>
+      <div class="grp-lat">SUPPLEMENT I / THE TWELVE MILK ZODIACS</div>
+      <h2 class="grp-title">七 · 十二奶肖</h2>
+      <p class="grp-desc">教材第七章把「十二奶肖」当作一个分类词，只说奶狗、奶鸡、奶鼠「从十二奶肖中脱颖而出」，并未逐肖立条。本组按地支补齐 12 枚：逐肖设定主要来自《奶龙酬唱集》的文言诗与官方「奶龙十二生肖头像」，图版为微信表情包图集。凡教材未立条者只记形象、地支与出处，不替社群补设定（证据 B / C 级）。</p>
+    </div>
+    <div class="grp-count">12 条</div>
+  </div>
+  <div class="spec-grid"><article class="spec" id="spec-038" data-cat="十二奶肖" data-id="038"
+  data-search="子 · 奶鼠 milk rat · 子鼠 十二奶肖 十二奶肖之首，教材里被点名「从十二奶肖中脱颖而出」的三位之一。 一对巨圆耳、一条细长尾，是全套里最容易一眼认出的鼠相。教材写它「由于其可爱萌趣的形象，从十二奶肖中脱颖而出」，情商较低、爱做嘲讽动作，常被远程攻击手段弄翻车，拥有特有语音「奶鼠奶鼠」；奶粉必定全方位克制它，人称「奶鼠最严厉的母亲」。《奶龙酬唱集》以「奶鼠凿墙不能逐」开篇。 子鼠 十二奶肖 教材立条 奶史_ 外部图版 12-01">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_01.webp" data-name="子 · 奶鼠" data-fig="外部图版 12-01" data-cap="奶龙十二生肖头像 · 奶鼠" aria-label="放大查看子 · 奶鼠形象">
+      <img src="assets/zodiac_01.webp" alt="子 · 奶鼠形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-01</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 038</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="038" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>子 · 奶鼠 <span class="en">Milk Rat · 子鼠</span></h3>
+    <p class="lead">十二奶肖之首，教材里被点名「从十二奶肖中脱颖而出」的三位之一。</p>
+    <p class="desc">一对巨圆耳、一条细长尾，是全套里最容易一眼认出的鼠相。教材写它「由于其可爱萌趣的形象，从十二奶肖中脱颖而出」，情商较低、爱做嘲讽动作，常被远程攻击手段弄翻车，拥有特有语音「奶鼠奶鼠」；奶粉必定全方位克制它，人称「奶鼠最严厉的母亲」。《奶龙酬唱集》以「奶鼠凿墙不能逐」开篇。</p>
+    <div class="tags"><span class="tag">子鼠</span><span class="tag">十二奶肖</span><span class="tag">教材立条</span><span class="tag">奶史_</span></div>
+    <div class="capline"><span>外部图版 12-01</span> 奶龙十二生肖头像 · 奶鼠</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-039" data-cat="十二奶肖" data-id="039"
+  data-search="丑 · 奶牛 milk ox · 丑牛 十二奶肖 地支第二位，头顶添一对灰白弯角，身体仍是原样的梨形。 图版只改了角与耳，连抬手姿势都保留奶龙原式。《奶龙酬唱集》写「奶牛耕垄不能牧」。教材第七章没有为它单独立条，社群也未见稳定能力设定；本册只记地支、形象与出处，不替它补设定。 丑牛 十二奶肖 仅图版 无独立设定 外部图版 12-02">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_02.webp" data-name="丑 · 奶牛" data-fig="外部图版 12-02" data-cap="奶龙十二生肖头像 · 奶牛" aria-label="放大查看丑 · 奶牛形象">
+      <img src="assets/zodiac_02.webp" alt="丑 · 奶牛形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-02</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 039</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="039" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>丑 · 奶牛 <span class="en">Milk Ox · 丑牛</span></h3>
+    <p class="lead">地支第二位，头顶添一对灰白弯角，身体仍是原样的梨形。</p>
+    <p class="desc">图版只改了角与耳，连抬手姿势都保留奶龙原式。《奶龙酬唱集》写「奶牛耕垄不能牧」。教材第七章没有为它单独立条，社群也未见稳定能力设定；本册只记地支、形象与出处，不替它补设定。</p>
+    <div class="tags"><span class="tag">丑牛</span><span class="tag">十二奶肖</span><span class="tag">仅图版</span><span class="tag">无独立设定</span></div>
+    <div class="capline"><span>外部图版 12-02</span> 奶龙十二生肖头像 · 奶牛</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-040" data-cat="十二奶肖" data-id="040"
+  data-search="寅 · 奶虎 milk tiger · 寅虎 十二奶肖 额上虎纹、四肢黑纹、举爪跃起，是十二肖里动作最大的一枚。 把「王」字纹与条纹直接刷在黄色梨形身体上，尾端也带黑环，其余形体不动。《奶龙酬唱集》写「奶虎反忧初生犊」，反用「初生牛犊不怕虎」的典故。教材未单独立条，本册只记图版与诗句。 寅虎 十二奶肖 虎纹 仅图版 外部图版 12-03">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_03.webp" data-name="寅 · 奶虎" data-fig="外部图版 12-03" data-cap="奶龙十二生肖头像 · 奶虎" aria-label="放大查看寅 · 奶虎形象">
+      <img src="assets/zodiac_03.webp" alt="寅 · 奶虎形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-03</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 040</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="040" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>寅 · 奶虎 <span class="en">Milk Tiger · 寅虎</span></h3>
+    <p class="lead">额上虎纹、四肢黑纹、举爪跃起，是十二肖里动作最大的一枚。</p>
+    <p class="desc">把「王」字纹与条纹直接刷在黄色梨形身体上，尾端也带黑环，其余形体不动。《奶龙酬唱集》写「奶虎反忧初生犊」，反用「初生牛犊不怕虎」的典故。教材未单独立条，本册只记图版与诗句。</p>
+    <div class="tags"><span class="tag">寅虎</span><span class="tag">十二奶肖</span><span class="tag">虎纹</span><span class="tag">仅图版</span></div>
+    <div class="capline"><span>外部图版 12-03</span> 奶龙十二生肖头像 · 奶虎</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-041" data-cat="十二奶肖" data-id="041"
+  data-search="卯 · 奶兔 milk hare · 卯兔 十二奶肖 一对长耳取代原本的龙角，其余几乎不改。 十二肖里改笔最省的一枚：把耳朵拉长、竖起，身体、眼睛、站姿都沿用母本。《奶龙酬唱集》写「奶兔奔趋胜飞镞」，用「比飞箭还快」点兔子的速度。教材未单独立条。 卯兔 十二奶肖 长耳 仅图版 外部图版 12-04">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_04.webp" data-name="卯 · 奶兔" data-fig="外部图版 12-04" data-cap="奶龙十二生肖头像 · 奶兔" aria-label="放大查看卯 · 奶兔形象">
+      <img src="assets/zodiac_04.webp" alt="卯 · 奶兔形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-04</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 041</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="041" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>卯 · 奶兔 <span class="en">Milk Hare · 卯兔</span></h3>
+    <p class="lead">一对长耳取代原本的龙角，其余几乎不改。</p>
+    <p class="desc">十二肖里改笔最省的一枚：把耳朵拉长、竖起，身体、眼睛、站姿都沿用母本。《奶龙酬唱集》写「奶兔奔趋胜飞镞」，用「比飞箭还快」点兔子的速度。教材未单独立条。</p>
+    <div class="tags"><span class="tag">卯兔</span><span class="tag">十二奶肖</span><span class="tag">长耳</span><span class="tag">仅图版</span></div>
+    <div class="capline"><span>外部图版 12-04</span> 奶龙十二生肖头像 · 奶兔</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-042" data-cat="十二奶肖" data-id="042"
+  data-search="辰 · 奶龙 nailong · 辰龙 十二奶肖 十二肖里唯一由母本自己占位的一枚：奶龙本来就是龙。 图版给它补上鹿角、背鬃与卷尾，反而比官方奶龙更像「龙」。《奶龙酬唱集》说「肖像万般出奶龙」「夷水谓奶龙化有十二肖」，把整族看成奶龙的化相；但教材第一章仍严格区分官方奶龙（儿童向 ip）与奶蛙（ai 畸变后的成年版本），不可混为一谈。 辰龙 母本 教材第一章 官方形象 外部图版 12-05">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_05.webp" data-name="辰 · 奶龙" data-fig="外部图版 12-05" data-cap="奶龙十二生肖头像 · 奶龙" aria-label="放大查看辰 · 奶龙形象">
+      <img src="assets/zodiac_05.webp" alt="辰 · 奶龙形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-05</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 042</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="042" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>辰 · 奶龙 <span class="en">Nailong · 辰龙</span></h3>
+    <p class="lead">十二肖里唯一由母本自己占位的一枚：奶龙本来就是龙。</p>
+    <p class="desc">图版给它补上鹿角、背鬃与卷尾，反而比官方奶龙更像「龙」。《奶龙酬唱集》说「肖像万般出奶龙」「夷水谓奶龙化有十二肖」，把整族看成奶龙的化相；但教材第一章仍严格区分官方奶龙（儿童向 IP）与奶蛙（AI 畸变后的成年版本），不可混为一谈。</p>
+    <div class="tags"><span class="tag">辰龙</span><span class="tag">母本</span><span class="tag">教材第一章</span><span class="tag">官方形象</span></div>
+    <div class="capline"><span>外部图版 12-05</span> 奶龙十二生肖头像 · 奶龙</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-043" data-cat="十二奶肖" data-id="043"
+  data-search="巳 · 奶蛇 milk snake · 巳蛇 十二奶肖 把梨形身体拉成盘绕的长颈，尾端收尖，是变形最彻底的一枚。 四肢完全消失，只留一个盘成圈的身子与一张奶家标准脸，眼睛仍是绿的。《奶龙酬唱集》写「奶蛇安足匹楚材」。教材未单独立条；它和「现实幻视·奶帘」那类生活物品奶化不是同一条线。 巳蛇 十二奶肖 无四肢 仅图版 外部图版 12-06">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_06.webp" data-name="巳 · 奶蛇" data-fig="外部图版 12-06" data-cap="奶龙十二生肖头像 · 奶蛇" aria-label="放大查看巳 · 奶蛇形象">
+      <img src="assets/zodiac_06.webp" alt="巳 · 奶蛇形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-06</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 043</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="043" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>巳 · 奶蛇 <span class="en">Milk Snake · 巳蛇</span></h3>
+    <p class="lead">把梨形身体拉成盘绕的长颈，尾端收尖，是变形最彻底的一枚。</p>
+    <p class="desc">四肢完全消失，只留一个盘成圈的身子与一张奶家标准脸，眼睛仍是绿的。《奶龙酬唱集》写「奶蛇安足匹楚材」。教材未单独立条；它和「现实幻视·奶帘」那类生活物品奶化不是同一条线。</p>
+    <div class="tags"><span class="tag">巳蛇</span><span class="tag">十二奶肖</span><span class="tag">无四肢</span><span class="tag">仅图版</span></div>
+    <div class="capline"><span>外部图版 12-06</span> 奶龙十二生肖头像 · 奶蛇</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-044" data-cat="十二奶肖" data-id="044"
+  data-search="午 · 奶马 milk horse · 午马 十二奶肖 四足站立、带鬃与尾，十二肖里少数改成四足行走的一枚。 身体被拉长成马躯，四肢变细，脸仍留在颈端。《奶龙酬唱集》写「奶马活骸啸燕台」，用燕昭王千金买马骨的典故。教材未单独立条，本册不替它补能力设定。 午马 十二奶肖 四足 仅图版 外部图版 12-07">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_07.webp" data-name="午 · 奶马" data-fig="外部图版 12-07" data-cap="奶龙十二生肖头像 · 奶马" aria-label="放大查看午 · 奶马形象">
+      <img src="assets/zodiac_07.webp" alt="午 · 奶马形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-07</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 044</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="044" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>午 · 奶马 <span class="en">Milk Horse · 午马</span></h3>
+    <p class="lead">四足站立、带鬃与尾，十二肖里少数改成四足行走的一枚。</p>
+    <p class="desc">身体被拉长成马躯，四肢变细，脸仍留在颈端。《奶龙酬唱集》写「奶马活骸啸燕台」，用燕昭王千金买马骨的典故。教材未单独立条，本册不替它补能力设定。</p>
+    <div class="tags"><span class="tag">午马</span><span class="tag">十二奶肖</span><span class="tag">四足</span><span class="tag">仅图版</span></div>
+    <div class="capline"><span>外部图版 12-07</span> 奶龙十二生肖头像 · 奶马</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-045" data-cat="十二奶肖" data-id="045"
+  data-search="未 · 奶羊 milk sheep · 未羊 十二奶肖 一对小弯角、伏卧在地，是十二肖里唯一取卧姿的一枚。 四足前伸、身体压低，角短而内弯，与「丑·奶牛」的长弯角形成对照。《奶龙酬唱集》写「奶羊亡为捕猎奶狼也」，把羊与狼的捕食关系一并编进奶家宇宙。教材未单独立条。 未羊 十二奶肖 卧姿 仅图版 外部图版 12-08">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_08.webp" data-name="未 · 奶羊" data-fig="外部图版 12-08" data-cap="奶龙十二生肖头像 · 奶羊" aria-label="放大查看未 · 奶羊形象">
+      <img src="assets/zodiac_08.webp" alt="未 · 奶羊形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-08</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 045</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="045" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>未 · 奶羊 <span class="en">Milk Sheep · 未羊</span></h3>
+    <p class="lead">一对小弯角、伏卧在地，是十二肖里唯一取卧姿的一枚。</p>
+    <p class="desc">四足前伸、身体压低，角短而内弯，与「丑·奶牛」的长弯角形成对照。《奶龙酬唱集》写「奶羊亡为捕猎奶狼也」，把羊与狼的捕食关系一并编进奶家宇宙。教材未单独立条。</p>
+    <div class="tags"><span class="tag">未羊</span><span class="tag">十二奶肖</span><span class="tag">卧姿</span><span class="tag">仅图版</span></div>
+    <div class="capline"><span>外部图版 12-08</span> 奶龙十二生肖头像 · 奶羊</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-046" data-cat="十二奶肖" data-id="046"
+  data-search="申 · 奶猴 milk monkey · 申猴 十二奶肖 一手抓头、一条长尾翘起，动作最像「猴」的一枚。 脸周一圈深黄轮廓、招风耳、细长卷尾，抓头姿势是全套里少见的拟人小动作。《奶龙酬唱集》写「奶猴封号大圣哉」，直接把它接到孙悟空。教材未单独立条。 申猴 十二奶肖 抓头 仅图版 外部图版 12-09">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_09.webp" data-name="申 · 奶猴" data-fig="外部图版 12-09" data-cap="奶龙十二生肖头像 · 奶猴" aria-label="放大查看申 · 奶猴形象">
+      <img src="assets/zodiac_09.webp" alt="申 · 奶猴形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-09</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 046</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="046" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>申 · 奶猴 <span class="en">Milk Monkey · 申猴</span></h3>
+    <p class="lead">一手抓头、一条长尾翘起，动作最像「猴」的一枚。</p>
+    <p class="desc">脸周一圈深黄轮廓、招风耳、细长卷尾，抓头姿势是全套里少见的拟人小动作。《奶龙酬唱集》写「奶猴封号大圣哉」，直接把它接到孙悟空。教材未单独立条。</p>
+    <div class="tags"><span class="tag">申猴</span><span class="tag">十二奶肖</span><span class="tag">抓头</span><span class="tag">仅图版</span></div>
+    <div class="capline"><span>外部图版 12-09</span> 奶龙十二生肖头像 · 奶猴</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-047" data-cat="十二奶肖" data-id="047"
+  data-search="酉 · 奶鸡 milk hen · 酉鸡 十二奶肖 红冠、大扇尾羽；教材说它「从十二奶肖中脱颖而出」靠的不是造型，是奶蛋。 教材第七章：奶鸡「从十二奶肖中脱颖而出的原因并不是造型，而是和奶蛋有着现实逻辑的强相关性」，具有一定滑翔与缓降能力，可以进行奶蛋的生产；社群还由此做出《奶丑蛋的故事》。《奶龙酬唱集》写「奶鸡二十四时寐」。本册第三章 spec. 014 收的是教材图 7.7 的另一版形象，两条互见。 酉鸡 十二奶肖 教材立条 奶蛋 外部图版 12-10">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_10.webp" data-name="酉 · 奶鸡" data-fig="外部图版 12-10" data-cap="奶龙十二生肖头像 · 奶鸡" aria-label="放大查看酉 · 奶鸡形象">
+      <img src="assets/zodiac_10.webp" alt="酉 · 奶鸡形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-10</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 047</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="047" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>酉 · 奶鸡 <span class="en">Milk Hen · 酉鸡</span></h3>
+    <p class="lead">红冠、大扇尾羽；教材说它「从十二奶肖中脱颖而出」靠的不是造型，是奶蛋。</p>
+    <p class="desc">教材第七章：奶鸡「从十二奶肖中脱颖而出的原因并不是造型，而是和奶蛋有着现实逻辑的强相关性」，具有一定滑翔与缓降能力，可以进行奶蛋的生产；社群还由此做出《奶丑蛋的故事》。《奶龙酬唱集》写「奶鸡二十四时寐」。本册第三章 SPEC. 014 收的是教材图 7.7 的另一版形象，两条互见。</p>
+    <div class="tags"><span class="tag">酉鸡</span><span class="tag">十二奶肖</span><span class="tag">教材立条</span><span class="tag">奶蛋</span></div>
+    <div class="capline"><span>外部图版 12-10</span> 奶龙十二生肖头像 · 奶鸡</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-048" data-cat="十二奶肖" data-id="048"
+  data-search="戌 · 奶狗 milk dog · 戌狗 十二奶肖 垂耳、卷尾、坐姿；教材为它写的设定是十二肖里最完整的一份。 教材第七章：奶狗「由于其蠢萌的形象，从十二奶肖中脱颖而出」，智商较低、嗅觉敏锐，特有动作是打滚转圈大笑；单只很弱，成群显著增强，戴项链且极度愤怒时可召唤数只小奶狗，还能靠嗅觉找到奶蛋暂时获得无敌能力。《奶龙酬唱集》写「奶狗最专年下类」。spec. 012 是教材图 7.5 的另一版形象。 戌狗 十二奶肖 教材立条 打滚转圈大笑 外部图版 12-11">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_11.webp" data-name="戌 · 奶狗" data-fig="外部图版 12-11" data-cap="奶龙十二生肖头像 · 奶狗" aria-label="放大查看戌 · 奶狗形象">
+      <img src="assets/zodiac_11.webp" alt="戌 · 奶狗形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-11</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 048</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="048" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>戌 · 奶狗 <span class="en">Milk Dog · 戌狗</span></h3>
+    <p class="lead">垂耳、卷尾、坐姿；教材为它写的设定是十二肖里最完整的一份。</p>
+    <p class="desc">教材第七章：奶狗「由于其蠢萌的形象，从十二奶肖中脱颖而出」，智商较低、嗅觉敏锐，特有动作是打滚转圈大笑；单只很弱，成群显著增强，戴项链且极度愤怒时可召唤数只小奶狗，还能靠嗅觉找到奶蛋暂时获得无敌能力。《奶龙酬唱集》写「奶狗最专年下类」。SPEC. 012 是教材图 7.5 的另一版形象。</p>
+    <div class="tags"><span class="tag">戌狗</span><span class="tag">十二奶肖</span><span class="tag">教材立条</span><span class="tag">打滚转圈大笑</span></div>
+    <div class="capline"><span>外部图版 12-11</span> 奶龙十二生肖头像 · 奶狗</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article>
+<article class="spec" id="spec-049" data-cat="十二奶肖" data-id="049"
+  data-search="亥 · 奶猪 milk pig · 亥猪 十二奶肖 猪鼻、短蹄、趴卧，十二奶肖的收尾。 社群盘点写它「就这么静静的看着你……往这一躺跟个二大爷一样」，是全族里最「不动」的一枚。《奶龙酬唱集》收尾句「安得相忘奶猪耶，奶猪元是太乙真人骑」，把猪接上太乙真人的坐骑。教材未单独立条，spec. 020 是电玩帮报道收录的另一版奶猪形象。 亥猪 十二奶肖 趴卧 电玩帮 外部图版 12-12">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="zodiac_12.webp" data-name="亥 · 奶猪" data-fig="外部图版 12-12" data-cap="奶龙十二生肖头像 · 奶猪" aria-label="放大查看亥 · 奶猪形象">
+      <img src="assets/zodiac_12.webp" alt="亥 · 奶猪形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 12-12</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 049</span>
+      <span class="spec-cat">十二奶肖</span>
+      <button class="mark" data-id="049" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>亥 · 奶猪 <span class="en">Milk Pig · 亥猪</span></h3>
+    <p class="lead">猪鼻、短蹄、趴卧，十二奶肖的收尾。</p>
+    <p class="desc">社群盘点写它「就这么静静的看着你……往这一躺跟个二大爷一样」，是全族里最「不动」的一枚。《奶龙酬唱集》收尾句「安得相忘奶猪耶，奶猪元是太乙真人骑」，把猪接上太乙真人的坐骑。教材未单独立条，SPEC. 020 是电玩帮报道收录的另一版奶猪形象。</p>
+    <div class="tags"><span class="tag">亥猪</span><span class="tag">十二奶肖</span><span class="tag">趴卧</span><span class="tag">电玩帮</span></div>
+    <div class="capline"><span>外部图版 12-12</span> 奶龙十二生肖头像 · 奶猪</div>
+    <div class="srcline">出处 · 微信表情包图集《奶龙之十二生肖》（深藏Buleee）；「奶龙Nailoong」十二生肖头像微博 2026-06-14；《捧腹大笑思想与奶龙学概论》第七章；《奶龙酬唱集·奶龙吟和夷水散客》</div>
+  </div>
+</article></div>
+</div>
+<div class="grp" data-grp="八 · 奶字母">
+  <div class="grp-head">
+    <div class="grp-no">08</div>
+    <div>
+      <div class="grp-lat">SUPPLEMENT II / THE MILK ALPHABET</div>
+      <h2 class="grp-title">八 · 奶字母</h2>
+      <p class="grp-desc">「奶字母：这是 26 个字母的奶化，你敢跟他们对视 3 秒吗」——电玩帮报道把这一族单独点名。教材第七章只在「换皮奶蛙·其他」里用一张合集图收作一条（本册 SPEC. 010）。本组按 A–Z 拆成 26 枚独立图版，每枚都可点开、打卡、参与辨认测验。图版来自微信「26 英文字母全集」表情包图集（证据 B 级）。</p>
+    </div>
+    <div class="grp-count">26 条</div>
+  </div>
+  <div class="spec-grid"><article class="spec" id="spec-050" data-cat="奶字母" data-id="050"
+  data-search="奶字母 a milk letter a 奶字母 把字母 a 本身做成一只有绿眼、白肚皮的奶家小人。 两条斜腿直接当站立的脚，横杠处搭着抱臂的手，白肚皮压在下半部，是全套最标准的一枚抱臂式。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 a 26 字母 奶化 表情包 外部图版 a-01">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_A.webp" data-name="奶字母 A" data-fig="外部图版 A-01" data-cap="26 英文字母奶化图版 · A" aria-label="放大查看奶字母 A形象">
+      <img src="assets/letter_A.webp" alt="奶字母 A形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-01</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 050</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="050" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 A <span class="en">Milk Letter A</span></h3>
+    <p class="lead">把字母 A 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">两条斜腿直接当站立的脚，横杠处搭着抱臂的手，白肚皮压在下半部，是全套最标准的一枚抱臂式。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 A</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-01</span> 26 英文字母奶化图版 · A</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-051" data-cat="奶字母" data-id="051"
+  data-search="奶字母 b milk letter b 奶字母 把字母 b 本身做成一只有绿眼、白肚皮的奶家小人。 右侧叠两个圆弧，抱臂的手正好卡在中腰；求表情网把它收作「抱臂微笑的字母 b，淡定又可爱」。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 b 26 字母 奶化 表情包 外部图版 a-02">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_B.webp" data-name="奶字母 B" data-fig="外部图版 A-02" data-cap="26 英文字母奶化图版 · B" aria-label="放大查看奶字母 B形象">
+      <img src="assets/letter_B.webp" alt="奶字母 B形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-02</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 051</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="051" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 B <span class="en">Milk Letter B</span></h3>
+    <p class="lead">把字母 B 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">右侧叠两个圆弧，抱臂的手正好卡在中腰；求表情网把它收作「抱臂微笑的字母 B，淡定又可爱」。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 B</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-02</span> 26 英文字母奶化图版 · B</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-052" data-cat="奶字母" data-id="052"
+  data-search="奶字母 c milk letter c 奶字母 把字母 c 本身做成一只有绿眼、白肚皮的奶家小人。 把 c 的开口咧成一张大笑的嘴，双手比 v，是全套里表情最放肆的一枚；vg_18 合集里 c 反复出现，流传也最广。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 c 26 字母 奶化 表情包 外部图版 a-03">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_C.webp" data-name="奶字母 C" data-fig="外部图版 A-03" data-cap="26 英文字母奶化图版 · C" aria-label="放大查看奶字母 C形象">
+      <img src="assets/letter_C.webp" alt="奶字母 C形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-03</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 052</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="052" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 C <span class="en">Milk Letter C</span></h3>
+    <p class="lead">把字母 C 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">把 C 的开口咧成一张大笑的嘴，双手比 V，是全套里表情最放肆的一枚；vg_18 合集里 C 反复出现，流传也最广。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 C</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-03</span> 26 英文字母奶化图版 · C</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-053" data-cat="奶字母" data-id="053"
+  data-search="奶字母 d milk letter d 奶字母 把字母 d 本身做成一只有绿眼、白肚皮的奶家小人。 一条竖杠加一个半圆，侧身抱臂，绿眼长在弧顶；黄白渐变的肚皮顺着圆弧走。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 d 26 字母 奶化 表情包 外部图版 a-04">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_D.webp" data-name="奶字母 D" data-fig="外部图版 A-04" data-cap="26 英文字母奶化图版 · D" aria-label="放大查看奶字母 D形象">
+      <img src="assets/letter_D.webp" alt="奶字母 D形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-04</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 053</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="053" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 D <span class="en">Milk Letter D</span></h3>
+    <p class="lead">把字母 D 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">一条竖杠加一个半圆，侧身抱臂，绿眼长在弧顶；黄白渐变的肚皮顺着圆弧走。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 D</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-04</span> 26 英文字母奶化图版 · D</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-054" data-cat="奶字母" data-id="054"
+  data-search="奶字母 e milk letter e 奶字母 把字母 e 本身做成一只有绿眼、白肚皮的奶家小人。 三横一竖，抱臂的手压住中横；求表情网收作「抱臂微笑的拟人化字母 e」。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 e 26 字母 奶化 表情包 外部图版 a-05">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_E.webp" data-name="奶字母 E" data-fig="外部图版 A-05" data-cap="26 英文字母奶化图版 · E" aria-label="放大查看奶字母 E形象">
+      <img src="assets/letter_E.webp" alt="奶字母 E形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-05</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 054</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="054" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 E <span class="en">Milk Letter E</span></h3>
+    <p class="lead">把字母 E 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">三横一竖，抱臂的手压住中横；求表情网收作「抱臂微笑的拟人化字母 E」。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 E</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-05</span> 26 英文字母奶化图版 · E</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-055" data-cat="奶字母" data-id="055"
+  data-search="奶字母 f milk letter f 奶字母 把字母 f 本身做成一只有绿眼、白肚皮的奶家小人。 比 e 少一横，下横的位置被抱臂的手挡住，缩略图里极易误看成 e——核对 1080px 原图才能确认是 f。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 f 26 字母 奶化 表情包 外部图版 a-06">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_F.webp" data-name="奶字母 F" data-fig="外部图版 A-06" data-cap="26 英文字母奶化图版 · F" aria-label="放大查看奶字母 F形象">
+      <img src="assets/letter_F.webp" alt="奶字母 F形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-06</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 055</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="055" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 F <span class="en">Milk Letter F</span></h3>
+    <p class="lead">把字母 F 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">比 E 少一横，下横的位置被抱臂的手挡住，缩略图里极易误看成 E——核对 1080px 原图才能确认是 F。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 F</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-06</span> 26 英文字母奶化图版 · F</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-056" data-cat="奶字母" data-id="056"
+  data-search="奶字母 g milk letter g 奶字母 把字母 g 本身做成一只有绿眼、白肚皮的奶家小人。 横杠变成搭在腰上的一只手，身子前倾，是少见的斜倚姿势；求表情网写作「拟人化字母 g 叉腰微笑，气场满满」。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 g 26 字母 奶化 表情包 外部图版 a-07">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_G.webp" data-name="奶字母 G" data-fig="外部图版 A-07" data-cap="26 英文字母奶化图版 · G" aria-label="放大查看奶字母 G形象">
+      <img src="assets/letter_G.webp" alt="奶字母 G形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-07</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 056</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="056" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 G <span class="en">Milk Letter G</span></h3>
+    <p class="lead">把字母 G 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">横杠变成搭在腰上的一只手，身子前倾，是少见的斜倚姿势；求表情网写作「拟人化字母 G 叉腰微笑，气场满满」。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 G</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-07</span> 26 英文字母奶化图版 · G</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-057" data-cat="奶字母" data-id="057"
+  data-search="奶字母 h milk letter h 奶字母 把字母 h 本身做成一只有绿眼、白肚皮的奶家小人。 两竖一横，双手在横杠下交叉，绿眼分列两竖顶端，左右对称得最工整。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 h 26 字母 奶化 表情包 外部图版 a-08">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_H.webp" data-name="奶字母 H" data-fig="外部图版 A-08" data-cap="26 英文字母奶化图版 · H" aria-label="放大查看奶字母 H形象">
+      <img src="assets/letter_H.webp" alt="奶字母 H形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-08</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 057</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="057" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 H <span class="en">Milk Letter H</span></h3>
+    <p class="lead">把字母 H 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">两竖一横，双手在横杠下交叉，绿眼分列两竖顶端，左右对称得最工整。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 H</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-08</span> 26 英文字母奶化图版 · H</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-058" data-cat="奶字母" data-id="058"
+  data-search="奶字母 i milk letter i 奶字母 把字母 i 本身做成一只有绿眼、白肚皮的奶家小人。 上下两横夹一竖，抱臂站在正中间，是全套里最窄的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 i 26 字母 奶化 表情包 外部图版 a-09">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_I.webp" data-name="奶字母 I" data-fig="外部图版 A-09" data-cap="26 英文字母奶化图版 · I" aria-label="放大查看奶字母 I形象">
+      <img src="assets/letter_I.webp" alt="奶字母 I形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-09</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 058</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="058" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 I <span class="en">Milk Letter I</span></h3>
+    <p class="lead">把字母 I 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">上下两横夹一竖，抱臂站在正中间，是全套里最窄的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 I</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-09</span> 26 英文字母奶化图版 · I</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-059" data-cat="奶字母" data-id="059"
+  data-search="奶字母 j milk letter j 奶字母 把字母 j 本身做成一只有绿眼、白肚皮的奶家小人。 上端一横向右、下端弯钩向左，抱臂的手落在弯处，重心明显偏下。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 j 26 字母 奶化 表情包 外部图版 a-10">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_J.webp" data-name="奶字母 J" data-fig="外部图版 A-10" data-cap="26 英文字母奶化图版 · J" aria-label="放大查看奶字母 J形象">
+      <img src="assets/letter_J.webp" alt="奶字母 J形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-10</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 059</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="059" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 J <span class="en">Milk Letter J</span></h3>
+    <p class="lead">把字母 J 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">上端一横向右、下端弯钩向左，抱臂的手落在弯处，重心明显偏下。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 J</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-10</span> 26 英文字母奶化图版 · J</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-060" data-cat="奶字母" data-id="060"
+  data-search="奶字母 k milk letter k 奶字母 把字母 k 本身做成一只有绿眼、白肚皮的奶家小人。 竖杠加两条斜腿，斜腿的交点正好被抱臂的手盖住，深黄与浅黄的渐变沿斜线分开。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 k 26 字母 奶化 表情包 外部图版 a-11">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_K.webp" data-name="奶字母 K" data-fig="外部图版 A-11" data-cap="26 英文字母奶化图版 · K" aria-label="放大查看奶字母 K形象">
+      <img src="assets/letter_K.webp" alt="奶字母 K形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-11</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 060</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="060" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 K <span class="en">Milk Letter K</span></h3>
+    <p class="lead">把字母 K 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">竖杠加两条斜腿，斜腿的交点正好被抱臂的手盖住，深黄与浅黄的渐变沿斜线分开。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 K</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-11</span> 26 英文字母奶化图版 · K</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-061" data-cat="奶字母" data-id="061"
+  data-search="奶字母 l milk letter l 奶字母 把字母 l 本身做成一只有绿眼、白肚皮的奶家小人。 唯一带道具的一枚：小奶蛙坐进绿色 l 形沙发，字母本体成了座椅靠背与底座。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 l 26 字母 奶化 表情包 外部图版 a-12">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_L.webp" data-name="奶字母 L" data-fig="外部图版 A-12" data-cap="26 英文字母奶化图版 · L" aria-label="放大查看奶字母 L形象">
+      <img src="assets/letter_L.webp" alt="奶字母 L形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-12</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 061</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="061" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 L <span class="en">Milk Letter L</span></h3>
+    <p class="lead">把字母 L 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">唯一带道具的一枚：小奶蛙坐进绿色 L 形沙发，字母本体成了座椅靠背与底座。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 L</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-12</span> 26 英文字母奶化图版 · L</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-062" data-cat="奶字母" data-id="062"
+  data-search="奶字母 m milk letter m 奶字母 把字母 m 本身做成一只有绿眼、白肚皮的奶家小人。 两个尖峰当肩，两只深色手垂在两侧，是少数不用抱臂、把手露在外面的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 m 26 字母 奶化 表情包 外部图版 a-13">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_M.webp" data-name="奶字母 M" data-fig="外部图版 A-13" data-cap="26 英文字母奶化图版 · M" aria-label="放大查看奶字母 M形象">
+      <img src="assets/letter_M.webp" alt="奶字母 M形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-13</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 062</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="062" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 M <span class="en">Milk Letter M</span></h3>
+    <p class="lead">把字母 M 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">两个尖峰当肩，两只深色手垂在两侧，是少数不用抱臂、把手露在外面的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 M</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-13</span> 26 英文字母奶化图版 · M</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-063" data-cat="奶字母" data-id="063"
+  data-search="奶字母 n milk letter n 奶字母 把字母 n 本身做成一只有绿眼、白肚皮的奶家小人。 左竖、斜杠、右竖，抱臂的手横穿斜杠，绿眼分踞两条竖杠顶端。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 n 26 字母 奶化 表情包 外部图版 a-14">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_N.webp" data-name="奶字母 N" data-fig="外部图版 A-14" data-cap="26 英文字母奶化图版 · N" aria-label="放大查看奶字母 N形象">
+      <img src="assets/letter_N.webp" alt="奶字母 N形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-14</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 063</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="063" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 N <span class="en">Milk Letter N</span></h3>
+    <p class="lead">把字母 N 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">左竖、斜杠、右竖，抱臂的手横穿斜杠，绿眼分踞两条竖杠顶端。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 N</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-14</span> 26 英文字母奶化图版 · N</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-064" data-cat="奶字母" data-id="064"
+  data-search="奶字母 o milk letter o 奶字母 把字母 o 本身做成一只有绿眼、白肚皮的奶家小人。 整枚就是一个抱臂的圆环，白肚皮落在环的下半，小尾巴从右下探出。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 o 26 字母 奶化 表情包 外部图版 a-15">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_O.webp" data-name="奶字母 O" data-fig="外部图版 A-15" data-cap="26 英文字母奶化图版 · O" aria-label="放大查看奶字母 O形象">
+      <img src="assets/letter_O.webp" alt="奶字母 O形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-15</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 064</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="064" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 O <span class="en">Milk Letter O</span></h3>
+    <p class="lead">把字母 O 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">整枚就是一个抱臂的圆环，白肚皮落在环的下半，小尾巴从右下探出。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 O</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-15</span> 26 英文字母奶化图版 · O</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-065" data-cat="奶字母" data-id="065"
+  data-search="奶字母 p milk letter p 奶字母 把字母 p 本身做成一只有绿眼、白肚皮的奶家小人。 一个上半圆挂在竖杠上，抱臂的手卡在圆与竖的交界，绿眼在圆顶。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 p 26 字母 奶化 表情包 外部图版 a-16">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_P.webp" data-name="奶字母 P" data-fig="外部图版 A-16" data-cap="26 英文字母奶化图版 · P" aria-label="放大查看奶字母 P形象">
+      <img src="assets/letter_P.webp" alt="奶字母 P形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-16</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 065</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="065" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 P <span class="en">Milk Letter P</span></h3>
+    <p class="lead">把字母 P 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">一个上半圆挂在竖杠上，抱臂的手卡在圆与竖的交界，绿眼在圆顶。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 P</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-16</span> 26 英文字母奶化图版 · P</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-066" data-cat="奶字母" data-id="066"
+  data-search="奶字母 q milk letter q 奶字母 把字母 q 本身做成一只有绿眼、白肚皮的奶家小人。 在 o 的圆环右下多出一撇小尾，抱臂姿势不变；是全套里最容易和 o 混淆的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 q 26 字母 奶化 表情包 外部图版 a-17">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_Q.webp" data-name="奶字母 Q" data-fig="外部图版 A-17" data-cap="26 英文字母奶化图版 · Q" aria-label="放大查看奶字母 Q形象">
+      <img src="assets/letter_Q.webp" alt="奶字母 Q形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-17</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 066</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="066" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 Q <span class="en">Milk Letter Q</span></h3>
+    <p class="lead">把字母 Q 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">在 O 的圆环右下多出一撇小尾，抱臂姿势不变；是全套里最容易和 O 混淆的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 Q</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-17</span> 26 英文字母奶化图版 · Q</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-067" data-cat="奶字母" data-id="067"
+  data-search="奶字母 r milk letter r 奶字母 把字母 r 本身做成一只有绿眼、白肚皮的奶家小人。 p 的竖杠下多出一条斜腿，抱臂的手仍压在圆下方。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 r 26 字母 奶化 表情包 外部图版 a-18">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_R.webp" data-name="奶字母 R" data-fig="外部图版 A-18" data-cap="26 英文字母奶化图版 · R" aria-label="放大查看奶字母 R形象">
+      <img src="assets/letter_R.webp" alt="奶字母 R形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-18</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 067</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="067" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 R <span class="en">Milk Letter R</span></h3>
+    <p class="lead">把字母 R 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">P 的竖杠下多出一条斜腿，抱臂的手仍压在圆下方。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 R</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-18</span> 26 英文字母奶化图版 · R</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-068" data-cat="奶字母" data-id="068"
+  data-search="奶字母 s milk letter s 奶字母 把字母 s 本身做成一只有绿眼、白肚皮的奶家小人。 一条 s 形曲线自己抱住自己，双手叠在腰间，是唯一没有直线笔画的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 s 26 字母 奶化 表情包 外部图版 a-19">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_S.webp" data-name="奶字母 S" data-fig="外部图版 A-19" data-cap="26 英文字母奶化图版 · S" aria-label="放大查看奶字母 S形象">
+      <img src="assets/letter_S.webp" alt="奶字母 S形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-19</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 068</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="068" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 S <span class="en">Milk Letter S</span></h3>
+    <p class="lead">把字母 S 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">一条 S 形曲线自己抱住自己，双手叠在腰间，是唯一没有直线笔画的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 S</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-19</span> 26 英文字母奶化图版 · S</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-069" data-cat="奶字母" data-id="069"
+  data-search="奶字母 t milk letter t 奶字母 把字母 t 本身做成一只有绿眼、白肚皮的奶家小人。 一横搭在竖杠顶端，两只绿眼就长在横杠上，双手抱在竖杠中段。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 t 26 字母 奶化 表情包 外部图版 a-20">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_T.webp" data-name="奶字母 T" data-fig="外部图版 A-20" data-cap="26 英文字母奶化图版 · T" aria-label="放大查看奶字母 T形象">
+      <img src="assets/letter_T.webp" alt="奶字母 T形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-20</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 069</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="069" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 T <span class="en">Milk Letter T</span></h3>
+    <p class="lead">把字母 T 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">一横搭在竖杠顶端，两只绿眼就长在横杠上，双手抱在竖杠中段。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 T</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-20</span> 26 英文字母奶化图版 · T</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-070" data-cat="奶字母" data-id="070"
+  data-search="奶字母 u milk letter u 奶字母 把字母 u 本身做成一只有绿眼、白肚皮的奶家小人。 白色 u 形，绿眼特别大，一只手叉在腰侧，是全套里配色最浅的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 u 26 字母 奶化 表情包 外部图版 a-21">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_U.webp" data-name="奶字母 U" data-fig="外部图版 A-21" data-cap="26 英文字母奶化图版 · U" aria-label="放大查看奶字母 U形象">
+      <img src="assets/letter_U.webp" alt="奶字母 U形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-21</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 070</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="070" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 U <span class="en">Milk Letter U</span></h3>
+    <p class="lead">把字母 U 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">白色 U 形，绿眼特别大，一只手叉在腰侧，是全套里配色最浅的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 U</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-21</span> 26 英文字母奶化图版 · U</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-071" data-cat="奶字母" data-id="071"
+  data-search="奶字母 v milk letter v 奶字母 把字母 v 本身做成一只有绿眼、白肚皮的奶家小人。 两只大绿眼正好落在 v 的两个上端，越往下越收成尖，几乎没有身体。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 v 26 字母 奶化 表情包 外部图版 a-22">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_V.webp" data-name="奶字母 V" data-fig="外部图版 A-22" data-cap="26 英文字母奶化图版 · V" aria-label="放大查看奶字母 V形象">
+      <img src="assets/letter_V.webp" alt="奶字母 V形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-22</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 071</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="071" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 V <span class="en">Milk Letter V</span></h3>
+    <p class="lead">把字母 V 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">两只大绿眼正好落在 V 的两个上端，越往下越收成尖，几乎没有身体。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 V</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-22</span> 26 英文字母奶化图版 · V</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-072" data-cat="奶字母" data-id="072"
+  data-search="奶字母 w milk letter w 奶字母 把字母 w 本身做成一只有绿眼、白肚皮的奶家小人。 四个折点连成 w，抱臂的手横压在中间的谷底，绿眼分列两处峰顶。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 w 26 字母 奶化 表情包 外部图版 a-23">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_W.webp" data-name="奶字母 W" data-fig="外部图版 A-23" data-cap="26 英文字母奶化图版 · W" aria-label="放大查看奶字母 W形象">
+      <img src="assets/letter_W.webp" alt="奶字母 W形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-23</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 072</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="072" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 W <span class="en">Milk Letter W</span></h3>
+    <p class="lead">把字母 W 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">四个折点连成 W，抱臂的手横压在中间的谷底，绿眼分列两处峰顶。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 W</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-23</span> 26 英文字母奶化图版 · W</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-073" data-cat="奶字母" data-id="073"
+  data-search="奶字母 x milk letter x 奶字母 把字母 x 本身做成一只有绿眼、白肚皮的奶家小人。 米白色的 x，两条斜杠交叉处叠着抱臂的手，绿眼长在上端两个分叉。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 x 26 字母 奶化 表情包 外部图版 a-24">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_X.webp" data-name="奶字母 X" data-fig="外部图版 A-24" data-cap="26 英文字母奶化图版 · X" aria-label="放大查看奶字母 X形象">
+      <img src="assets/letter_X.webp" alt="奶字母 X形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-24</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 073</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="073" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 X <span class="en">Milk Letter X</span></h3>
+    <p class="lead">把字母 X 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">米白色的 X，两条斜杠交叉处叠着抱臂的手，绿眼长在上端两个分叉。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 X</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-24</span> 26 英文字母奶化图版 · X</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-074" data-cat="奶字母" data-id="074"
+  data-search="奶字母 y milk letter y 奶字母 把字母 y 本身做成一只有绿眼、白肚皮的奶家小人。 上方分叉张成一张大笑的嘴，双手比 v，与 c 同款表情；也是表情包里最常用的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 y 26 字母 奶化 表情包 外部图版 a-25">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_Y.webp" data-name="奶字母 Y" data-fig="外部图版 A-25" data-cap="26 英文字母奶化图版 · Y" aria-label="放大查看奶字母 Y形象">
+      <img src="assets/letter_Y.webp" alt="奶字母 Y形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-25</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 074</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="074" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 Y <span class="en">Milk Letter Y</span></h3>
+    <p class="lead">把字母 Y 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">上方分叉张成一张大笑的嘴，双手比 V，与 C 同款表情；也是表情包里最常用的一枚。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 Y</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-25</span> 26 英文字母奶化图版 · Y</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article>
+<article class="spec" id="spec-075" data-cat="奶字母" data-id="075"
+  data-search="奶字母 z milk letter z 奶字母 把字母 z 本身做成一只有绿眼、白肚皮的奶家小人。 上横、斜杠、下横，一双绿眼挤在上横右端，全套字母表到此收尾。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 v。 字母 z 26 字母 奶化 表情包 外部图版 a-26">
+  <div class="spec-media">
+    <button class="imgbtn" data-img="letter_Z.webp" data-name="奶字母 Z" data-fig="外部图版 A-26" data-cap="26 英文字母奶化图版 · Z" aria-label="放大查看奶字母 Z形象">
+      <img src="assets/letter_Z.webp" alt="奶字母 Z形象" loading="lazy">
+      <span class="zoom">＋ 放大</span>
+    </button>
+    <div class="media-no">外部图版 A-26</div>
+  </div>
+  <div class="spec-body">
+    <div class="spec-top">
+      <span class="spec-id">SPEC. 075</span>
+      <span class="spec-cat">奶字母</span>
+      <button class="mark" data-id="075" aria-label="标记为已认识" title="标记为已认识"><i class="bx"></i><span>已认识</span></button>
+    </div>
+    <h3>奶字母 Z <span class="en">Milk Letter Z</span></h3>
+    <p class="lead">把字母 Z 本身做成一只有绿眼、白肚皮的奶家小人。</p>
+    <p class="desc">上横、斜杠、下横，一双绿眼挤在上横右端，全套字母表到此收尾。这一族不改造奶蛙的形体，而是把字母本身当身体：安上绿色圆眼、白肚皮与一双深色手，多数抱臂微笑，少数大笑比 V。</p>
+    <div class="tags"><span class="tag">字母 Z</span><span class="tag">26 字母</span><span class="tag">奶化</span><span class="tag">表情包</span></div>
+    <div class="capline"><span>外部图版 A-26</span> 26 英文字母奶化图版 · Z</div>
+    <div class="srcline">出处 · 微信表情包图集《𝙎𝙝𝙖𝙧𝙚｜奶龙之 26 英文字母全集》（深藏Buleee，2026-04-10）；电玩帮「奶家人大集合」2026-10-19「奶字母」条；《概论》第七章「换皮奶蛙·其他」</div>
+  </div>
+</article></div>
+</div>
+  </div>
+
+  <section id="quiz" class="chap">
+    <span class="chap-no">04 / 练习与应用 · 10 题</span>
+    <h2><span class="cn">看图，认蛙</span></h2>
+    <p class="lede">规则很简单：给一张教材图版，从四个名字里选出它。每题 10 分，答错会显示正确答案。在此卷上答题无效，但笑出声就算通过。</p>
+    <div class="quiz">
+      <div class="quiz-head"><div class="t">辨认测验 / IDENTIFICATION</div><div class="s" id="qStatus">第 1 / 10 题 · 得分 0</div></div>
+      <div class="quiz-body" id="qBody">
+        <div><img class="quiz-img" id="qImg" src="assets/vg_01.webp" alt="奶家人合集图版"><div class="quiz-cap" id="qCap">外部图版 00 / 11 位奶家人合集 · 点击「开始测验」发卷</div></div>
+        <div>
+          <p class="quiz-q" id="qText">点击「开始测验」发卷：系统会从 42 枚可辨认标本里随机抽 10 枚，每题 10 分。</p>
+          <div class="opts" id="qOpts"></div>
+          <div class="quiz-fb" id="qFb">点击「开始测验」发卷。</div>
+        </div>
+      </div>
+      <div id="qDone" style="display:none"></div>
+      <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn solid" id="qStart">开始 / 重做测验</button>
+        <button class="btn" id="qSkip">跳过这题 →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="appendix" class="chap">
+    <span class="chap-no">05 / 附录 · 图源与版本</span>
+    <h2><span class="cn">这些图是从哪来的</span></h2>
+    <p class="lede">全部插图均为联网取得后本地化，未使用生成图片。全部插图均为联网取得后本地化，未使用生成图片。补编两组共 38 帧单独图版取自微信表情包图集，与教材矢量图版分列标注，不混称「教材原图」。</p>
+    <div class="ledger">
+      <div class="lr lh"><span>级别</span><span>来源</span><span>说明</span></div>
+      <div class="lr"><span class="n">A · 一手</span><span class="t">教材 LaTeX 开源仓库</span><span class="d">chengyuZou/The-Study-of-Hilarious-Thoughts-and-Milkfrog 的 latex/figures/ 第七章 32 帧矢量图版、第一章 5 帧，图号与图注取自同仓库 .tex 源码；第七章正文取自 latex/Section/chapter07.tex。</span></div>
+      <div class="lr"><span class="n">A · 一手</span><span class="t">《捧腹大笑思想与奶龙学概论》</span><span class="d">Chishoo 仓库 v26.10.18 / v26.10.24 两份 PDF；定义、别名、分类与设定以最新版为准。</span></div>
+      <div class="lr"><span class="n">B · 报道</span><span class="t">电玩帮「奶家人大集合」</span><span class="d">2026-10-19，提供奶娃 papa、奶猫、奶猪、奶字母等教材未收录的形象图与描述。</span></div>
+      <div class="lr"><span class="n">B · 图集</span><span class="t">微信「奶龙之十二生肖」「26 英文字母全集」</span><span class="d">深藏Buleee 表情包图集，12 张生肖 + 26 张单字母，共 38 帧；补编第七、八组的独立图版。官方「奶龙Nailoong」十二生肖头像微博（2026-06-14）可与之互证。</span></div>
+      <div class="lr"><span class="n">C · 社群文本</span><span class="t">《奶龙酬唱集·奶龙吟和夷水散客》</span><span class="d">文言组诗逐肖点名「奶鼠凿墙不能逐……奶猪元是太乙真人骑」，是十二奶肖逐条设定的主要文本来源；教材只把「十二奶肖」当分类词，未逐肖立条。</span></div>
+      <div class="lr"><span class="n">C · 存疑</span><span class="t">失传媒体中文维基 / 萌娘百科</span><span class="d">星野起源说在失传媒体维基 deleted:naiwa 词条已归档，另记 2024-08-23 更早、AI 水印不同的视频；本册只写「主流口径」，不写「已证实」。</span></div>
+      <div class="lr"><span class="n">D · 商业</span><span class="t">「Milky Frog 原创 IP」</span><span class="d">「浙大设计师原创治愈系 IP」出自商业站点推广稿，该站自家档案页又写 AI-BORN MEME，自相矛盾，属收编叙事，本册不采信为起源。</span></div>
+    </div>
+    <div class="quote">「奶蛙不叛，快乐永存。」<span class="qsrc">—《捧腹大笑思想与奶龙学概论》尾声（试卷引作「不贩」，属版本异文）</span></div>
+    <footer>
+      <div><span class="k">COURSE</span>奶娃图鉴 · 变体识别<br>必修 第一册 / 75 枚标本</div>
+      <div><span class="k">DESIGN</span>Sakura Chroma 六色系统<br>半调网点 · 零圆角 · 彩条与印章</div>
+      <div><span class="k">METHOD</span>按教材栏目编目<br>图号 / 图注 / 出处齐备</div>
+      <div><span class="k">COLOPHON</span>整理 · 奶龙<br>2026 / 11 / 12 · 笑出来就算通过</div>
+    </footer>
+  </section>
+
+  </main>
+</div>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="图版放大">
+  <div class="lb-inner">
+    <div class="lb-top"><span id="lbTitle">图版</span><button id="lbClose">✕ 关闭 (ESC)</button></div>
+    <div class="lb-img"><img id="lbImg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3C/svg%3E" alt=""></div>
+    <div class="lb-cap" id="lbCap"></div>
+    <div class="lb-nav"><button id="lbPrev">← 上一图</button><button id="lbNext">下一图 →</button></div>
+  </div>
+</div>
+
+<script>
+const DATA = [{"id": "001", "name": "奶龙", "img": "figure01_3.webp", "cat": "本体", "fig": "图 1.3", "cap": "奶龙的官方形象", "quiz": true}, {"id": "002", "name": "奶蛙", "img": "figure01_4.webp", "cat": "本体", "fig": "图 1.4", "cap": "奶蛙经典形象", "quiz": false}, {"id": "003", "name": "奶娃 papa", "img": "vg_04.webp", "cat": "本体", "fig": "外部图版 01", "cap": "奶娃 papa：婴儿流口水图与奶蛙身体的合成", "quiz": true}, {"id": "004", "name": "非洲爪蟾", "img": "figure01_5.webp", "cat": "本体", "fig": "图 1.5", "cap": "「现实中的奶蛙」非洲爪蟾（左）与奶蛙三视图（右），后视图具明显蛙类特征", "quiz": false}, {"id": "005", "name": "异色奶蛙", "img": "figure07_1.webp", "cat": "换皮", "fig": "图 7.1", "cap": "一些不同模式的异色奶蛙形象", "quiz": false}, {"id": "006", "name": "植奶 / 僵奶", "img": "figure07_2.webp", "cat": "换皮", "fig": "图 7.2", "cap": "《植奶大战僵龙》系列视频中的海豚僵奶和猫尾奶形象", "quiz": false}, {"id": "007", "name": "线代课本奶蛙", "img": "s_linear.webp", "cat": "换皮", "fig": "图 7.3 左", "cap": "线代课本奶蛙（左）、VIVO 奶蛙（中）、学习通奶蛙（右）", "quiz": true}, {"id": "008", "name": "VIVO 奶蛙", "img": "s_vivo.webp", "cat": "换皮", "fig": "图 7.3 中", "cap": "VIVO 图标奶化形象", "quiz": true}, {"id": "009", "name": "学习通奶蛙", "img": "s_xuexitong.webp", "cat": "换皮", "fig": "图 7.3 右", "cap": "学习通图标奶化形象", "quiz": true}, {"id": "010", "name": "奶字母 / 数字奶龙", "img": "vg_18.webp", "cat": "换皮", "fig": "外部图版 02", "cap": "26 个字母的奶化形象", "quiz": true}, {"id": "011", "name": "奶蛋", "img": "figure07_4.webp", "cat": "异形", "fig": "图 7.4", "cap": "奶蛋的标准形象（左）与带小脚的版本（右）", "quiz": false}, {"id": "012", "name": "奶狗", "img": "s_dog.webp", "cat": "异形", "fig": "图 7.5 左", "cap": "奶狗（左）和奶屎（右）的形象", "quiz": true}, {"id": "013", "name": "奶屎", "img": "s_shit.webp", "cat": "异形", "fig": "图 7.5 右", "cap": "奶屎的形象", "quiz": true}, {"id": "014", "name": "奶鸡", "img": "figure07_7.webp", "cat": "异形", "fig": "图 7.7", "cap": "奶鸡的形象", "quiz": true}, {"id": "015", "name": "奶鼠", "img": "s_rat.webp", "cat": "异形", "fig": "图 7.8 左", "cap": "奶鼠（左）和奶粉（右）的形象", "quiz": true}, {"id": "016", "name": "奶粉", "img": "s_pink.webp", "cat": "异形", "fig": "图 7.8 右", "cap": "奶粉的形象", "quiz": true}, {"id": "017", "name": "奶茶", "img": "figure07_9.webp", "cat": "异形", "fig": "图 7.9", "cap": "奶茶的形象", "quiz": true}, {"id": "018", "name": "豆奶", "img": "figure07_10.webp", "cat": "异形", "fig": "图 7.10", "cap": "豆奶的原型（左）和经典形象（右）", "quiz": false}, {"id": "019", "name": "奶猫", "img": "vg_07.webp", "cat": "异形", "fig": "外部图版 03", "cap": "奶猫的形象", "quiz": true}, {"id": "020", "name": "奶猪", "img": "vg_12.webp", "cat": "异形", "fig": "外部图版 04", "cap": "奶猪的形象", "quiz": true}, {"id": "021", "name": "奶蛙娘", "img": "figure07_11.webp", "cat": "异形", "fig": "图 7.11", "cap": "奶蛙娘的形象", "quiz": true}, {"id": "022", "name": "奶蝠", "img": "figure07_13.webp", "cat": "异形", "fig": "图 7.13", "cap": "奶蝠的标准形象（左）、白纱形象（中）和二次元形象（右）", "quiz": false}, {"id": "023", "name": "奶正太", "img": "figure07_14.webp", "cat": "异形", "fig": "图 7.14", "cap": "奶正太的形象", "quiz": true}, {"id": "024", "name": "奶龙娘", "img": "figure07_15.webp", "cat": "异形", "fig": "图 7.15", "cap": "奶龙娘的形象", "quiz": true}, {"id": "025", "name": "奶蛙妹", "img": "figure07_16.webp", "cat": "异形", "fig": "图 7.16", "cap": "奶蛙妹打奶蛙拳（左）和绷不住了（右）", "quiz": false}, {"id": "026", "name": "西格玛奶蛙", "img": "figure07_17.webp", "cat": "异形", "fig": "图 7.17", "cap": "西格玛奶蛙的标准形象（左）和大笑形象（右）", "quiz": false}, {"id": "027", "name": "现实幻视（奶帘 / 奶五味子）", "img": "figure07_18.webp", "cat": "异形", "fig": "图 7.18", "cap": "生活中的奶帘（左）和奶五味子盆景（右）", "quiz": false}, {"id": "028", "name": "奶菜 / 奶葡", "img": "figure07_23.webp", "cat": "异形", "fig": "图 7.23", "cap": "奶菜的形象（左）和奶葡的形象（右）", "quiz": false}, {"id": "029", "name": "奶工智能四巨头", "img": "figure07_22.webp", "cat": "异形", "fig": "图 7.19–7.22", "cap": "奶工智能四巨头；另含 deepseek、nailongseek、Ope「nai」图标与「奶蛋神力由来的传说」", "quiz": false}, {"id": "030", "name": "美团袋鼠", "img": "figure07_24.webp", "cat": "客串", "fig": "图 7.24", "cap": "伪装成美团袋鼠的奶蛙", "quiz": true}, {"id": "031", "name": "牛来 / 牛来妈", "img": "figure07_25.webp", "cat": "客串", "fig": "图 7.25", "cap": "伪装成牛来妈的奶蛙（左）和捧腹大笑的牛来（右）；另见图 7.26「雅尔糖会议三巨头」", "quiz": false}, {"id": "032", "name": "熊大 / 熊二", "img": "s_xionger.webp", "cat": "客串", "fig": "图 7.27 右", "cap": "绷不住的熊大（左）和捧腹大笑的熊二（右）", "quiz": true}, {"id": "033", "name": "水豚噜噜", "img": "figure07_28.webp", "cat": "客串", "fig": "图 7.28", "cap": "捧腹大笑的噜噜（左）和某学校操场中的奶龙、噜噜（右）", "quiz": false}, {"id": "034", "name": "说的道理", "img": "figure07_29.webp", "cat": "客串", "fig": "图 7.29", "cap": "道理奶蛙", "quiz": true}, {"id": "035", "name": "绿猪", "img": "figure07_30.webp", "cat": "客串", "fig": "图 7.30", "cap": "绿猪奶蛙", "quiz": true}, {"id": "036", "name": "莲见蕾雅", "img": "figure07_31.webp", "cat": "客串", "fig": "图 7.31", "cap": "一周目被串串香的蕾雅（左）和二周目捧腹大笑的蕾雅（右）", "quiz": false}, {"id": "037", "name": "刹暗天", "img": "figure07_32.webp", "cat": "客串", "fig": "图 7.32", "cap": "今天，仁者安迪就要捧他的最后一腹！", "quiz": true}, {"id": "038", "name": "子 · 奶鼠", "img": "zodiac_01.webp", "cat": "十二奶肖", "fig": "外部图版 12-01", "cap": "奶龙十二生肖头像 · 奶鼠", "quiz": true}, {"id": "039", "name": "丑 · 奶牛", "img": "zodiac_02.webp", "cat": "十二奶肖", "fig": "外部图版 12-02", "cap": "奶龙十二生肖头像 · 奶牛", "quiz": true}, {"id": "040", "name": "寅 · 奶虎", "img": "zodiac_03.webp", "cat": "十二奶肖", "fig": "外部图版 12-03", "cap": "奶龙十二生肖头像 · 奶虎", "quiz": true}, {"id": "041", "name": "卯 · 奶兔", "img": "zodiac_04.webp", "cat": "十二奶肖", "fig": "外部图版 12-04", "cap": "奶龙十二生肖头像 · 奶兔", "quiz": true}, {"id": "042", "name": "辰 · 奶龙", "img": "zodiac_05.webp", "cat": "十二奶肖", "fig": "外部图版 12-05", "cap": "奶龙十二生肖头像 · 奶龙", "quiz": true}, {"id": "043", "name": "巳 · 奶蛇", "img": "zodiac_06.webp", "cat": "十二奶肖", "fig": "外部图版 12-06", "cap": "奶龙十二生肖头像 · 奶蛇", "quiz": true}, {"id": "044", "name": "午 · 奶马", "img": "zodiac_07.webp", "cat": "十二奶肖", "fig": "外部图版 12-07", "cap": "奶龙十二生肖头像 · 奶马", "quiz": true}, {"id": "045", "name": "未 · 奶羊", "img": "zodiac_08.webp", "cat": "十二奶肖", "fig": "外部图版 12-08", "cap": "奶龙十二生肖头像 · 奶羊", "quiz": true}, {"id": "046", "name": "申 · 奶猴", "img": "zodiac_09.webp", "cat": "十二奶肖", "fig": "外部图版 12-09", "cap": "奶龙十二生肖头像 · 奶猴", "quiz": true}, {"id": "047", "name": "酉 · 奶鸡", "img": "zodiac_10.webp", "cat": "十二奶肖", "fig": "外部图版 12-10", "cap": "奶龙十二生肖头像 · 奶鸡", "quiz": true}, {"id": "048", "name": "戌 · 奶狗", "img": "zodiac_11.webp", "cat": "十二奶肖", "fig": "外部图版 12-11", "cap": "奶龙十二生肖头像 · 奶狗", "quiz": true}, {"id": "049", "name": "亥 · 奶猪", "img": "zodiac_12.webp", "cat": "十二奶肖", "fig": "外部图版 12-12", "cap": "奶龙十二生肖头像 · 奶猪", "quiz": true}, {"id": "050", "name": "奶字母 A", "img": "letter_A.webp", "cat": "奶字母", "fig": "外部图版 A-01", "cap": "26 英文字母奶化图版 · A", "quiz": true}, {"id": "051", "name": "奶字母 B", "img": "letter_B.webp", "cat": "奶字母", "fig": "外部图版 A-02", "cap": "26 英文字母奶化图版 · B", "quiz": false}, {"id": "052", "name": "奶字母 C", "img": "letter_C.webp", "cat": "奶字母", "fig": "外部图版 A-03", "cap": "26 英文字母奶化图版 · C", "quiz": true}, {"id": "053", "name": "奶字母 D", "img": "letter_D.webp", "cat": "奶字母", "fig": "外部图版 A-04", "cap": "26 英文字母奶化图版 · D", "quiz": false}, {"id": "054", "name": "奶字母 E", "img": "letter_E.webp", "cat": "奶字母", "fig": "外部图版 A-05", "cap": "26 英文字母奶化图版 · E", "quiz": false}, {"id": "055", "name": "奶字母 F", "img": "letter_F.webp", "cat": "奶字母", "fig": "外部图版 A-06", "cap": "26 英文字母奶化图版 · F", "quiz": false}, {"id": "056", "name": "奶字母 G", "img": "letter_G.webp", "cat": "奶字母", "fig": "外部图版 A-07", "cap": "26 英文字母奶化图版 · G", "quiz": true}, {"id": "057", "name": "奶字母 H", "img": "letter_H.webp", "cat": "奶字母", "fig": "外部图版 A-08", "cap": "26 英文字母奶化图版 · H", "quiz": false}, {"id": "058", "name": "奶字母 I", "img": "letter_I.webp", "cat": "奶字母", "fig": "外部图版 A-09", "cap": "26 英文字母奶化图版 · I", "quiz": false}, {"id": "059", "name": "奶字母 J", "img": "letter_J.webp", "cat": "奶字母", "fig": "外部图版 A-10", "cap": "26 英文字母奶化图版 · J", "quiz": false}, {"id": "060", "name": "奶字母 K", "img": "letter_K.webp", "cat": "奶字母", "fig": "外部图版 A-11", "cap": "26 英文字母奶化图版 · K", "quiz": false}, {"id": "061", "name": "奶字母 L", "img": "letter_L.webp", "cat": "奶字母", "fig": "外部图版 A-12", "cap": "26 英文字母奶化图版 · L", "quiz": false}, {"id": "062", "name": "奶字母 M", "img": "letter_M.webp", "cat": "奶字母", "fig": "外部图版 A-13", "cap": "26 英文字母奶化图版 · M", "quiz": false}, {"id": "063", "name": "奶字母 N", "img": "letter_N.webp", "cat": "奶字母", "fig": "外部图版 A-14", "cap": "26 英文字母奶化图版 · N", "quiz": false}, {"id": "064", "name": "奶字母 O", "img": "letter_O.webp", "cat": "奶字母", "fig": "外部图版 A-15", "cap": "26 英文字母奶化图版 · O", "quiz": false}, {"id": "065", "name": "奶字母 P", "img": "letter_P.webp", "cat": "奶字母", "fig": "外部图版 A-16", "cap": "26 英文字母奶化图版 · P", "quiz": false}, {"id": "066", "name": "奶字母 Q", "img": "letter_Q.webp", "cat": "奶字母", "fig": "外部图版 A-17", "cap": "26 英文字母奶化图版 · Q", "quiz": true}, {"id": "067", "name": "奶字母 R", "img": "letter_R.webp", "cat": "奶字母", "fig": "外部图版 A-18", "cap": "26 英文字母奶化图版 · R", "quiz": false}, {"id": "068", "name": "奶字母 S", "img": "letter_S.webp", "cat": "奶字母", "fig": "外部图版 A-19", "cap": "26 英文字母奶化图版 · S", "quiz": false}, {"id": "069", "name": "奶字母 T", "img": "letter_T.webp", "cat": "奶字母", "fig": "外部图版 A-20", "cap": "26 英文字母奶化图版 · T", "quiz": false}, {"id": "070", "name": "奶字母 U", "img": "letter_U.webp", "cat": "奶字母", "fig": "外部图版 A-21", "cap": "26 英文字母奶化图版 · U", "quiz": false}, {"id": "071", "name": "奶字母 V", "img": "letter_V.webp", "cat": "奶字母", "fig": "外部图版 A-22", "cap": "26 英文字母奶化图版 · V", "quiz": true}, {"id": "072", "name": "奶字母 W", "img": "letter_W.webp", "cat": "奶字母", "fig": "外部图版 A-23", "cap": "26 英文字母奶化图版 · W", "quiz": false}, {"id": "073", "name": "奶字母 X", "img": "letter_X.webp", "cat": "奶字母", "fig": "外部图版 A-24", "cap": "26 英文字母奶化图版 · X", "quiz": true}, {"id": "074", "name": "奶字母 Y", "img": "letter_Y.webp", "cat": "奶字母", "fig": "外部图版 A-25", "cap": "26 英文字母奶化图版 · Y", "quiz": true}, {"id": "075", "name": "奶字母 Z", "img": "letter_Z.webp", "cat": "奶字母", "fig": "外部图版 A-26", "cap": "26 英文字母奶化图版 · Z", "quiz": true}];
+const TOTAL = DATA.length;
+const KEY = 'naiwa-atlas-known-v1';
+let known = new Set();
+try{ known = new Set(JSON.parse(localStorage.getItem(KEY)||'[]')); }catch(e){}
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+/* QR 装饰 */
+const qr = $('#qr');
+const pattern=[1,1,1,0,1,1,1,0, 1,0,0,1,0,1,0,1, 1,0,1,0,1,0,1,0,
+ 0,1,0,1,1,0,1,1, 1,1,0,1,0,1,0,1, 0,0,1,0,1,1,1,0,
+ 1,1,1,0,1,0,0,1, 1,0,1,1,0,1,1,1];
+pattern.forEach(v=>{const i=document.createElement('i');if(v)i.className='on';qr.appendChild(i);});
+
+/* 阅读进度 & 目录高亮 */
+function onScroll(){
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  $('#readbar').style.width=(h>0?Math.min(100,scrollY/h*100):0)+'%';
+  let cur='cover';
+  $$('main section[id]').forEach(s=>{ if(s.getBoundingClientRect().top<140) cur=s.id; });
+  $$('[data-toc]').forEach(a=>a.classList.toggle('on',a.dataset.toc===cur));
+}
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+$('#tocBtn').addEventListener('click',()=>$('#rail').classList.toggle('open'));
+$$('[data-toc]').forEach(a=>a.addEventListener('click',()=>$('#rail').classList.remove('open')));
+
+/* 筛选 + 搜索 */
+let activeCat='全部';
+function applyFilter(){
+  const q=$('#q').value.trim().toLowerCase();
+  let n=0;
+  $$('.spec').forEach(el=>{
+    const okCat = activeCat==='全部' || el.dataset.cat===activeCat;
+    const okQ = !q || el.dataset.search.includes(q);
+    const show = okCat && okQ;
+    el.classList.toggle('hidden',!show);
+    if(show)n++;
+  });
+  $('#count').textContent=`显示 ${n} / ${TOTAL}`;
+  $('#empty').style.display = n?'none':'block';
+  $$('.grp').forEach(g=>{
+    const any=[...g.querySelectorAll('.spec')].some(s=>!s.classList.contains('hidden'));
+    g.style.display = any?'':'none';
+  });
+}
+$$('#chips .chip').forEach(b=>b.addEventListener('click',()=>{
+  $$('#chips .chip').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); activeCat=b.dataset.cat; applyFilter();
+}));
+$('#q').addEventListener('input',applyFilter);
+
+/* 已认识打卡 */
+function syncMarks(){
+  $$('.mark').forEach(b=>b.classList.toggle('on',known.has(b.dataset.id)));
+  $('#progFill').style.width=(known.size/TOTAL*100)+'%';
+  $('#progTxt').textContent=`${known.size} / ${TOTAL}`;
+}
+$$('.mark').forEach(b=>b.addEventListener('click',()=>{
+  known.has(b.dataset.id)?known.delete(b.dataset.id):known.add(b.dataset.id);
+  try{localStorage.setItem(KEY,JSON.stringify([...known]));}catch(e){}
+  syncMarks();
+}));
+$('#clearMarks').addEventListener('click',()=>{known.clear();try{localStorage.removeItem(KEY);}catch(e){}syncMarks();});
+syncMarks();
+
+/* 随机翻一只 */
+$('#randomBtn').addEventListener('click',()=>{
+  const all=$$('.spec'); const el=all[Math.floor(Math.random()*all.length)];
+  $$('.spec').forEach(x=>x.classList.remove('flash'));
+  activeCat='全部'; $$('#chips .chip').forEach(x=>x.classList.toggle('on',x.dataset.cat==='全部'));
+  $('#q').value=''; applyFilter();
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),1800);
+});
+
+/* 灯箱 */
+let lbList=[],lbIdx=0;
+function openLB(img,name,fig,cap){
+  lbList=$$('.spec:not(.hidden) .imgbtn').map(b=>({img:b.dataset.img,name:b.dataset.name,fig:b.dataset.fig,cap:b.dataset.cap}));
+  const i=lbList.findIndex(x=>x.img===img && x.name===name);
+  lbIdx=i>=0?i:0; renderLB();
+  $('#lb').classList.add('open'); document.body.style.overflow='hidden';
+}
+function renderLB(){
+  const d=lbList[lbIdx]; if(!d)return;
+  $('#lbImg').src='assets/'+d.img; $('#lbImg').alt=d.name+'形象';
+  $('#lbTitle').textContent=d.fig+' / SPECIMEN PLATE';
+  $('#lbCap').textContent=d.name+'　'+d.cap;
+}
+function closeLB(){$('#lb').classList.remove('open');document.body.style.overflow='';}
+$$('.imgbtn').forEach(b=>b.addEventListener('click',()=>openLB(b.dataset.img,b.dataset.name,b.dataset.fig,b.dataset.cap)));
+$('#lbClose').addEventListener('click',closeLB);
+$('#lbPrev').addEventListener('click',()=>{lbIdx=(lbIdx-1+lbList.length)%lbList.length;renderLB();});
+$('#lbNext').addEventListener('click',()=>{lbIdx=(lbIdx+1)%lbList.length;renderLB();});
+$('#lb').addEventListener('click',e=>{if(e.target.id==='lb')closeLB();});
+addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeLB();
+  if($('#lb').classList.contains('open')){
+    if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+lbList.length)%lbList.length;renderLB();}
+    if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%lbList.length;renderLB();}
+  }
+});
+
+/* 随堂测验 */
+let qs=[],qi=0,score=0,answered=false,quizToken=0;
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function startQuiz(){
+  qs=shuffle(DATA.filter(d=>d.quiz)).slice(0,10); qi=0; score=0; answered=false; quizToken++;
+  $('#qBody').style.display=''; $('#qDone').style.display='none'; renderQ();
+}
+function renderQ(){
+  if(qi>=qs.length){
+    $('#qBody').style.display='none';
+    $('#qDone').style.display='block';
+    $('#qDone').innerHTML=`<div class="quiz-end">
+      <div class="big">${score} / 100</div>
+      <p>${score>=80?'优秀，你已经是奶家人了。':score>=50?'及格，再把图鉴翻一遍。':'没关系，奶蛙也不认识自己。'}</p>
+      <button class="btn solid" id="qAgain">再做一次 ↻</button></div>`;
+    $('#qStatus').textContent=`已交卷 · 得分 ${score}`; return;
+  }
+  const cur=qs[qi];
+  const wrong=shuffle(DATA.filter(d=>d.name!==cur.name)).slice(0,3).map(d=>d.name);
+  const opts=shuffle([cur.name,...wrong]);
+  $('#qImg').src='assets/'+cur.img; $('#qImg').alt='待辨认形象';
+  $('#qCap').textContent=cur.fig+' · 图版来自教材／社群，答案见选项';
+  $('#qText').textContent=`第 ${qi+1} 题：下面这只，是哪一枚标本？`;
+  $('#qOpts').innerHTML=opts.map((o,i)=>`<button class="opt" data-v="${o.replace(/"/g,'&quot;')}">${String.fromCharCode(65+i)} · ${o}</button>`).join('');
+  $('#qFb').innerHTML='四选一，点一下就判分。';
+  $('#qStatus').textContent=`第 ${qi+1} / ${qs.length} 题 · 得分 ${score}`;
+  answered=false;
+  $$('.opt').forEach(b=>b.addEventListener('click',()=>answer(b,cur)));
+}
+function answer(btn,cur){
+  if(answered)return; answered=true;
+  const tk=quizToken;
+  const pick=btn.dataset.v, right=pick===cur.name;
+  $$('.opt').forEach(b=>{if(b.dataset.v===cur.name)b.classList.add('right');else if(b===btn)b.classList.add('wrong');});
+  if(right)score+=10;
+  $('#qFb').innerHTML=right?`<b>答对了。</b> ${cur.name} · ${cur.fig}　${cur.cap}`
+    :`<b>不对。</b> 正确答案是 <b>${cur.name}</b>。${cur.fig}　${cur.cap}`;
+  $('#qStatus').textContent=`第 ${qi+1} / ${qs.length} 题 · 得分 ${score}`;
+  setTimeout(()=>{if(tk!==quizToken)return;qi++;renderQ();},right?1100:1900);
+}
+$('#qStart').addEventListener('click',startQuiz);
+$('#qDone').addEventListener('click',e=>{if(e.target.id==='qAgain')startQuiz();});
+$('#qSkip').addEventListener('click',()=>{if(qs.length&&!answered){qi++;renderQ();}});
+</script>
+<script>
+(function(){
+  var chaps=document.querySelectorAll('.chap');
+  chaps.forEach(function(c,i){
+    var n=document.createElement('div'); n.className='pageno';
+    n.textContent=String(i+1).padStart(2,'0')+' / '+String(chaps.length).padStart(2,'0');
+    c.appendChild(n);
+  });
+})();
+</script>
+</body>
+</html>
