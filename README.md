@@ -17,17 +17,19 @@
 
 视觉上刻意不做成"网页"，而做成**一本能翻的教材**：Sakura 六色、半调网点、全直角、页眉页码与栏线，中英混排用 Big Shoulders Display / Albert Sans / JetBrains Mono，正文思源黑体。
 
-配套做了一条 52 秒的介绍片，和两张可以收藏的长图。
+配套做了一条 56 秒的介绍片，和两张可以收藏的长图。
 
 ## 成品
 
 | 文件 | 规格 |
 |---|---|
-| `media/naiwa_v2_5.mp4` | 52.000s · 1080×1920 · 30fps · −13.7 LUFS / −2.1 dBTP |
+| `media/naiwa_v3.mp4` | 56.000s · 1080×1920 · 30fps · −14.4 LUFS / −1.9 dBTP |
 | `media/naiwa_cover.png` | 2160×2880（3:4），标本墙 8 列 × 6 行 |
 | `media/naiwa_atlas_poster_1080.png` | 1080×6745 竖版长图（拼版图未裁切） |
 
-片子六幕：反差开场 → 版本考古 → 品类辨认 → 四轮迭代对比 → 真实录屏（筛选 / 打卡 / 自测）→ 入口与收尾。分镜表在 `film/V2_PLAN.md`，旁白全文在 `film/VO_LINES_minimax.txt`。
+片子七幕：反差开场 → 版本考古 → 品类辨认 → **生成记录（Hy4 一句话）** → 四轮迭代对比 → 真实录屏（筛选 / 打卡 / 自测）→ 入口与收尾。分镜表在 `film/V2_PLAN.md`，旁白全文在 `film/VO_LINES_minimax.txt`。
+
+`film/src/film_v2.*` 是 52 秒的六幕初版，`film_v3.*` 是加了「生成记录」一幕、56 秒的终版。
 
 ## 仓库结构
 
@@ -39,6 +41,7 @@ archive/
   naiwa-studies-v1-kaoju.html  初稿
 film/
   src/                      影片、封面、长图的页面源文件
+  src/film_v3.js            终版 56 秒 / 7 幕的时间轴脚本
   render.mjs                逐帧渲染器（时间轴 → MP4）
   record_ui.cjs             真实点击录屏（筛选 / 打卡 / 自测）
   shoot_cover.mjs           封面截图
@@ -80,7 +83,7 @@ npm install                 # 只装 puppeteer-core，不下载浏览器
 
 ```bash
 npm run stills              # 抽几帧看效果 → film/out/stills/
-npm run render              # 全片无声 MP4（52s，约 7 分钟 / 4 核）
+npm run render              # 全片无声 MP4（56s，约 4.5 分钟 / 本机实测）
 npm run cover               # 封面 2160×2880
 npm run poster              # 长图 1080×6745
 npm run record              # 真实点击录屏帧

@@ -2,11 +2,11 @@
   "name": "naiwa-atlas",
   "version": "1.0.0",
   "private": true,
-  "description": "奶娃图鉴 · 变体识别｜必修第一册 —— 单页应用、52 秒宣传片与长图的全部源文件",
+  "description": "奶娃图鉴 · 变体识别｜必修第一册 —— 单页应用、56 秒宣传片与长图的全部源文件",
   "scripts": {
     "open": "node -e \"require('http').createServer((q,s)=>{const fs=require('fs'),p=require('path'),u=decodeURIComponent(q.url.split('?')[0])||'/';const f=p.join(process.cwd(),u==='/'?'index.html':u);fs.readFile(f,(e,d)=>{if(e){s.writeHead(404);return s.end()}s.writeHead(200,{'Content-Type':{'.html':'text/html; charset=utf-8','.webp':'image/webp','.png':'image/png','.css':'text/css','.woff2':'font/woff2'}[p.extname(f)]||'application/octet-stream'});s.end(d)})}).listen(8080,()=>console.log('http://127.0.0.1:8080'))\"",
-    "stills": "node film/render.mjs --entry film_v2.html --stills 1.2,6.5,14",
-    "render": "node film/render.mjs --entry film_v2.html --from 0 --to 52 --fps 30 --out film_v2_silent.mp4",
+    "stills": "node film/render.mjs --entry film_v3.html --stills 1.2,30.9,53.6",
+    "render": "node film/render.mjs --entry film_v3.html --from 0 --to 56 --fps 30 --out film_v3_silent.mp4",
     "cover": "node film/shoot_cover.mjs",
     "poster": "node film/shoot_poster.mjs --scale 1",
     "record": "node film/record_ui.cjs"
